@@ -1,0 +1,45 @@
+.profile-pic {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+@media (min-width: 576px) {
+  .profile-pic {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+.icon {
+  font-size: 19px;
+  color: #777;
+  transition: color var(--transition);
+}
+
+.icon:hover {
+  color: #333;
+}
+
+.search-icon {
+  color: #999;
+}
+
+.ctrl {
+  background-color: var(--bg-color);
+  padding: 10px 15px;
+}
+.ctrl input {
+  width: 100%;
+  font-size: 15px;
+}
+@media (min-width: 992px) {
+  .ctrl input {
+    width: 20rem;
+    font-size: 15px;
+  }
+}
+
+.ctrl input:focus {
+  outline: none;
+}

@@ -1,0 +1,146 @@
+<div class="signup-container d-flex">
+  <div class="signup-form p-4 d-flex flex-column">
+    <app-logo fontSize="25px" class="mx-auto mb-3" />
+    <div
+      class="form flex-grow-1 d-flex align-items-center justify-content-center"
+    >
+      <form [formGroup]="form">
+        <h1 class="signup-heading fw-bolder">Sign Up</h1>
+        <p class="fs-6 text-secondary pb-3">
+          Let's start with some facts about you
+        </p>
+
+        <div class="name w-100 d-flex gap-3">
+          <app-auth-ctrl class="flex-grow-1">
+            <input
+              type="text"
+              placeholder="First Name"
+              class="border-0 w-100"
+              name="fname"
+              formControlName="fName"
+            />
+          </app-auth-ctrl>
+          <app-auth-ctrl class="flex-grow-1">
+            <input
+              type="text"
+              placeholder="Last Name"
+              class="border-0 w-100"
+              name="fname"
+              formControlName="lName"
+            />
+          </app-auth-ctrl>
+        </div>
+
+        @if (nameHasErrors()) {
+        <p class="ctrl-error">Both fields are required!</p>
+        }
+
+        <app-auth-ctrl>
+          <input
+            type="email"
+            name="email"
+            formControlName="email"
+            class="border-0 flex-grow-1"
+            placeholder="name@email.com"
+          />
+        </app-auth-ctrl>
+        @if (checkErrors(form.controls.email)) {
+        <p class="ctrl-error">{{ showEmailError() }}</p>
+        }
+
+        <div formGroupName="passwords">
+          <app-auth-ctrl>
+            <input
+              [type]="passwordVisible ? 'text' : 'password'"
+              name="password"
+              formControlName="password"
+              class="border-0 flex-grow-1"
+              placeholder="Password"
+            />
+
+            @if (passwordVisible) {
+            <fa-icon
+              [icon]="['far', 'eye-slash']"
+              class="eye-icon d-flex align-items-center ps-1 text-secondary"
+              (click)="togglePasswordVisibility()"
+            ></fa-icon>
+            } @else {
+            <fa-icon
+              [icon]="['far', 'eye']"
+              class="eye-icon d-flex align-items-center ps-1 text-secondary"
+              (click)="togglePasswordVisibility()"
+            ></fa-icon>
+            }
+          </app-auth-ctrl>
+
+          @if (checkErrors(form.controls.passwords.controls.password)) {
+          <p class="ctrl-error">{{ showPasswordError() }}</p>
+          }
+          <app-auth-ctrl
+            [class.not-matched]="
+              form.controls.passwords.errors &&
+              form.controls.passwords.controls.confirmPassword.dirty
+            "
+          >
+            <input
+              [type]="confirmPasswordVisible ? 'text' : 'password'"
+              name="confirm-password"
+              formControlName="confirmPassword"
+              class="border-0 flex-grow-1"
+              placeholder="Confirm Password"
+            />
+
+            @if (confirmPasswordVisible) {
+            <fa-icon
+              [icon]="['far', 'eye-slash']"
+              class="eye-icon d-flex align-items-center ps-1 text-secondary"
+              (click)="toggleConfirmPasswordVisibility()"
+            ></fa-icon>
+            } @else {
+            <fa-icon
+              [icon]="['far', 'eye']"
+              class="eye-icon d-flex align-items-center ps-1 text-secondary"
+              (click)="toggleConfirmPasswordVisibility()"
+            ></fa-icon>
+            }
+          </app-auth-ctrl>
+
+          @if (checkConfirmPasswordErrors()) {
+          <p class="ctrl-error">{{ showConfirmPasswordError() }}</p>
+          } @else if (passwordsMatch()) {
+          <p class="matchedPass">Passwords matched!</p>
+          }
+        </div>
+
+        @if(isLoading()) {
+        <div class="d-block text-center mb-4">
+          <app-loading-spinner />
+        </div>
+        } @else {
+        <button
+          type="submit"
+          class="auth-btn border-0 text-white rounded-3 w-100 fw-bold mb-4"
+          (click)="onSubmit()"
+        >
+          Sign Up
+        </button>
+        }
+
+        <p class="text-secondary">
+          Already have an account?
+          <a class="link text-decoration-none fw-bold" routerLink="/auth"
+            >Login</a
+          >
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <div class="auth-img d-none d-lg-block">
+    <img
+      src="assets/signup.jpg"
+      class="img-fluid d-block h-100 object-fit-contain mx-auto"
+      alt="People are connected all over the globe!"
+    />
+  </div>
+</div>

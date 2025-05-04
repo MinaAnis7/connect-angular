@@ -1,0 +1,26 @@
+<div #toast class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="toast-header">
+    @if (isError) {
+    <fa-icon
+      [icon]="['fas', 'circle-exclamation']"
+      class="error me-2"
+    ></fa-icon>
+    } @else {
+    <fa-icon
+      [icon]="['fas', 'circle-info']"
+      class="me-2"
+      [style.color]="'var(--primary-color)'"
+    ></fa-icon>
+    }
+
+    <strong class="me-auto">{{ isError ? "Error" : "Info" }}</strong>
+
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="toast"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="toast-body">{{ message }}</div>
+</div>

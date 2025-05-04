@@ -1,0 +1,77 @@
+<div class="login-container d-flex">
+  <div class="auth-img d-none d-lg-block">
+    <img
+      src="assets/login.png"
+      class="img-fluid d-block h-100 object-fit-contain"
+      alt="People are connected all over the globe!"
+    />
+  </div>
+  <div class="login-form p-4 d-flex align-items-center justify-content-center">
+    <form [formGroup]="form">
+      <div class="text-center">
+        <app-logo fontSize="40px" />
+      </div>
+      <p class="welcome-txt text-center mt-3 mb-5">Welcome back!</p>
+
+      <app-auth-ctrl>
+        <input
+          type="email"
+          name="email"
+          formControlName="email"
+          class="border-0 flex-grow-1"
+          placeholder="name@email.com"
+        />
+      </app-auth-ctrl>
+      @if (checkErrors(form.controls.email)) {
+      <p class="ctrl-error">{{ showEmailError() }}</p>
+      }
+
+      <app-auth-ctrl>
+        <input
+          [type]="passwordVisible ? 'text' : 'password'"
+          name="password"
+          formControlName="password"
+          class="border-0 flex-grow-1"
+          placeholder="Password"
+        />
+
+        @if (passwordVisible) {
+        <fa-icon
+          [icon]="['far', 'eye-slash']"
+          class="eye-icon d-flex align-items-center ps-1 text-secondary"
+          (click)="togglePasswordVisibility()"
+        ></fa-icon>
+        } @else {
+        <fa-icon
+          [icon]="['far', 'eye']"
+          class="eye-icon d-flex align-items-center ps-1 text-secondary"
+          (click)="togglePasswordVisibility()"
+        ></fa-icon>
+        }
+      </app-auth-ctrl>
+
+      @if (checkErrors(form.controls.password)) {
+      <p class="ctrl-error">{{ showPasswordError() }}</p>
+      } @if(isLoading()) {
+      <div class="d-block text-center mb-4">
+        <app-loading-spinner />
+      </div>
+      } @else {
+      <button
+        type="submit"
+        class="auth-btn border-0 text-white rounded-3 w-100 fw-bold mb-4"
+        (click)="onSubmit()"
+      >
+        Login
+      </button>
+      }
+
+      <p class="text-secondary">
+        Don't have an account?
+        <a class="link text-decoration-none fw-bold" routerLink="/auth/signup"
+          >Sign up</a
+        >
+      </p>
+    </form>
+  </div>
+</div>

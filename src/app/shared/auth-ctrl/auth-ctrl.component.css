@@ -1,0 +1,11 @@
+:host {
+  padding: 10px 15px;
+  border: 2px solid #eee;
+  transition: border var(--transition);
+  line-height: 1rem;
+  vertical-align: middle;
+}
+
+:host:focus-within {
+  border: 2px solid var(--primary-color);
+}

@@ -1,0 +1,75 @@
+.signup-container {
+  min-height: 100vh;
+}
+
+.auth-img {
+  flex-basis: 50%;
+  min-height: inherit;
+  background: linear-gradient(#ebf3ff, #e1e6fd);
+}
+
+.auth-img img {
+  max-height: 100vh;
+}
+
+.signup-form {
+  flex-basis: 100%;
+  min-height: inherit;
+}
+@media (min-width: 992px) {
+  .signup-form {
+    flex-basis: 50%;
+  }
+}
+
+form,
+app-logo {
+  width: 100%;
+}
+@media (min-width: 576px) {
+  form,
+  app-logo {
+    width: 27rem;
+  }
+}
+
+.signup-heading {
+  font-size: 2.3rem;
+}
+
+input:focus {
+  outline: none;
+}
+
+.eye-icon {
+  transition: color var(--transition);
+  height: inherit;
+}
+.eye-icon:hover {
+  color: black !important;
+}
+
+a {
+  color: var(--primary-color);
+  cursor: pointer;
+}
+
+.ctrl-error {
+  color: #d93025;
+  font-size: small;
+  margin-top: -1.1rem;
+}
+
+.matchedPass {
+  color: #20c997;
+  font-size: small;
+  margin-top: -1.1rem;
+}
+
+.not-matched {
+  border-color: #d93025 !important;
+}
+
+.ng-valid[formGroupName="passwords"] > app-auth-ctrl:nth-child(2) {
+  border-color: #20c997;
+}

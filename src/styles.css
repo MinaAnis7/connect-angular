@@ -1,1 +1,32 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --primary-color: #6644c4;
+  --bg-color: #fafafa;
+  --error-color: #d93025;
+  --transition: 0.3s;
+}
+
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+.auth-btn {
+  background-color: var(--primary-color);
+  padding: 10px;
+  transition: background-color var(--transition);
+}
+
+.auth-btn:hover {
+  background-color: #5b38bd;
+}
+
+.auth-btn:active {
+  background-color: #4e319e;
+}
