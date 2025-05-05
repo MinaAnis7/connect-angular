@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NewsFeedComponent } from './news-feed.component';
+import { LayoutComponent } from './layout.component';
 
 describe('NewsFeedComponent', () => {
-  let component: NewsFeedComponent;
-  let fixture: ComponentFixture<NewsFeedComponent>;
+  let component: LayoutComponent;
+  let fixture: ComponentFixture<LayoutComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NewsFeedComponent]
-    })
-    .compileComponents();
+      imports: [LayoutComponent],
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(NewsFeedComponent);
+    fixture = TestBed.createComponent(LayoutComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

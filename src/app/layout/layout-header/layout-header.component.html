@@ -1,0 +1,114 @@
+<nav class="navbar navbar-expand-sm bg-white">
+  <div class="container-fluid">
+    <app-logo class="navbar-brand px-2 px-md-3 px-lg-5" />
+    <div class="dropdown d-sm-none" ngbDropdown>
+      <a
+        class="nav-link dropdown-toggle"
+        role="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+        ngbDropdownToggle
+      >
+        <img
+          src="https://placehold.co/400x400/blue/white"
+          alt="Profile Picture"
+          class="profile-pic"
+        />
+      </a>
+      <ul class="dropdown-menu dd-menu mt-2" ngbDropdownMenu>
+        <li>
+          <a class="dropdown-item" href="#" ngbDropdownItem>
+            <fa-icon [icon]="['far', 'user-circle']" class="me-2" />
+            <span>View Profile</span>
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item" href="#" ngbDropdownItem>
+            <fa-icon [icon]="['fas', 'sliders']" class="me-2" />
+            <span>Settings</span>
+          </a>
+        </li>
+        <li><hr class="dropdown-divider" /></li>
+        <li>
+          <a class="dropdown-item" href="#" ngbDropdownItem>
+            <fa-icon
+              [icon]="['fas', 'arrow-right-from-bracket']"
+              class="me-2 text-danger"
+            />
+            <span class="text-danger">Logout</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="show navbar-collapse" id="navbarSupportedContent">
+      <form class="ms-lg-5 me-auto pt-2 pt-sm-0">
+        <div class="ctrl rounded-4 d-flex align-items-center">
+          <input class="border-0 bg-transparent" placeholder="Search" />
+          <fa-icon
+            [icon]="['fas', 'magnifying-glass']"
+            class="search-icon ps-2"
+          />
+        </div>
+      </form>
+      <ul
+        class="navbar-nav flex-row justify-content-around align-items-center column-gap-1 mb-2 mb-sm-0"
+      >
+        <li class="nav-item">
+          <a class="nav-link">
+            <fa-icon [icon]="['far', 'user']" class="icon" />
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">
+            <fa-icon [icon]="['far', 'comment-dots']" class="icon" />
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">
+            <fa-icon [icon]="['far', 'bell']" class="icon" />
+          </a>
+        </li>
+        <li class="nav-item dropdown d-none d-sm-block" ngbDropdown>
+          <a
+            class="nav-link dropdown-toggle"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            ngbDropdownToggle
+          >
+            <img
+              src="https://placehold.co/400x400/blue/white"
+              alt="Profile Picture"
+              class="profile-pic"
+            />
+          </a>
+          <ul class="dropdown-menu dd-menu mt-2" ngbDropdownMenu>
+            <li>
+              <a class="dropdown-item" href="#" ngbDropdownItem>
+                <fa-icon [icon]="['far', 'user-circle']" class="me-2" />
+                <span>View Profile</span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#" ngbDropdownItem>
+                <fa-icon [icon]="['fas', 'sliders']" class="me-2" />
+                <span>Settings</span>
+              </a>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <a class="dropdown-item" href="#" ngbDropdownItem>
+                <fa-icon
+                  [icon]="['fas', 'arrow-right-from-bracket']"
+                  class="me-2 text-danger"
+                />
+                <span class="text-danger">Logout</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

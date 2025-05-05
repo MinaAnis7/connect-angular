@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
-import { NewsFeedComponent } from './news-feed/news-feed.component';
 import { authGuard } from './auth.guards';
+import { LayoutComponent } from './layout/layout.component';
 
 export const routes: Routes = [
   {
@@ -29,8 +29,8 @@ export const routes: Routes = [
     ],
   },
   {
-    path: 'newsfeed',
+    path: 'app',
     canMatch: [authGuard],
-    component: NewsFeedComponent,
+    component: LayoutComponent,
   },
 ];

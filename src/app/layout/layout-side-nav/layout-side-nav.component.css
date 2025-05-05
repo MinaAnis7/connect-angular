@@ -1,0 +1,35 @@
+:host {
+  background-color: white;
+  min-height: inherit;
+  width: 12.9rem;
+  padding: 12px;
+  padding-right: 0;
+}
+
+a {
+  padding: 0.6rem 0.1rem;
+  border: none;
+}
+
+a.active-link {
+  color: black;
+  background-color: #f8f9fa;
+}
+
+a span {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+a fa-icon {
+  font-size: 20px;
+}
+
+a mat-icon {
+  font-size: 25px;
+}
+
+a mat-icon,
+a fa-icon {
+  width: 38px;
+}

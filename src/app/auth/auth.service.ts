@@ -88,7 +88,7 @@ export class AuthService {
       new Date(userObj._tokenExpirationDate).getTime() - new Date().getTime()
     );
 
-    this.router.navigate(['newsfeed']);
+    this.router.navigate(['app']);
   }
 
   autoLogout(tokenExpirationDuration: number) {

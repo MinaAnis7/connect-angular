@@ -175,7 +175,7 @@ export class SignupComponent {
           this.isLoading.set(false);
         },
         complete: () => {
-          this.router.navigate(['newsfeed']);
+          this.router.navigate(['app']);
           this.isLoading.set(false);
         },
       });

@@ -43,3 +43,17 @@
 .ctrl input:focus {
   outline: none;
 }
+
+.dd-menu {
+  transform: translateX(calc(-100% + 46px));
+}
+@media (min-width: 576px) {
+  .dd-menu {
+    transform: translateX(calc(-100% + 57px));
+  }
+}
+
+.dd-menu fa-icon,
+.dd-menu span {
+  font-size: 15px;
+}
