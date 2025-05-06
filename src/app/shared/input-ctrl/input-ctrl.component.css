@@ -1,0 +1,16 @@
+:host {
+  display: block;
+}
+.ctrl {
+  padding: 10px 15px;
+  width: 100%;
+  background-color: inherit;
+  border-radius: inherit;
+}
+.ctrl input {
+  width: 100%;
+  font-size: 15px;
+}
+.ctrl input:focus {
+  outline: none;
+}

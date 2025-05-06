@@ -27,21 +27,11 @@
 
 .ctrl {
   background-color: var(--bg-color);
-  padding: 10px 15px;
-}
-.ctrl input {
-  width: 100%;
-  font-size: 15px;
 }
 @media (min-width: 992px) {
-  .ctrl input {
+  .ctrl {
     width: 20rem;
-    font-size: 15px;
   }
-}
-
-.ctrl input:focus {
-  outline: none;
 }
 
 .dd-menu {

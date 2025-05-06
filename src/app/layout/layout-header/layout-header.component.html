@@ -43,13 +43,13 @@
 
     <div class="show navbar-collapse" id="navbarSupportedContent">
       <form class="ms-lg-5 me-auto pt-2 pt-sm-0">
-        <div class="ctrl rounded-4 d-flex align-items-center">
-          <input class="border-0 bg-transparent" placeholder="Search" />
+        <app-input-ctrl placeholder="Search" class="ctrl" [isRounded]="true">
           <fa-icon
             [icon]="['fas', 'magnifying-glass']"
             class="search-icon ps-2"
+            ngProjectAs="suffix-icon"
           />
-        </div>
+        </app-input-ctrl>
       </form>
       <ul
         class="navbar-nav flex-row justify-content-around align-items-center column-gap-1 mb-2 mb-sm-0"

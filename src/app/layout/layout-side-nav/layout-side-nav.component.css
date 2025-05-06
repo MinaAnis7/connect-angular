@@ -1,9 +1,12 @@
 :host {
   background-color: white;
-  min-height: inherit;
+  height: calc(100vh - 67px);
   width: 12.9rem;
   padding: 12px;
-  padding-right: 0;
+  position: fixed;
+  margin-top: 67px;
+  padding-right: 0px;
+  padding-top: 0px;
 }
 
 a {
