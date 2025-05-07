@@ -3,6 +3,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { authGuard } from './auth.guards';
 import { LayoutComponent } from './layout/layout.component';
+import { NewsfeedComponent } from './layout/newsfeed/newsfeed.component';
 
 export const routes: Routes = [
   {
@@ -32,5 +33,16 @@ export const routes: Routes = [
     path: 'app',
     canMatch: [authGuard],
     component: LayoutComponent,
+    children: [
+      {
+        path: '',
+        pathMatch: 'prefix',
+        redirectTo: 'newsfeed',
+      },
+      {
+        path: 'newsfeed',
+        component: NewsfeedComponent,
+      },
+    ],
   },
 ];

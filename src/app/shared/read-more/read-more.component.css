@@ -1,0 +1,38 @@
+.text {
+  margin: 0;
+  transition: all var(--transition);
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+.collapsed {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.read-more {
+  color: var(--primary-color);
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+}
+
+.read-more::before {
+  content: "";
+  position: absolute;
+  height: 1.5px;
+  width: 0%;
+  left: 0px;
+  bottom: -2px;
+  background-color: var(--primary-color);
+  transition: width var(--transition);
+}
+
+.read-more:hover::before {
+  width: 100%;
+}

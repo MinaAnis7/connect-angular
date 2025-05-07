@@ -1,0 +1,63 @@
+.author-img {
+  width: 48px;
+  height: 48px;
+}
+
+.name {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.date {
+  font-size: 12px;
+  color: var(--text-secondary-color);
+}
+.more-icon {
+  font-size: 18px;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+}
+.more-icon:hover {
+  background-color: #ddd;
+}
+
+.text {
+  font-size: 14.5px;
+}
+
+.post-img {
+  max-height: 28rem;
+}
+
+.reacts-num {
+  color: var(--text-secondary-color);
+}
+
+.loves,
+.comments {
+  cursor: pointer;
+}
+
+.loves:hover span,
+.comments:hover {
+  text-decoration: underline;
+}
+
+.loves fa-icon {
+  font-size: 20px;
+  color: #ff1a1a;
+}
+
+.reacts-num span {
+  font-size: 14px;
+}
+
+.actions button {
+  flex-basis: 50%;
+  background-color: transparent;
+}
+
+.actions button:hover {
+  background-color: #efefef;
+}

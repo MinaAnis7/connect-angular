@@ -1,0 +1,8 @@
+<p class="text" [class.collapsed]="shouldCollapse()">
+  {{ text() }}
+</p>
+@if (shouldCollapse()) {
+<span class="read-more" (click)="toggleReadMore()">read more</span>
+} @if (toggled()) {
+<span class="read-more" (click)="toggleReadMore()">read less</span>
+}

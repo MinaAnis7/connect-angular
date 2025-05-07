@@ -1,6 +1,10 @@
 :root {
   --primary-color: #6644c4;
+  --primary-hover-color: #7a5ce0;
+  --primary-active-color: #4f32a4;
   --bg-color: #fafafa;
+  --hover-grey: #f8f9fa;
+  --text-secondary-color: #999;
   --error-color: #d93025;
   --transition: 0.3s;
 }
@@ -17,6 +21,11 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 .auth-btn {
   background-color: var(--primary-color);
   padding: 10px;
@@ -31,5 +40,10 @@ body {
   background-color: #4e319e;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.devider {
+  border: none;
+  margin: 0;
+  height: 1px;
+  width: 100%;
+  background-color: #777;
+}

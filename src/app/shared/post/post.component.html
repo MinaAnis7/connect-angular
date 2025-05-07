@@ -1,0 +1,58 @@
+<div class="bg-white p-3 rounded-3">
+  <div class="author-info d-flex align-items-center">
+    <img
+      src="https://placehold.co/400"
+      alt="Author Image"
+      class="author-img rounded-circle me-3"
+    />
+
+    <div>
+      <span class="name d-block"> {{ post().authorName }} </span>
+      <span class="date d-block">
+        {{ post().date | date : "MMM, d, y, h:mm a" }}
+      </span>
+    </div>
+
+    <fa-icon
+      [icon]="['fas', 'ellipsis-vertical']"
+      class="more-icon ms-auto d-flex justify-content-center align-items-center rounded-circle"
+    />
+  </div>
+  <hr class="devider my-3" />
+
+  <div class="post-content">
+    @if (post().text) {
+    <app-read-more [text]="post().text!" class="text d-block" />
+    } @if(post().imgUrl) {
+    <img
+      [src]="post().imgUrl"
+      alt="Post Image"
+      class="post-img d-block my-2 img-fluid mx-auto"
+    />
+    }
+
+    <div class="reacts-num d-flex align-items-center justify-content-between">
+      <div class="loves">
+        <fa-icon [icon]="['fas', 'heart']" />
+        <span> {{ post().lovesNumber }} </span>
+      </div>
+      <div class="comments">
+        <span> {{ post().commentsNumber }} </span>
+        <span> Comments </span>
+      </div>
+    </div>
+
+    <hr class="devider my-2" />
+
+    <div class="actions d-flex">
+      <button class="love py-1 border-0 rounded-2">
+        <fa-icon [icon]="['far', 'heart']" class="me-2" />
+        <span>Love</span>
+      </button>
+      <button class="comment py-1 border-0 rounded-2">
+        <fa-icon [icon]="['far', 'comment-dots']" class="me-2" />
+        <span>Comment</span>
+      </button>
+    </div>
+  </div>
+</div>

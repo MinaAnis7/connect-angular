@@ -2,3 +2,29 @@
   background-color: var(--bg-color);
   min-height: 100vh;
 }
+
+@media (min-width: 576px) {
+  .header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+  }
+}
+
+@media (min-width: 576px) {
+  main {
+    margin-top: 67px;
+  }
+}
+@media (min-width: 992px) {
+  main {
+    margin-left: 12.9rem;
+  }
+}
+@media (min-width: 768px) {
+  main {
+    margin-right: 18rem;
+  }
+}
