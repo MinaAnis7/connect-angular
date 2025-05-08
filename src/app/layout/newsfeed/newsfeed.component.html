@@ -3,6 +3,7 @@
     <h2 class="heading mb-3">News Feed</h2>
     <button
       class="create-post-btn mb-4 btn ms-auto rounded-3 d-flex align-items-center"
+      (click)="openCreatePostDialog()"
     >
       <mat-icon class="material-icons-outlined d-flex align-items-center">
         edit
@@ -12,6 +13,7 @@
   </div>
 
   <div class="newsfeed-posts">
+    <app-post [post]="post" />
     <app-post [post]="post" />
   </div>
 </div>

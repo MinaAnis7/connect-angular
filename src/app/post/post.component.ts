@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, input, signal } from '@angular/core';
+import { Component, input } from '@angular/core';
 import {
   FaIconLibrary,
   FontAwesomeModule,
@@ -9,7 +9,7 @@ import {
   faCommentDots,
   faHeart as regularHeart,
 } from '@fortawesome/free-regular-svg-icons';
-import { ReadMoreComponent } from '../read-more/read-more.component';
+import { ReadMoreComponent } from '../shared/read-more/read-more.component';
 import { Post } from './post.model';
 
 @Component({

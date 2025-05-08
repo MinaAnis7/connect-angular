@@ -1,3 +1,7 @@
+:host {
+  display: block;
+}
+
 .author-img {
   width: 48px;
   height: 48px;
@@ -28,6 +32,7 @@
 
 .post-img {
   max-height: 28rem;
+  width: 100%;
 }
 
 .reacts-num {

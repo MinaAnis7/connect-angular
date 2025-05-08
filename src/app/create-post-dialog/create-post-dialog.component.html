@@ -1,0 +1,32 @@
+<div class="header d-flex justify-content-between">
+  <h2 mat-dialog-title>Create Post</h2>
+  <fa-icon
+    [icon]="['fas', 'xmark']"
+    class="mx-4 d-flex align-items-center"
+    mat-dialog-close
+  />
+</div>
+<hr class="devider" />
+<mat-dialog-content class="mat-typography">
+  <textarea
+    name="post-text"
+    placeholder="Share your thoughts..."
+    rows="5"
+  ></textarea>
+
+  @if (uploadedImg()) {
+  <img
+    src="https://placehold.co/800"
+    alt="Post Image"
+    class="post-img d-block my-2 img-fluid mx-auto"
+  />
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions class="d-flex justify-content-between">
+  <button class="upload-img btn d-flex align-items-center">
+    <fa-icon [icon]="['far', 'image']" class="me-1" />
+    <span>Upload Image</span>
+  </button>
+  <button class="post-btn btn rounded-3">Post</button>
+</mat-dialog-actions>

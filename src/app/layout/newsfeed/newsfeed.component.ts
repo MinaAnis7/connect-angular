@@ -1,15 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { PostComponent } from '../../shared/post/post.component';
-import { Post } from '../../shared/post/post.model';
+import { PostComponent } from '../../post/post.component';
+import { Post } from '../../post/post.model';
+import { CreatePostDialogComponent } from '../../create-post-dialog/create-post-dialog.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-newsfeed',
-  imports: [MatIconModule, PostComponent],
+  imports: [MatIconModule, PostComponent, MatDialogModule],
   templateUrl: './newsfeed.component.html',
   styleUrl: './newsfeed.component.css',
 })
 export class NewsfeedComponent {
+  private readonly dialog = inject(MatDialog);
+
   post: Post = {
     authorName: 'John Doe',
     date: new Date(Date.now()),
@@ -18,4 +22,8 @@ export class NewsfeedComponent {
     lovesNumber: 12,
     commentsNumber: 7,
   };
+
+  openCreatePostDialog() {
+    this.dialog.open(CreatePostDialogComponent);
+  }
 }

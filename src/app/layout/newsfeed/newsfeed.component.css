@@ -41,6 +41,10 @@
   font-weight: 500;
 }
 
+app-post:not(:last-child) {
+  margin-bottom: 1.5rem;
+}
+
 @keyframes penShake {
   0% {
     transform: rotate(0deg);

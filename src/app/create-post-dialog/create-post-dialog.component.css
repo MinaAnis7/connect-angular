@@ -1,0 +1,76 @@
+:host {
+  display: block;
+  width: calc(100vw - 3rem);
+  background-color: white;
+}
+
+@media (min-width: 576px) {
+  :host {
+    width: 32rem;
+  }
+}
+@media (min-width: 768px) {
+  :host {
+    width: 34rem;
+  }
+}
+
+.header fa-icon {
+  margin-top: 6px;
+  margin-bottom: 13px;
+  font-size: 20px;
+  color: var(--text-secondary-color);
+  cursor: pointer;
+}
+
+.header fa-icon:hover {
+  color: #333;
+}
+
+textarea {
+  width: 100%;
+  font-size: 17px;
+  resize: none;
+  border: none;
+}
+
+textarea:focus {
+  outline: none;
+}
+
+textarea::placeholder {
+  font-size: 18px;
+}
+
+.upload-img {
+  font-size: 18px;
+}
+.upload-img span {
+  font-size: 12px;
+}
+.upload-img:hover {
+  background-color: var(--hover-grey);
+}
+
+.post-btn {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 500;
+  font-size: 15px;
+  padding: 8px 28px;
+  transition: transform 0.3s ease;
+}
+.post-btn:hover {
+  transform: scale(1.02);
+  background-color: var(--primary-hover-color);
+}
+.post-btn:active {
+  transform: scale(1);
+  background-color: var(--primary-active-color);
+  color: white;
+}
+
+.post-img {
+  max-height: 28rem;
+  width: 100%;
+}
