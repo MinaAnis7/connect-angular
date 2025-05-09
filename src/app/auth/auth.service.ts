@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
-import { UserModel } from './user.model';
+import { UserAuthModel } from './user.model';
 
 export interface AuthResponseData {
   idToken: string;
@@ -20,7 +20,7 @@ export class AuthService {
   private httpClient = inject(HttpClient);
   private router = inject(Router);
   private sessionTimeout: any;
-  user = new BehaviorSubject<UserModel | null>(null);
+  user = new BehaviorSubject<UserAuthModel | null>(null);
 
   signup(email: string, password: string) {
     return this.httpClient
@@ -33,10 +33,10 @@ export class AuthService {
         }
       )
       .pipe(
-        catchError(this.handleError),
         tap((responseData) => {
           this.holdUser(responseData);
-        })
+        }),
+        catchError(this.handleError)
       );
   }
 
@@ -75,7 +75,7 @@ export class AuthService {
 
     const userObj = JSON.parse(userData);
 
-    const loadedUser: UserModel = new UserModel(
+    const loadedUser: UserAuthModel = new UserAuthModel(
       userObj.email,
       userObj.id,
       userObj._token,
@@ -101,7 +101,7 @@ export class AuthService {
     const expirationDate = new Date(
       new Date().getTime() + +responseData.expiresIn * 1000
     );
-    const user = new UserModel(
+    const user = new UserAuthModel(
       responseData.email,
       responseData.localId,
       responseData.idToken,

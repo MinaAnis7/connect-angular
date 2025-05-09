@@ -15,7 +15,7 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreatePostDialogComponent {
-  uploadedImg = signal(true);
+  uploadedImg = signal(false);
 
   constructor(library: FaIconLibrary) {
     library.addIcons(faXmark, faImage);

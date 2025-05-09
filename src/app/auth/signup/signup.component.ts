@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -17,6 +17,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-spinner.component';
 import { ToastService } from '../../shared/toast-container/toast.service';
+import { UserService } from '../../user/user.service';
 
 function checkPasswordsEquality(ctrl: AbstractControl) {
   const password = ctrl.get('password')?.value;
@@ -44,8 +45,10 @@ function checkPasswordsEquality(ctrl: AbstractControl) {
 })
 export class SignupComponent {
   private authService = inject(AuthService);
+  private userService = inject(UserService);
   private router = inject(Router);
   private toastService = inject(ToastService);
+  private destroyRef = inject(DestroyRef);
   passwordVisible = false;
   confirmPasswordVisible = false;
   isLoading = signal(false);
@@ -158,7 +161,7 @@ export class SignupComponent {
 
     this.isLoading.set(true);
 
-    this.authService
+    const subscribtion = this.authService
       .signup(
         this.form.controls.email.value!,
         this.form.controls.passwords.controls.password.value!
@@ -175,11 +178,29 @@ export class SignupComponent {
           this.isLoading.set(false);
         },
         complete: () => {
-          this.router.navigate(['app']);
           this.isLoading.set(false);
+          this.router.navigate(['app']);
+
+          this.savingToDB(this.form.value);
+
+          this.form.reset();
         },
       });
 
-    this.form.reset();
+    this.destroyRef.onDestroy(() => {
+      subscribtion.unsubscribe();
+    });
+  }
+
+  private savingToDB(formValues: any) {
+    this.userService.storeNewUser({
+      fName: formValues.fName!,
+      lName: formValues.lName!,
+      bio: 'Hi There!',
+      profileImage:
+        'https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png',
+      cover:
+        'https://www.suicidecallbackservice.org.au/wp-content/uploads/2018/03/Nature-as-a-healer-header-1600x1067.jpg',
+    });
   }
 }
