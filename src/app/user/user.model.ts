@@ -1,7 +1,16 @@
 export interface User {
+  id: string;
   fName: string;
   lName: string;
-  bio: string | null;
+  bio: string;
   profileImage: string;
-  cover: string | null;
+  cover: string;
+}
+
+export interface UserData {
+  fName: string;
+  lName: string;
+  bio: string;
+  profileImage: string;
+  cover: string;
 }

@@ -3,6 +3,8 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
 import { UserAuthModel } from './user.model';
+import { Store } from '@ngrx/store';
+import { UserService } from '../user/user.service';
 
 export interface AuthResponseData {
   idToken: string;
@@ -17,6 +19,7 @@ export interface AuthResponseData {
   providedIn: 'root',
 })
 export class AuthService {
+  private userService = inject(UserService);
   private httpClient = inject(HttpClient);
   private router = inject(Router);
   private sessionTimeout: any;
@@ -82,7 +85,10 @@ export class AuthService {
       userObj._tokenExpirationDate
     );
 
-    if (loadedUser.token) this.user.next(loadedUser);
+    if (loadedUser.token) {
+      this.user.next(loadedUser);
+      this.userService.getLoggedInUser(loadedUser.id);
+    }
 
     this.autoLogout(
       new Date(userObj._tokenExpirationDate).getTime() - new Date().getTime()

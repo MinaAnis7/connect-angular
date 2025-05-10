@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { Component, inject, input, OnInit } from '@angular/core';
 import {
   FaIconLibrary,
   FontAwesomeModule,
@@ -11,6 +11,8 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 import { ReadMoreComponent } from '../shared/read-more/read-more.component';
 import { Post } from './post.model';
+import { User } from '../user/user.model';
+import { UserService } from '../user/user.service';
 
 @Component({
   selector: 'app-post',
@@ -18,10 +20,24 @@ import { Post } from './post.model';
   templateUrl: './post.component.html',
   styleUrl: './post.component.css',
 })
-export class PostComponent {
+export class PostComponent implements OnInit {
   post = input.required<Post>();
+  author?: User;
+  private userService = inject(UserService);
 
   constructor(library: FaIconLibrary) {
     library.addIcons(faEllipsisVertical, faHeart, faCommentDots, regularHeart);
+  }
+
+  ngOnInit(): void {
+    this.userService.getPostAuthor(this.post().author).subscribe({
+      next: (author) => {
+        this.author = author as User;
+      },
+    });
+  }
+
+  get authorName() {
+    return `${this.author?.fName} ${this.author?.lName}`;
   }
 }

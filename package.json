@@ -21,6 +21,8 @@
     "@angular/platform-browser": "^19.2.10",
     "@angular/platform-browser-dynamic": "^19.2.10",
     "@angular/router": "^19.2.10",
+    "@cloudinary/ng": "^2.1.2",
+    "@cloudinary/url-gen": "^1.21.0",
     "@fortawesome/angular-fontawesome": "^1.0.0",
     "@fortawesome/free-brands-svg-icons": "^6.7.1",
     "@fortawesome/free-regular-svg-icons": "^6.7.1",

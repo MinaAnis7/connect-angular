@@ -1,13 +1,15 @@
 <div class="bg-white p-3 rounded-3">
   <div class="author-info d-flex align-items-center">
     <img
-      src="https://placehold.co/400"
+      [src]="author?.profileImage"
       alt="Author Image"
       class="author-img rounded-circle me-3"
     />
 
     <div>
-      <span class="name d-block"> {{ post().authorName }} </span>
+      <span class="name d-block">
+        {{ authorName }}
+      </span>
       <span class="date d-block">
         {{ post().date | date : "MMM, d, y, h:mm a" }}
       </span>

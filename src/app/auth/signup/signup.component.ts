@@ -181,7 +181,10 @@ export class SignupComponent {
           this.isLoading.set(false);
           this.router.navigate(['app']);
 
-          this.savingToDB(this.form.value);
+          this.savingToDB(
+            this.form.value,
+            this.authService.user.getValue()?.id
+          );
 
           this.form.reset();
         },
@@ -192,15 +195,20 @@ export class SignupComponent {
     });
   }
 
-  private savingToDB(formValues: any) {
-    this.userService.storeNewUser({
-      fName: formValues.fName!,
-      lName: formValues.lName!,
-      bio: 'Hi There!',
-      profileImage:
-        'https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png',
-      cover:
-        'https://www.suicidecallbackservice.org.au/wp-content/uploads/2018/03/Nature-as-a-healer-header-1600x1067.jpg',
-    });
+  private savingToDB(formValues: any, id?: string) {
+    if (id) {
+      this.userService.storeNewUser(
+        {
+          fName: formValues.fName!,
+          lName: formValues.lName!,
+          bio: 'Hi There!',
+          profileImage:
+            'https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png',
+          cover:
+            'https://www.suicidecallbackservice.org.au/wp-content/uploads/2018/03/Nature-as-a-healer-header-1600x1067.jpg',
+        },
+        id
+      );
+    }
   }
 }

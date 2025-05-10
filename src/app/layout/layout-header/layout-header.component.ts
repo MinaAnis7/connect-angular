@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { LogoComponent } from '../../shared/logo/logo.component';
 import {
   FaIconLibrary,
@@ -19,6 +19,8 @@ import {
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatIconModule } from '@angular/material/icon';
 import { InputCtrlComponent } from '../../shared/input-ctrl/input-ctrl.component';
+import { Store } from '@ngrx/store';
+import { User } from '../../user/user.model';
 
 @Component({
   selector: 'app-layout-header',
@@ -32,7 +34,10 @@ import { InputCtrlComponent } from '../../shared/input-ctrl/input-ctrl.component
   templateUrl: './layout-header.component.html',
   styleUrl: './layout-header.component.css',
 })
-export class LayoutHeaderComponent {
+export class LayoutHeaderComponent implements OnInit {
+  private store = inject(Store);
+  currentUser?: User;
+
   constructor(library: FaIconLibrary) {
     library.addIcons(
       faBell,
@@ -43,5 +48,13 @@ export class LayoutHeaderComponent {
       faSliders,
       faArrowRightFromBracket
     );
+  }
+
+  ngOnInit(): void {
+    this.store.select('currentUser').subscribe({
+      next: (user) => {
+        this.currentUser = user;
+      },
+    });
   }
 }

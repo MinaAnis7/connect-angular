@@ -17,6 +17,7 @@ import { AuthService } from '../auth.service';
 import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-spinner.component';
 import { ToastContainerComponent } from '../../shared/toast-container/toast-container.component';
 import { ToastService } from '../../shared/toast-container/toast.service';
+import { UserService } from '../../user/user.service';
 
 @Component({
   selector: 'app-login',
@@ -35,6 +36,7 @@ export class LoginComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
   private toastService = inject(ToastService);
+  private userService = inject(UserService);
   passwordVisible = false;
   isLoading = signal(false);
 
@@ -106,6 +108,10 @@ export class LoginComponent {
         complete: () => {
           this.router.navigate(['app']);
           this.isLoading.set(false);
+
+          this.userService.getLoggedInUser(
+            this.authService.user.getValue()?.id
+          );
         },
       });
 

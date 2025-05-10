@@ -10,7 +10,7 @@
         ngbDropdownToggle
       >
         <img
-          src="https://placehold.co/400x400/blue/white"
+          [src]="currentUser?.profileImage"
           alt="Profile Picture"
           class="profile-pic"
         />
@@ -78,7 +78,7 @@
             ngbDropdownToggle
           >
             <img
-              src="https://placehold.co/400x400/blue/white"
+              [src]="currentUser?.profileImage"
               alt="Profile Picture"
               class="profile-pic"
             />

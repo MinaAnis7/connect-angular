@@ -1,5 +1,8 @@
+import { DocumentReference } from '@angular/fire/firestore';
+
 export interface Post {
-  authorName: string;
+  id: string;
+  author: DocumentReference;
   date: Date;
   text: string | null;
   imgUrl: string | null;

@@ -13,7 +13,8 @@
   </div>
 
   <div class="newsfeed-posts">
+    @for (post of posts(); track $index) {
     <app-post [post]="post" />
-    <app-post [post]="post" />
+    }
   </div>
 </div>
