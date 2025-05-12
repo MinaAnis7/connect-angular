@@ -48,15 +48,20 @@ export class PostsService {
 
   async savePostData(postText: string, imgUrl: string | null = null) {
     const postsCollection = collection(this.db, 'posts');
-
     const docRef = doc(postsCollection);
     const currentUserRef = doc(
       this.db,
       'users',
       this.authService.user.getValue()!.id
     );
-
-    await setDoc(docRef, {
+    const userPostDoc = doc(
+      this.db,
+      'users',
+      this.authService.user.getValue()!.id,
+      'posts',
+      docRef.id
+    );
+    const postData = {
       text: postText,
       imgUrl: imgUrl,
       id: docRef,
@@ -64,7 +69,10 @@ export class PostsService {
       date: serverTimestamp(),
       lovesNumber: 0,
       commentsNumber: 0,
-    });
+    };
+
+    await setDoc(docRef, postData);
+    await setDoc(userPostDoc, postData);
   }
 
   getAllPosts() {
@@ -75,7 +83,27 @@ export class PostsService {
         return posts.map((post) => {
           return {
             ...post,
-            date: post['date'].toDate(),
+            date: post['date']?.toDate(),
+          };
+        });
+      })
+    );
+  }
+
+  getUserSpecificPosts(userId: string) {
+    const userPostsSubCollection = collection(
+      this.db,
+      'users',
+      userId,
+      'posts'
+    );
+
+    return collectionData(userPostsSubCollection).pipe(
+      map((posts) => {
+        return posts.map((post) => {
+          return {
+            ...post,
+            date: post['date']?.toDate(),
           };
         });
       })

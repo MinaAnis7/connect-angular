@@ -12,7 +12,6 @@
 
 .user-profile {
   width: calc(100% - 2rem);
-  height: 1000vh;
 }
 
 @media (min-width: 576px) {
@@ -88,6 +87,7 @@
 .bio {
   width: 18rem;
   position: sticky;
+  margin-left: 15px;
   top: calc(67px + 1rem);
 }
 

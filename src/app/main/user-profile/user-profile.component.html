@@ -39,5 +39,9 @@
         <span>Create Post</span>
       </button>
     </div>
+
+    @for (post of posts; track $index) {
+    <app-post [post]="post" class="mb-3" />
+    }
   </div>
 </div>

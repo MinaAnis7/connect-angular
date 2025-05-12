@@ -27,6 +27,7 @@ export class UserService {
           user: {
             ...user,
             id: id,
+            posts: [],
           },
         })
       );

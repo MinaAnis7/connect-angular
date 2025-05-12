@@ -7,18 +7,22 @@ import { CreatePostDialogComponent } from '../create-post-dialog/create-post-dia
 import { Post } from '../post/post.model';
 import { doc } from '@firebase/firestore';
 import { PostComponent } from '../post/post.component';
+import { PostsService } from '../post/posts.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-user-profile',
-  imports: [MatIconModule, MatDialogModule],
+  imports: [MatIconModule, MatDialogModule, PostComponent],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css',
 })
 export class UserProfileComponent implements OnInit {
   private store = inject(Store);
+  private authService = inject(AuthService);
+  private postsService = inject(PostsService);
   private readonly dialog = inject(MatDialog);
   user?: User;
-  post?: Post;
+  posts?: Post[];
 
   ngOnInit(): void {
     this.store.select('currentUser').subscribe({
@@ -26,6 +30,14 @@ export class UserProfileComponent implements OnInit {
         this.user = user;
       },
     });
+
+    this.postsService
+      .getUserSpecificPosts(this.authService.user.getValue()!.id)
+      .subscribe({
+        next: (posts) => {
+          this.posts = posts as Post[];
+        },
+      });
   }
 
   get userFullName() {

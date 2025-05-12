@@ -1,3 +1,5 @@
+import { DocumentReference } from '@angular/fire/firestore';
+
 export interface User {
   id: string;
   fName: string;
@@ -5,6 +7,7 @@ export interface User {
   bio: string;
   profileImage: string;
   cover: string;
+  posts: DocumentReference[];
 }
 
 export interface UserData {
