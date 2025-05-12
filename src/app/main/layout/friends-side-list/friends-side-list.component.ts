@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { InputCtrlComponent } from '../../shared/input-ctrl/input-ctrl.component';
 import {
   FaIconLibrary,
   FontAwesomeModule,
 } from '@fortawesome/angular-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { InputCtrlComponent } from '../../../shared/input-ctrl/input-ctrl.component';
 
 @Component({
   selector: 'app-friends-side-list',

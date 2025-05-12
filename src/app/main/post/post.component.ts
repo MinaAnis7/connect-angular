@@ -9,7 +9,7 @@ import {
   faCommentDots,
   faHeart as regularHeart,
 } from '@fortawesome/free-regular-svg-icons';
-import { ReadMoreComponent } from '../shared/read-more/read-more.component';
+import { ReadMoreComponent } from '../../shared/read-more/read-more.component';
 import { Post } from './post.model';
 import { User } from '../user/user.model';
 import { UserService } from '../user/user.service';

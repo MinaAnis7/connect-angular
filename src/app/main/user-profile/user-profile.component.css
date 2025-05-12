@@ -1,0 +1,81 @@
+:host {
+  display: block;
+  background-color: var(--bg-color);
+  min-height: calc(100vh - 168px);
+}
+@media (min-width: 576px) {
+  :host {
+    margin-top: 67px;
+    min-height: calc(100vh - 67px);
+  }
+}
+
+.user-profile {
+  width: calc(100% - 2rem);
+}
+
+@media (min-width: 576px) {
+  .user-profile {
+    width: 55rem;
+  }
+}
+
+.info {
+  padding-bottom: 1rem;
+}
+
+.user-imgs {
+  max-height: 18rem;
+}
+
+.user-imgs .cover {
+  max-height: inherit;
+}
+
+.user-imgs .cover img {
+  object-fit: cover;
+  max-height: inherit;
+  width: 100%;
+}
+
+.user-imgs .profile-pic {
+  border: 3px solid white;
+  transform: translate(15px, 60%);
+}
+
+.user-imgs .profile-pic img {
+  width: 170px;
+  height: 170px;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+.texual-info {
+  padding-top: 1.5rem;
+  padding-bottom: 14.24px;
+  width: calc(100% - 219px);
+  margin-right: 15px;
+  margin-left: auto;
+}
+
+.texual-info .connects-num {
+  color: var(--text-secondary-color);
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.texual-info .connects-num:hover {
+  text-decoration: underline !important;
+}
+
+.edit-btn {
+  border: 1.5px solid var(--primary-color);
+  font-size: 14.5px;
+  font-weight: 500;
+  background-color: var(--primary-color);
+  color: white;
+}
+.edit-btn:hover {
+  background-color: white;
+  color: var(--primary-color);
+}

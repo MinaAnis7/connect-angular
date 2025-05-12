@@ -3,8 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
 import { UserAuthModel } from './user.model';
-import { Store } from '@ngrx/store';
-import { UserService } from '../user/user.service';
+import { UserService } from '../main/user/user.service';
 
 export interface AuthResponseData {
   idToken: string;
@@ -63,7 +62,7 @@ export class AuthService {
 
   logout() {
     this.user.next(null);
-    this.router.navigate(['auth']);
+    this.router.navigate(['/auth']);
     localStorage.removeItem('userData');
 
     if (this.sessionTimeout) clearTimeout(this.sessionTimeout);
@@ -93,8 +92,6 @@ export class AuthService {
     this.autoLogout(
       new Date(userObj._tokenExpirationDate).getTime() - new Date().getTime()
     );
-
-    this.router.navigate(['app']);
   }
 
   autoLogout(tokenExpirationDuration: number) {

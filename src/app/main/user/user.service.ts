@@ -7,10 +7,10 @@ import {
   getDoc,
   setDoc,
 } from '@angular/fire/firestore';
-import { ToastService } from '../shared/toast-container/toast.service';
+import { ToastService } from '../../shared/toast-container/toast.service';
 import type { User, UserData } from './user.model';
 import { Store } from '@ngrx/store';
-import { saveCurrentUser } from '../store/user.actions';
+import { saveCurrentUser } from '../../store/user.actions';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {

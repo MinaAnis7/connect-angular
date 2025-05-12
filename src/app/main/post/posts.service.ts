@@ -7,12 +7,10 @@ import {
   serverTimestamp,
   setDoc,
 } from '@angular/fire/firestore';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 import { HttpClient } from '@angular/common/http';
-import { forkJoin, map, switchMap } from 'rxjs';
-import { ToastService } from '../shared/toast-container/toast.service';
-import { UserService } from '../user/user.service';
-import type { User } from '../user/user.model';
+import { map } from 'rxjs';
+import { ToastService } from '../../shared/toast-container/toast.service';
 
 @Injectable({ providedIn: 'root' })
 export class PostsService {
@@ -20,7 +18,6 @@ export class PostsService {
   private authService = inject(AuthService);
   private httpClient = inject(HttpClient);
   private toastService = inject(ToastService);
-  private userService = inject(UserService);
 
   createNewPost(postText: string, postImg: File | null) {
     if (postImg) {

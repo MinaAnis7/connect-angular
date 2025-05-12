@@ -2,14 +2,48 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { authGuard } from './auth.guards';
-import { LayoutComponent } from './layout/layout.component';
-import { NewsfeedComponent } from './layout/newsfeed/newsfeed.component';
+import { UserProfileComponent } from './main/user-profile/user-profile.component';
+import { MainComponent } from './main/main.component';
+import { LayoutComponent } from './main/layout/layout.component';
+import { NewsfeedComponent } from './main/layout/newsfeed/newsfeed.component';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'auth',
     pathMatch: 'full',
+    canMatch: [authGuard],
+    redirectTo: 'app',
+  },
+  {
+    path: 'app',
+    canMatch: [authGuard],
+    component: MainComponent,
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'main',
+      },
+      {
+        path: 'main',
+        component: LayoutComponent,
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            redirectTo: 'newsfeed',
+          },
+          {
+            path: 'newsfeed',
+            component: NewsfeedComponent,
+          },
+        ],
+      },
+      {
+        path: 'profile',
+        component: UserProfileComponent,
+      },
+    ],
   },
   {
     path: 'auth',
@@ -30,19 +64,7 @@ export const routes: Routes = [
     ],
   },
   {
-    path: 'app',
-    canMatch: [authGuard],
-    component: LayoutComponent,
-    children: [
-      {
-        path: '',
-        pathMatch: 'prefix',
-        redirectTo: 'newsfeed',
-      },
-      {
-        path: 'newsfeed',
-        component: NewsfeedComponent,
-      },
-    ],
+    path: '**',
+    redirectTo: '/auth',
   },
 ];

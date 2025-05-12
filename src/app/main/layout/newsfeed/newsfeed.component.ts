@@ -1,10 +1,10 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { PostComponent } from '../../post/post.component';
-import type { Post } from '../../post/post.model';
-import { CreatePostDialogComponent } from '../../create-post-dialog/create-post-dialog.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { PostComponent } from '../../post/post.component';
+import { Post } from '../../post/post.model';
 import { PostsService } from '../../post/posts.service';
+import { CreatePostDialogComponent } from '../../create-post-dialog/create-post-dialog.component';
 
 @Component({
   selector: 'app-newsfeed',

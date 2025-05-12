@@ -15,9 +15,8 @@ import { AuthCtrlComponent } from '../../shared/auth-ctrl/auth-ctrl.component';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-spinner.component';
-import { ToastContainerComponent } from '../../shared/toast-container/toast-container.component';
 import { ToastService } from '../../shared/toast-container/toast.service';
-import { UserService } from '../../user/user.service';
+import { UserService } from '../../main/user/user.service';
 
 @Component({
   selector: 'app-login',
@@ -95,9 +94,6 @@ export class LoginComponent {
         this.form.controls.password.value!
       )
       .subscribe({
-        next: (response) => {
-          console.log(response);
-        },
         error: (error: Error) => {
           this.toastService.toast$.next({
             message: error.message,
@@ -106,7 +102,7 @@ export class LoginComponent {
           this.isLoading.set(false);
         },
         complete: () => {
-          this.router.navigate(['app']);
+          this.router.navigate(['/app']);
           this.isLoading.set(false);
 
           this.userService.getLoggedInUser(

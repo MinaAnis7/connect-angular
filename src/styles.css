@@ -21,11 +21,6 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
-html,
-body {
-  height: 100%;
-}
-
 .auth-btn {
   background-color: var(--primary-color);
   padding: 10px;

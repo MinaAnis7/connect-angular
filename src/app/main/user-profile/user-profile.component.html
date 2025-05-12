@@ -1,0 +1,23 @@
+<div class="user-profile mx-auto">
+  <div class="info bg-white rounded-bottom-4">
+    <div class="user-imgs position-relative">
+      <div class="cover">
+        <img [src]="user?.cover" alt="Profile Cover" />
+      </div>
+      <div class="profile-pic position-absolute bottom-0 rounded-circle">
+        <img [src]="user?.profileImage" alt="Profile Picture" class="d-block" />
+      </div>
+    </div>
+    <div class="texual-info d-flex">
+      <div class="name-connects">
+        <div class="h2">{{ userFullName }}</div>
+        <a class="connects-num d-inline-block text-decoration-none"
+          >0 Connections</a
+        >
+      </div>
+      <button class="edit-btn align-self-end btn rounded-3 ms-auto">
+        Edit Profile
+      </button>
+    </div>
+  </div>
+</div>

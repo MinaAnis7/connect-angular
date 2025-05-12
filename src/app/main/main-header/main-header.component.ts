@@ -1,5 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { LogoComponent } from '../../shared/logo/logo.component';
 import {
   FaIconLibrary,
   FontAwesomeModule,
@@ -18,23 +17,26 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatIconModule } from '@angular/material/icon';
-import { InputCtrlComponent } from '../../shared/input-ctrl/input-ctrl.component';
 import { Store } from '@ngrx/store';
-import { User } from '../../user/user.model';
+import { User } from '../user/user.model';
+import { LogoComponent } from '../../shared/logo/logo.component';
+import { InputCtrlComponent } from '../../shared/input-ctrl/input-ctrl.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-layout-header',
+  selector: 'app-main-header',
   imports: [
     LogoComponent,
     FontAwesomeModule,
     NgbDropdownModule,
     MatIconModule,
     InputCtrlComponent,
+    RouterLink,
   ],
-  templateUrl: './layout-header.component.html',
-  styleUrl: './layout-header.component.css',
+  templateUrl: './main-header.component.html',
+  styleUrl: './main-header.component.css',
 })
-export class LayoutHeaderComponent implements OnInit {
+export class MainHeaderComponent implements OnInit {
   private store = inject(Store);
   currentUser?: User;
 

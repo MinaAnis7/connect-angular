@@ -17,7 +17,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-spinner.component';
 import { ToastService } from '../../shared/toast-container/toast.service';
-import { UserService } from '../../user/user.service';
+import { UserService } from '../../main/user/user.service';
 
 function checkPasswordsEquality(ctrl: AbstractControl) {
   const password = ctrl.get('password')?.value;
@@ -167,9 +167,6 @@ export class SignupComponent {
         this.form.controls.passwords.controls.password.value!
       )
       .subscribe({
-        next: (response) => {
-          console.log(response);
-        },
         error: (error: Error) => {
           this.toastService.toast$.next({
             message: error.message,
@@ -179,7 +176,7 @@ export class SignupComponent {
         },
         complete: () => {
           this.isLoading.set(false);
-          this.router.navigate(['app']);
+          this.router.navigate(['/app']);
 
           this.savingToDB(
             this.form.value,
