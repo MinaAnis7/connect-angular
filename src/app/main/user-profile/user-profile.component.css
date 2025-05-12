@@ -12,6 +12,7 @@
 
 .user-profile {
   width: calc(100% - 2rem);
+  height: 1000vh;
 }
 
 @media (min-width: 576px) {
@@ -78,4 +79,79 @@
 .edit-btn:hover {
   background-color: white;
   color: var(--primary-color);
+}
+
+.bio-posts-container {
+  width: calc(100% - 30px);
+}
+
+.bio {
+  width: 18rem;
+  position: sticky;
+  top: calc(67px + 1rem);
+}
+
+.bio h3 {
+  font-size: 1.6rem;
+}
+
+.bio p {
+  font-size: 14px;
+  text-align: center;
+}
+
+.posts {
+  width: calc(100% - 19rem);
+}
+
+.posts h3 {
+  font-size: 1.6rem;
+}
+
+.create-post-btn {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 8px 12px;
+  transition: transform 0.3s ease;
+}
+.create-post-btn mat-icon {
+  font-size: 18px;
+  transition: transform 0.3s;
+}
+
+.create-post-btn span {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.create-post-btn:hover {
+  transform: scale(1.02);
+  background-color: var(--primary-hover-color);
+}
+.create-post-btn:active {
+  transform: scale(1);
+  background-color: var(--primary-active-color);
+  color: white;
+}
+
+.create-post-btn:hover mat-icon {
+  animation: penShake 0.5s;
+}
+
+@keyframes penShake {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+  75% {
+    transform: rotate(-3deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }

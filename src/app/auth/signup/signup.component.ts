@@ -198,7 +198,7 @@ export class SignupComponent {
         {
           fName: formValues.fName!,
           lName: formValues.lName!,
-          bio: 'Hi There!',
+          bio: 'Hi There! 👋🏻',
           profileImage:
             'https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png',
           cover:
