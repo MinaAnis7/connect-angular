@@ -93,24 +93,18 @@ export class LoginComponent {
         this.form.controls.email.value!,
         this.form.controls.password.value!
       )
-      .subscribe({
-        error: (error: Error) => {
-          this.toastService.toast$.next({
-            message: error.message,
-            isError: true,
-          });
-          this.isLoading.set(false);
-        },
-        complete: () => {
-          this.router.navigate(['/app']);
-          this.isLoading.set(false);
-
-          this.userService.getLoggedInUser(
-            this.authService.user.getValue()?.id
-          );
-        },
+      .then(() => {
+        this.router.navigate(['/app']);
+      })
+      .catch((error: Error) => {
+        this.toastService.toast$.next({
+          message: error.message,
+          isError: true,
+        });
+      })
+      .finally(() => {
+        this.form.reset();
+        this.isLoading.set(false);
       });
-
-    this.form.reset();
   }
 }

@@ -22,6 +22,7 @@ import { User } from '../user/user.model';
 import { LogoComponent } from '../../shared/logo/logo.component';
 import { InputCtrlComponent } from '../../shared/input-ctrl/input-ctrl.component';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-main-header',
@@ -38,6 +39,7 @@ import { RouterLink } from '@angular/router';
 })
 export class MainHeaderComponent implements OnInit {
   private store = inject(Store);
+  private authService = inject(AuthService);
   currentUser?: User;
 
   constructor(library: FaIconLibrary) {
@@ -58,5 +60,9 @@ export class MainHeaderComponent implements OnInit {
         this.currentUser = user;
       },
     });
+  }
+
+  onLogout() {
+    this.authService.logout();
   }
 }

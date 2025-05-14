@@ -5,7 +5,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CreatePostDialogComponent } from '../create-post-dialog/create-post-dialog.component';
 import { Post } from '../post/post.model';
-import { doc } from '@firebase/firestore';
 import { PostComponent } from '../post/post.component';
 import { PostsService } from '../post/posts.service';
 import { AuthService } from '../../auth/auth.service';
@@ -32,7 +31,7 @@ export class UserProfileComponent implements OnInit {
     });
 
     this.postsService
-      .getUserSpecificPosts(this.authService.user.getValue()!.id)
+      .getUserSpecificPosts(this.authService.currentUserId()!)
       .subscribe({
         next: (posts) => {
           this.posts = posts as Post[];

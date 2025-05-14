@@ -52,12 +52,12 @@ export class PostsService {
     const currentUserRef = doc(
       this.db,
       'users',
-      this.authService.user.getValue()!.id
+      this.authService.currentUserId()!
     );
     const userPostDoc = doc(
       this.db,
       'users',
-      this.authService.user.getValue()!.id,
+      this.authService.currentUserId()!,
       'posts',
       docRef.id
     );

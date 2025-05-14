@@ -161,51 +161,24 @@ export class SignupComponent {
 
     this.isLoading.set(true);
 
-    const subscribtion = this.authService
+    this.authService
       .signup(
         this.form.controls.email.value!,
-        this.form.controls.passwords.controls.password.value!
+        this.form.controls.passwords.controls.password.value!,
+        this.form.value
       )
-      .subscribe({
-        error: (error: Error) => {
-          this.toastService.toast$.next({
-            message: error.message,
-            isError: true,
-          });
-          this.isLoading.set(false);
-        },
-        complete: () => {
-          this.isLoading.set(false);
-          this.router.navigate(['/app']);
-
-          this.savingToDB(
-            this.form.value,
-            this.authService.user.getValue()?.id
-          );
-
-          this.form.reset();
-        },
+      .then(() => {
+        this.router.navigate(['/app']);
+      })
+      .catch((error: Error) => {
+        this.toastService.toast$.next({
+          message: error.message,
+          isError: true,
+        });
+      })
+      .finally(() => {
+        this.isLoading.set(false);
+        this.form.reset();
       });
-
-    this.destroyRef.onDestroy(() => {
-      subscribtion.unsubscribe();
-    });
-  }
-
-  private savingToDB(formValues: any, id?: string) {
-    if (id) {
-      this.userService.storeNewUser(
-        {
-          fName: formValues.fName!,
-          lName: formValues.lName!,
-          bio: 'Hi There! 👋🏻',
-          profileImage:
-            'https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png',
-          cover:
-            'https://www.suicidecallbackservice.org.au/wp-content/uploads/2018/03/Nature-as-a-healer-header-1600x1067.jpg',
-        },
-        id
-      );
-    }
   }
 }

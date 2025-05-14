@@ -1,142 +1,88 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
-import { UserAuthModel } from './user.model';
+import { inject, Injectable, signal } from '@angular/core';
 import { UserService } from '../main/user/user.service';
-
-export interface AuthResponseData {
-  idToken: string;
-  email: string;
-  refreshToken: string;
-  expiresIn: string;
-  localId: string;
-  registered: boolean;
-}
+import {
+  Auth,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+  User,
+} from '@angular/fire/auth';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private auth = inject(Auth);
   private userService = inject(UserService);
-  private httpClient = inject(HttpClient);
   private router = inject(Router);
-  private sessionTimeout: any;
-  user = new BehaviorSubject<UserAuthModel | null>(null);
+  currentUserId = signal<string | null | undefined>(undefined);
 
-  signup(email: string, password: string) {
-    return this.httpClient
-      .post<AuthResponseData>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCLhIq5-sFP3PUsq8D86E7UaezAolHq1XQ',
-        {
-          email,
-          password,
-          returnSecureToken: true,
-        }
-      )
-      .pipe(
-        tap((responseData) => {
-          this.holdUser(responseData);
-        }),
-        catchError(this.handleError)
-      );
+  constructor() {
+    onAuthStateChanged(this.auth, (user: User | null) => {
+      if (user) {
+        this.currentUserId.set(user.uid);
+        this.userService.getLoggedInUser(user.uid);
+      } else {
+        this.currentUserId.set(null);
+      }
+    });
+  }
+
+  signup(email: string, password: string, formValues: any) {
+    return createUserWithEmailAndPassword(this.auth, email, password)
+      .then((userCredential) => {
+        this.saveUserToFirestore(formValues, userCredential.user.uid);
+      })
+      .catch(this.handleError);
   }
 
   login(email: string, password: string) {
-    return this.httpClient
-      .post<AuthResponseData>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCLhIq5-sFP3PUsq8D86E7UaezAolHq1XQ',
-        {
-          email,
-          password,
-          returnSecureToken: true,
-        }
-      )
-      .pipe(
-        catchError(this.handleError),
-        tap((responseData) => {
-          this.holdUser(responseData);
-        })
-      );
+    return signInWithEmailAndPassword(this.auth, email, password).catch(
+      this.handleError
+    );
   }
 
   logout() {
-    this.user.next(null);
-    this.router.navigate(['/auth']);
-    localStorage.removeItem('userData');
-
-    if (this.sessionTimeout) clearTimeout(this.sessionTimeout);
-
-    this.sessionTimeout = null;
+    signOut(this.auth).then(() => {
+      this.router.navigate(['/auth']);
+    });
   }
 
-  autoLogin() {
-    const userData = localStorage.getItem('userData');
-
-    if (!userData) return;
-
-    const userObj = JSON.parse(userData);
-
-    const loadedUser: UserAuthModel = new UserAuthModel(
-      userObj.email,
-      userObj.id,
-      userObj._token,
-      userObj._tokenExpirationDate
-    );
-
-    if (loadedUser.token) {
-      this.user.next(loadedUser);
-      this.userService.getLoggedInUser(loadedUser.id);
-    }
-
-    this.autoLogout(
-      new Date(userObj._tokenExpirationDate).getTime() - new Date().getTime()
+  private saveUserToFirestore(formValues: any, id: string) {
+    this.userService.storeNewUser(
+      {
+        fName: formValues.fName!,
+        lName: formValues.lName!,
+        bio: 'Hi There! 👋🏻',
+        profileImage:
+          'https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png',
+        cover:
+          'https://www.suicidecallbackservice.org.au/wp-content/uploads/2018/03/Nature-as-a-healer-header-1600x1067.jpg',
+      },
+      id
     );
   }
 
-  autoLogout(tokenExpirationDuration: number) {
-    this.sessionTimeout = setTimeout(() => {
-      this.logout();
-    }, tokenExpirationDuration);
-  }
-
-  private holdUser(responseData: AuthResponseData) {
-    const expirationDate = new Date(
-      new Date().getTime() + +responseData.expiresIn * 1000
-    );
-    const user = new UserAuthModel(
-      responseData.email,
-      responseData.localId,
-      responseData.idToken,
-      expirationDate
-    );
-
-    this.user.next(user);
-    localStorage.setItem('userData', JSON.stringify(user));
-    this.autoLogout(+responseData.expiresIn * 1000);
-  }
-
-  private handleError(error: HttpErrorResponse) {
+  private handleError(error: any) {
     let message = 'An unknown error occurred!';
-
-    if (!error.error || !error.error.error)
-      return throwError(() => new Error(message));
-
-    switch (error.error.error.message) {
-      case 'EMAIL_EXISTS':
-        message = 'This email address is already in use by another account.';
-        break;
-      case 'TOO_MANY_ATTEMPTS_TRY_LATER':
-        message =
-          'We have blocked all requests from this device due to unusual activity. Try again later.';
-        break;
-      case 'INVALID_LOGIN_CREDENTIALS':
-        message =
-          'The email, password, or both are incorrect. Or The user may have been deleted.';
-        break;
-      case 'USER_DISABLED:':
-        message = 'The user account has been disabled by an administrator.';
+    if (error.code) {
+      switch (error.code) {
+        case 'auth/email-already-in-use':
+          message = 'This email address is already in use.';
+          break;
+        case 'auth/too-many-requests':
+          message = 'Too many requests. Try again later.';
+          break;
+        case 'auth/invalid-credential':
+          message = 'Invalid email or password.';
+          break;
+        case 'auth/user-disabled':
+          message = 'This user account has been disabled.';
+          break;
+      }
     }
-    return throwError(() => new Error(message));
+    throw new Error(message);
   }
 }

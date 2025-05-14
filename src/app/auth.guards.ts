@@ -1,10 +1,17 @@
 import { inject } from '@angular/core';
-import { CanMatchFn, RedirectCommand, Router } from '@angular/router';
-import { AuthService } from './auth/auth.service';
+import { CanMatchFn, Router } from '@angular/router';
+import { Auth, User } from '@angular/fire/auth';
 
-export const authGuard: CanMatchFn = () => {
-  const user = inject(AuthService).user.getValue();
+export const authGuard: CanMatchFn = async () => {
+  const auth = inject(Auth);
   const router = inject(Router);
 
-  return user ? true : new RedirectCommand(router.parseUrl('/auth'));
+  const user = await new Promise<User | null>((resolve) => {
+    const unsub = auth.onAuthStateChanged((user) => {
+      unsub();
+      resolve(user);
+    });
+  });
+
+  return user ? true : router.parseUrl('/auth');
 };
