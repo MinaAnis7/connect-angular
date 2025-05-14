@@ -1,4 +1,11 @@
-import { Component, inject, input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+  OnInit,
+  signal,
+} from '@angular/core';
 import type { User } from '../user/user.model';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -13,31 +20,32 @@ import { UserService } from '../user/user.service';
   imports: [MatIconModule, MatDialogModule, PostComponent],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserProfileComponent implements OnInit {
   private userService = inject(UserService);
   private postsService = inject(PostsService);
   private readonly dialog = inject(MatDialog);
   uid = input.required<string>();
-  user?: User;
-  posts?: Post[];
+  user = signal<User | undefined>(undefined);
+  posts = signal<Post[] | undefined>(undefined);
 
   ngOnInit(): void {
     this.userService.getUserById(this.uid()).subscribe({
       next: (userData) => {
-        this.user = userData as User;
+        this.user.set(userData as User);
       },
     });
 
     this.postsService.getUserSpecificPosts(this.uid()).subscribe({
       next: (posts) => {
-        this.posts = posts as Post[];
+        this.posts.set(posts as Post[]);
       },
     });
   }
 
   get userFullName() {
-    return this.user?.fName + ' ' + this.user?.lName;
+    return this.user()?.fName + ' ' + this.user()?.lName;
   }
 
   openCreatePostDialog() {

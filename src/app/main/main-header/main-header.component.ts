@@ -56,7 +56,6 @@ export class MainHeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.currectId());
     this.store.select('currentUser').subscribe({
       next: (user) => {
         this.currentUser = user;

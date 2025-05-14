@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, inject, input, OnInit } from '@angular/core';
+import { Component, inject, input, OnInit, signal } from '@angular/core';
 import {
   FaIconLibrary,
   FontAwesomeModule,
@@ -22,7 +22,7 @@ import { UserService } from '../user/user.service';
 })
 export class PostComponent implements OnInit {
   post = input.required<Post>();
-  author?: User;
+  author = signal<User | undefined>(undefined);
   private userService = inject(UserService);
 
   constructor(library: FaIconLibrary) {
@@ -32,12 +32,12 @@ export class PostComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getPostAuthor(this.post().author).subscribe({
       next: (author) => {
-        this.author = author as User;
+        this.author.set(author as User);
       },
     });
   }
 
   get authorName() {
-    return `${this.author?.fName} ${this.author?.lName}`;
+    return `${this.author()?.fName} ${this.author()?.lName}`;
   }
 }

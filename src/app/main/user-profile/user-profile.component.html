@@ -2,31 +2,42 @@
   <div class="info bg-white mb-3 rounded-bottom-4">
     <div class="user-imgs position-relative">
       <div class="cover">
-        <img [src]="user?.cover" alt="Profile Cover" />
+        <img [src]="user()?.cover" alt="Profile Cover" />
       </div>
       <div class="profile-pic position-absolute bottom-0 rounded-circle">
-        <img [src]="user?.profileImage" alt="Profile Picture" class="d-block" />
+        <img
+          [src]="user()?.profileImage"
+          alt="Profile Picture"
+          class="d-block"
+        />
       </div>
     </div>
-    <div class="texual-info d-flex">
-      <div class="name-connects">
-        <div class="h2">{{ userFullName }}</div>
-        <a class="connects-num d-inline-block text-decoration-none"
-          >0 Connections</a
-        >
+    <div class="texual-info">
+      <div class="d-flex">
+        <div class="name-connects">
+          <div class="h2">{{ userFullName }}</div>
+          <a class="connects-num d-inline-block text-decoration-none"
+            >0 Connections</a
+          >
+        </div>
+        <button class="edit-btn align-self-end btn rounded-3 ms-auto">
+          Edit Profile
+        </button>
       </div>
-      <button class="edit-btn align-self-end btn rounded-3 ms-auto">
-        Edit Profile
-      </button>
+      <div class="bio-mobile d-lg-none mt-5">
+        <hr class="devider mb-3" />
+        <h3>Bio</h3>
+        <p class="mb-0">{{ user()?.bio }}</p>
+      </div>
     </div>
   </div>
 
-  <div class="bio d-inline-block bg-white rounded-4 p-3">
+  <div class="bio d-none d-lg-inline-block bg-white rounded-4 p-3">
     <h3>Bio</h3>
-    <p>{{ user?.bio }}</p>
+    <p>{{ user()?.bio }}</p>
   </div>
 
-  <div class="posts d-inline-block p-3 align-top">
+  <div class="posts d-inline-block ps-lg-3 pt-3 align-top">
     <div class="d-flex justify-content-center align-items-center mb-3">
       <h3>Posts</h3>
       <button
@@ -40,7 +51,7 @@
       </button>
     </div>
 
-    @for (post of posts; track $index) {
+    @for (post of posts(); track $index) {
     <app-post [post]="post" class="mb-3" />
     }
   </div>
