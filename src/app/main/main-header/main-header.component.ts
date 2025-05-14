@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import {
   FaIconLibrary,
   FontAwesomeModule,
@@ -40,6 +40,7 @@ import { AuthService } from '../../auth/auth.service';
 export class MainHeaderComponent implements OnInit {
   private store = inject(Store);
   private authService = inject(AuthService);
+  currectId = computed(() => this.authService.currentUserId());
   currentUser?: User;
 
   constructor(library: FaIconLibrary) {
@@ -55,6 +56,7 @@ export class MainHeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.currectId());
     this.store.select('currentUser').subscribe({
       next: (user) => {
         this.currentUser = user;

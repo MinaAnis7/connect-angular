@@ -40,7 +40,7 @@ export const routes: Routes = [
         ],
       },
       {
-        path: 'profile',
+        path: 'profile/:uid',
         component: UserProfileComponent,
       },
     ],

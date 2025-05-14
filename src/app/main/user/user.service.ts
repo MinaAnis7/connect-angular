@@ -54,4 +54,9 @@ export class UserService {
   getPostAuthor(docRef: DocumentReference) {
     return docData(docRef);
   }
+
+  getUserById(id: string) {
+    const docRef = doc(this.db, 'users', id);
+    return docData(docRef);
+  }
 }

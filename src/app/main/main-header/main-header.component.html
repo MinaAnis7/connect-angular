@@ -21,7 +21,7 @@
             class="dropdown-item"
             href="#"
             ngbDropdownItem
-            routerLink="profile"
+            [routerLink]="['profile', currectId()]"
           >
             <fa-icon [icon]="['far', 'user-circle']" class="me-2" />
             <span>View Profile</span>
@@ -94,7 +94,7 @@
                 class="dropdown-item"
                 href="#"
                 ngbDropdownItem
-                routerLink="profile"
+                [routerLink]="['profile', currectId()]"
               >
                 <fa-icon [icon]="['far', 'user-circle']" class="me-2" />
                 <span>View Profile</span>
