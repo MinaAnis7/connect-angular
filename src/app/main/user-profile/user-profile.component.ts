@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   inject,
   input,
   OnInit,
@@ -14,6 +15,7 @@ import { Post } from '../post/post.model';
 import { PostComponent } from '../post/post.component';
 import { PostsService } from '../post/posts.service';
 import { UserService } from '../user/user.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -26,9 +28,14 @@ export class UserProfileComponent implements OnInit {
   private userService = inject(UserService);
   private postsService = inject(PostsService);
   private readonly dialog = inject(MatDialog);
+  private authService = inject(AuthService);
   uid = input.required<string>();
   user = signal<User | undefined>(undefined);
   posts = signal<Post[] | undefined>(undefined);
+
+  isUserOwnProfile = computed(
+    () => this.authService.currentUserId() === this.uid()
+  );
 
   ngOnInit(): void {
     this.userService.getUserById(this.uid()).subscribe({

@@ -191,6 +191,11 @@
   animation: penShake 0.5s;
 }
 
+.connect-btn {
+  /* font-family: "Pacifico", cursive; */
+  font-weight: 500;
+}
+
 @keyframes penShake {
   0% {
     transform: rotate(0deg);

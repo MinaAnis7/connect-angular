@@ -1,5 +1,12 @@
 import { DatePipe } from '@angular/common';
-import { Component, inject, input, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  input,
+  OnInit,
+  signal,
+} from '@angular/core';
 import {
   FaIconLibrary,
   FontAwesomeModule,
@@ -13,16 +20,20 @@ import { ReadMoreComponent } from '../../shared/read-more/read-more.component';
 import { Post } from './post.model';
 import { User } from '../user/user.model';
 import { UserService } from '../user/user.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-post',
-  imports: [DatePipe, FontAwesomeModule, ReadMoreComponent],
+  imports: [DatePipe, FontAwesomeModule, ReadMoreComponent, RouterLink],
   templateUrl: './post.component.html',
   styleUrl: './post.component.css',
 })
 export class PostComponent implements OnInit {
   post = input.required<Post>();
   author = signal<User | undefined>(undefined);
+  authorName = computed(
+    () => `${this.author()?.fName} ${this.author()?.lName}`
+  );
   private userService = inject(UserService);
 
   constructor(library: FaIconLibrary) {
@@ -35,9 +46,5 @@ export class PostComponent implements OnInit {
         this.author.set(author as User);
       },
     });
-  }
-
-  get authorName() {
-    return `${this.author()?.fName} ${this.author()?.lName}`;
   }
 }

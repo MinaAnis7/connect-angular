@@ -84,6 +84,7 @@ export class PostsService {
           return {
             ...post,
             date: post['date']?.toDate(),
+            id: post['id']?.id,
           };
         });
       })

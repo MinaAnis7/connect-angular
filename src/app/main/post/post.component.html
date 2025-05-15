@@ -1,15 +1,20 @@
 <div class="bg-white p-3 rounded-3">
   <div class="author-info d-flex align-items-center">
-    <img
-      [src]="author()?.profileImage"
-      alt="Author Image"
-      class="author-img rounded-circle me-3"
-    />
+    <a [routerLink]="['/app/profile', post().author.id]">
+      <img
+        [src]="author()?.profileImage"
+        alt="Author Image"
+        class="author-img rounded-circle me-3"
+      />
+    </a>
 
     <div>
-      <span class="name d-block">
-        {{ authorName }}
-      </span>
+      <a
+        class="name d-inline-block link-dark text-decoration-none"
+        [routerLink]="['/app/profile', post().author.id]"
+      >
+        {{ authorName() }}
+      </a>
       <span class="date d-block">
         {{ post().date | date : "MMM, d, y, h:mm a" }}
       </span>

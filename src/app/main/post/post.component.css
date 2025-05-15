@@ -5,11 +5,17 @@
 .author-img {
   width: 48px;
   height: 48px;
+  cursor: pointer;
 }
 
 .name {
   font-size: 14px;
   font-weight: 500;
+  cursor: pointer;
+}
+
+.name:hover {
+  text-decoration: underline !important;
 }
 
 .date {

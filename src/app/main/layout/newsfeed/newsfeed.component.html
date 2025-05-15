@@ -13,8 +13,8 @@
   </div>
 
   <div class="newsfeed-posts">
-    @for (post of posts(); track $index) {
-    <app-post [post]="post" />
+    @for (postData of posts(); track postData.id) {
+    <app-post [post]="postData" />
     }
   </div>
 </div>

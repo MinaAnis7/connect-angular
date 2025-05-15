@@ -37,10 +37,15 @@
 .dd-menu {
   transform: translateX(calc(-100% + 46px));
 }
+
 @media (min-width: 576px) {
   .dd-menu {
     transform: translateX(calc(-100% + 57px));
   }
+}
+
+.dd-menu li a {
+  cursor: pointer;
 }
 
 .dd-menu fa-icon,

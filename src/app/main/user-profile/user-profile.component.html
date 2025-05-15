@@ -20,9 +20,18 @@
             >0 Connections</a
           >
         </div>
+        @if (isUserOwnProfile()) {
         <button class="edit-btn align-self-end btn rounded-3 ms-auto">
           Edit Profile
         </button>
+        } @else {
+        <button
+          class="connect-btn edit-btn align-self-end btn rounded-3 ms-auto d-flex align-items-center gap-2"
+        >
+          <mat-icon> person_add </mat-icon>
+          Connect
+        </button>
+        }
       </div>
       <div class="bio-mobile d-lg-none mt-5">
         <hr class="devider mb-3" />
