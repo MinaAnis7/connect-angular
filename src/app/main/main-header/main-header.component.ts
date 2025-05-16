@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import {
   FaIconLibrary,
   FontAwesomeModule,
@@ -18,12 +18,13 @@ import {
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatIconModule } from '@angular/material/icon';
 import { Store } from '@ngrx/store';
-import { User } from '../user/user.model';
+import type { User } from '../user/user.model';
 import { LogoComponent } from '../../shared/logo/logo.component';
 import { InputCtrlComponent } from '../../shared/input-ctrl/input-ctrl.component';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import { NotificationsComponent } from './notifications/notifications.component';
+import { NotificationsService } from './notifications/notifications.service';
 
 @Component({
   selector: 'app-main-header',
@@ -42,7 +43,11 @@ import { NotificationsComponent } from './notifications/notifications.component'
 export class MainHeaderComponent implements OnInit {
   private store = inject(Store);
   private authService = inject(AuthService);
-  newFriendRequests = false;
+  private notificationsService = inject(NotificationsService);
+  newfriendReqsNum = signal<number | undefined>(undefined);
+  friendReqs = signal<{ id: string; from: User; userId: string }[] | undefined>(
+    undefined
+  );
   hasOpenedFriendReqNotifications = false;
   hasOpenedNotifications = false;
   currectId = computed(() => this.authService.currentUserId());
@@ -66,6 +71,15 @@ export class MainHeaderComponent implements OnInit {
         this.currentUser = user;
       },
     });
+
+    this.notificationsService.getFriendRequests().subscribe({
+      next: (reqs) => {
+        this.friendReqs.set(reqs);
+        if (reqs.length > 0) {
+          this.newfriendReqsNum.set(reqs.length);
+        }
+      },
+    });
   }
 
   onLogout() {
@@ -81,9 +95,5 @@ export class MainHeaderComponent implements OnInit {
   onToggleNotifications() {
     this.hasOpenedFriendReqNotifications = false;
     this.hasOpenedNotifications = !this.hasOpenedNotifications;
-  }
-
-  onNewFriendRequests() {
-    this.newFriendRequests = true;
   }
 }

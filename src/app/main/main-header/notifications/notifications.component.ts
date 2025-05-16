@@ -1,15 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
   inject,
   input,
-  OnInit,
-  Output,
-  signal,
 } from '@angular/core';
 import type { User } from '../../user/user.model';
-import { NotificationsService } from './notifications.service';
+import { ConnectionsService } from '../../services/connections.service';
+import { ToastService } from '../../../shared/toast-container/toast.service';
 
 @Component({
   selector: 'app-notifications',
@@ -21,19 +18,28 @@ import { NotificationsService } from './notifications.service';
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NotificationsComponent implements OnInit {
-  @Output() friendRequestsReceived = new EventEmitter<void>();
-  private notificationsService = inject(NotificationsService);
+export class NotificationsComponent {
+  private connectionsService = inject(ConnectionsService);
+  private toastService = inject(ToastService);
   isFriendRequest = input.required<boolean>();
-  friendRequests = signal<{ id: string; from: User }[] | undefined>(undefined);
+  friendRequests = input.required<
+    { id: string; from: User; userId: string }[] | undefined
+  >();
 
-  ngOnInit(): void {
-    this.notificationsService.getFriendRequests().then((reqs) => {
-      this.friendRequests.set(reqs);
-
-      if (reqs.length > 0) {
-        this.friendRequestsReceived.emit();
-      }
-    });
+  onAcceptRequest(fromId: string, notificationId: string) {
+    this.connectionsService
+      .acceptConnectionRequest(fromId, notificationId)
+      .then(() => {
+        this.toastService.toast$.next({
+          message: 'Request has been accepted successfully',
+          isError: false,
+        });
+      })
+      .catch(() => {
+        this.toastService.toast$.next({
+          message: 'Error happened while accepting the request',
+          isError: true,
+        });
+      });
   }
 }

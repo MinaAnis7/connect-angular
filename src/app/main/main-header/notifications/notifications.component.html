@@ -16,9 +16,19 @@
       class="rounded-circle"
     />
 
-    <span class="text">
+    <span class="info">
       <b>{{ request.from.fName + " " + request.from.lName }}</b>
       <span> Sent to you a Friend Request </span>
+
+      <div class="actions mt-1">
+        <button
+          class="acc-btn btn me-1"
+          (click)="onAcceptRequest(request.userId, request.id)"
+        >
+          Accept
+        </button>
+        <button class="dec-btn btn">Decline</button>
+      </div>
     </span>
   </li>
 

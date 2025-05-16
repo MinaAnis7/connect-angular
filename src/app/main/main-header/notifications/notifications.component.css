@@ -9,7 +9,7 @@
   background-color: white;
   width: calc(100% - 2rem);
   max-height: calc(100vh - 12rem);
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 @media (min-width: 576px) {
@@ -39,7 +39,33 @@ h3 {
   height: 50px;
 }
 
-.notifications .text {
+.notifications .info {
   margin-left: 10px;
   font-size: 14px;
+}
+
+.actions button {
+  font-size: 12px;
+  color: white;
+  font-weight: 500;
+}
+
+.acc-btn {
+  background-color: var(--primary-color);
+}
+.acc-btn:hover {
+  background-color: var(--primary-hover-color);
+}
+.acc-btn:active {
+  background-color: var(--primary-active-color);
+}
+
+.dec-btn {
+  background-color: var(--error-color);
+}
+.dec-btn:hover {
+  background-color: #e34b3f;
+}
+.dec-btn:active {
+  background-color: #bf281f;
 }

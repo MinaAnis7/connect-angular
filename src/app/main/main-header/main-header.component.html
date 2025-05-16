@@ -67,8 +67,12 @@
               [class.active]="hasOpenedFriendReqNotifications"
               (click)="onToggleFriendReqNotifications()"
             />
-            @if (newFriendRequests) {
-            <span class="new-notifications"></span>
+            @if (newfriendReqsNum()) {
+            <span
+              class="new-notifications position-absolute translate-middle badge rounded-pill"
+            >
+              {{ newfriendReqsNum() }}
+            </span>
             }
           </a>
         </li>
@@ -135,11 +139,8 @@
     </div>
   </div>
   @if (hasOpenedNotifications) {
-  <app-notifications
-    [isFriendRequest]="false"
-    (friendRequestsReceived)="onNewFriendRequests()"
-  />
+  <!-- <app-notifications [isFriendRequest]="false" /> -->
   } @if (hasOpenedFriendReqNotifications) {
-  <app-notifications [isFriendRequest]="true" />
+  <app-notifications [isFriendRequest]="true" [friendRequests]="friendReqs()" />
   }
 </nav>

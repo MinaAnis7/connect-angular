@@ -62,10 +62,7 @@
 }
 
 .new-notifications {
-  position: absolute;
-  width: 3px;
-  height: 3px;
+  font-size: 8px;
+  top: 10px;
   background-color: var(--primary-color);
-  top: 0;
-  right: 0;
 }
