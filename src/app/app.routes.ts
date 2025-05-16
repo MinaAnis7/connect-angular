@@ -6,6 +6,7 @@ import { UserProfileComponent } from './main/user-profile/user-profile.component
 import { MainComponent } from './main/main.component';
 import { LayoutComponent } from './main/layout/layout.component';
 import { NewsfeedComponent } from './main/layout/newsfeed/newsfeed.component';
+import { FriendsComponent } from './main/layout/friends/friends.component';
 
 export const routes: Routes = [
   {
@@ -36,6 +37,10 @@ export const routes: Routes = [
           {
             path: 'newsfeed',
             component: NewsfeedComponent,
+          },
+          {
+            path: 'friends',
+            component: FriendsComponent,
           },
         ],
       },

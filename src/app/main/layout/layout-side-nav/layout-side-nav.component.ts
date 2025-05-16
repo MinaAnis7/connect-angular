@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import {
   FaIconLibrary,
   FontAwesomeModule,
@@ -8,7 +9,7 @@ import { faNewspaper } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-layout-side-nav',
-  imports: [MatIconModule, FontAwesomeModule],
+  imports: [MatIconModule, FontAwesomeModule, RouterLink, RouterLinkActive],
   templateUrl: './layout-side-nav.component.html',
   styleUrl: './layout-side-nav.component.css',
 })

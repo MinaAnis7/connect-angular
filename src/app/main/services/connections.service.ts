@@ -2,12 +2,16 @@ import { inject, Injectable } from '@angular/core';
 import {
   addDoc,
   collection,
+  collectionData,
   deleteDoc,
   doc,
   Firestore,
+  getDoc,
   setDoc,
 } from '@angular/fire/firestore';
 import { AuthService } from '../../auth/auth.service';
+import { of, switchMap } from 'rxjs';
+import type { User } from '../user/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class ConnectionsService {
@@ -56,5 +60,31 @@ export class ConnectionsService {
     await setDoc(currentUserDoc, {});
 
     return deleteDoc(notificationDoc);
+  }
+
+  getAllConnections() {
+    return collectionData(
+      collection(
+        this.db,
+        'users',
+        this.authService.currentUserId()!,
+        'connections'
+      ),
+      { idField: 'id' }
+    ).pipe(
+      switchMap((connections) => {
+        if (connections.length === 0) return of([]);
+        return Promise.all(
+          connections.map(async (friend) => {
+            const snapShot = await getDoc(doc(this.db, 'users', friend.id));
+
+            return {
+              id: snapShot.id,
+              ...snapShot.data(),
+            } as User;
+          })
+        );
+      })
+    );
   }
 }
