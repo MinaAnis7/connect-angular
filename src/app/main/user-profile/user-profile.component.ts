@@ -16,6 +16,8 @@ import { PostComponent } from '../post/post.component';
 import { PostsService } from '../post/posts.service';
 import { UserService } from '../user/user.service';
 import { AuthService } from '../../auth/auth.service';
+import { ConnectionsService } from '../services/connections.service';
+import { ToastService } from '../../shared/toast-container/toast.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -29,6 +31,8 @@ export class UserProfileComponent implements OnInit {
   private postsService = inject(PostsService);
   private readonly dialog = inject(MatDialog);
   private authService = inject(AuthService);
+  private connectionService = inject(ConnectionsService);
+  private toastService = inject(ToastService);
   uid = input.required<string>();
   user = signal<User | undefined>(undefined);
   posts = signal<Post[] | undefined>(undefined);
@@ -57,5 +61,22 @@ export class UserProfileComponent implements OnInit {
 
   openCreatePostDialog() {
     this.dialog.open(CreatePostDialogComponent);
+  }
+
+  onSendConnectionRequest() {
+    this.connectionService
+      .sendConnectionRequest(this.authService.currentUserId()!, this.uid())
+      .then(() => {
+        this.toastService.toast$.next({
+          message: 'Connection Request has been sent successfully. ✅',
+          isError: false,
+        });
+      })
+      .catch(() => {
+        this.toastService.toast$.next({
+          message: 'Error happened while sending the connection request!',
+          isError: true,
+        });
+      });
   }
 }

@@ -1,0 +1,29 @@
+<div class="mb-3 d-flex justify-content-between align-items-center">
+  <h3>
+    {{ isFriendRequest() ? "Friend Requests" : "Notifications" }}
+  </h3>
+
+  <a class="clear-btn"> Clear </a>
+</div>
+
+@if (isFriendRequest()) {
+<ul class="notifications list-group">
+  @for (request of friendRequests(); track request.id) {
+  <li class="list-group-item px-0 border-0 d-flex align-items-center">
+    <img
+      [src]="request.from.profileImage"
+      alt="User Image"
+      class="rounded-circle"
+    />
+
+    <span class="text">
+      <b>{{ request.from.fName + " " + request.from.lName }}</b>
+      <span> Sent to you a Friend Request </span>
+    </span>
+  </li>
+
+  @if (!$last) {
+  <hr class="devider my-2" />
+  } }
+</ul>
+}

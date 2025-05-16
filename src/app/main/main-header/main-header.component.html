@@ -60,8 +60,16 @@
         class="navbar-nav flex-row justify-content-around align-items-center column-gap-1 mb-2 mb-sm-0"
       >
         <li class="nav-item">
-          <a class="nav-link">
-            <fa-icon [icon]="['far', 'user']" class="icon" />
+          <a class="nav-link position-relative">
+            <fa-icon
+              [icon]="['far', 'user']"
+              class="icon"
+              [class.active]="hasOpenedFriendReqNotifications"
+              (click)="onToggleFriendReqNotifications()"
+            />
+            @if (newFriendRequests) {
+            <span class="new-notifications"></span>
+            }
           </a>
         </li>
         <li class="nav-item">
@@ -71,7 +79,12 @@
         </li>
         <li class="nav-item">
           <a class="nav-link">
-            <fa-icon [icon]="['far', 'bell']" class="icon" />
+            <fa-icon
+              [icon]="['far', 'bell']"
+              class="icon"
+              [class.active]="hasOpenedNotifications"
+              (click)="onToggleNotifications()"
+            />
           </a>
         </li>
         <li class="nav-item dropdown d-none d-sm-block" ngbDropdown>
@@ -121,4 +134,12 @@
       </ul>
     </div>
   </div>
+  @if (hasOpenedNotifications) {
+  <app-notifications
+    [isFriendRequest]="false"
+    (friendRequestsReceived)="onNewFriendRequests()"
+  />
+  } @if (hasOpenedFriendReqNotifications) {
+  <app-notifications [isFriendRequest]="true" />
+  }
 </nav>

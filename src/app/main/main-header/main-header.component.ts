@@ -23,6 +23,7 @@ import { LogoComponent } from '../../shared/logo/logo.component';
 import { InputCtrlComponent } from '../../shared/input-ctrl/input-ctrl.component';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 @Component({
   selector: 'app-main-header',
@@ -33,6 +34,7 @@ import { AuthService } from '../../auth/auth.service';
     MatIconModule,
     InputCtrlComponent,
     RouterLink,
+    NotificationsComponent,
   ],
   templateUrl: './main-header.component.html',
   styleUrl: './main-header.component.css',
@@ -40,6 +42,9 @@ import { AuthService } from '../../auth/auth.service';
 export class MainHeaderComponent implements OnInit {
   private store = inject(Store);
   private authService = inject(AuthService);
+  newFriendRequests = false;
+  hasOpenedFriendReqNotifications = false;
+  hasOpenedNotifications = false;
   currectId = computed(() => this.authService.currentUserId());
   currentUser?: User;
 
@@ -65,5 +70,20 @@ export class MainHeaderComponent implements OnInit {
 
   onLogout() {
     this.authService.logout();
+  }
+
+  onToggleFriendReqNotifications() {
+    this.hasOpenedNotifications = false;
+    this.hasOpenedFriendReqNotifications =
+      !this.hasOpenedFriendReqNotifications;
+  }
+
+  onToggleNotifications() {
+    this.hasOpenedFriendReqNotifications = false;
+    this.hasOpenedNotifications = !this.hasOpenedNotifications;
+  }
+
+  onNewFriendRequests() {
+    this.newFriendRequests = true;
   }
 }

@@ -17,6 +17,10 @@
   transition: color var(--transition);
 }
 
+.active {
+  color: #333;
+}
+
 .icon:hover {
   color: #333;
 }
@@ -51,4 +55,17 @@
 .dd-menu fa-icon,
 .dd-menu span {
   font-size: 15px;
+}
+
+.nav-link fa-icon {
+  cursor: pointer;
+}
+
+.new-notifications {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background-color: var(--primary-color);
+  top: 0;
+  right: 0;
 }
