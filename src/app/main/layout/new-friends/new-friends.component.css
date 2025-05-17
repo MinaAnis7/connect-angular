@@ -3,36 +3,37 @@
   padding: 1rem 1.5rem;
 }
 
-.heading {
+h2 {
   font-size: 1.3rem;
 }
 
-.friends {
+.new-friends {
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
 
-.actions a {
+.actions * {
   font-size: 14px;
 }
 
-.actions a:first-child {
+.actions button {
   background-color: var(--primary-color);
   color: white;
 }
-.actions a:first-child:hover {
+.actions button:hover {
   background-color: var(--primary-hover-color);
 }
-.actions a:first-child:active {
+.actions button:active {
   background-color: var(--primary-active-color);
 }
-.actions a:last-child {
+
+.actions a {
   background-color: #ddd;
 }
-.actions a:last-child:hover {
+.actions a:hover {
   background-color: #e8e3e3;
 }
-.actions a:last-child:active {
+.actions a:active {
   background-color: #ccc;
 }

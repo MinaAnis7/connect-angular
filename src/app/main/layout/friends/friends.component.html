@@ -1,1 +1,17 @@
 <h2 class="heading">Friends</h2>
+
+<div class="friends mt-3">
+  @for (friend of friends(); track friend.id) {
+  <div class="card shadow-sm">
+    <img [src]="friend.profileImage" class="card-img-top" alt="Profile Image" />
+    <div class="card-body">
+      <h5 class="card-title">{{ friend.fName + " " + friend.lName }}</h5>
+
+      <div class="actions mt-3">
+        <a class="btn d-block mb-2 border-0"> Message </a>
+        <a class="btn d-block border-0"> View Profile </a>
+      </div>
+    </div>
+  </div>
+  }
+</div>

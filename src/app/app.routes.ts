@@ -7,6 +7,7 @@ import { MainComponent } from './main/main.component';
 import { LayoutComponent } from './main/layout/layout.component';
 import { NewsfeedComponent } from './main/layout/newsfeed/newsfeed.component';
 import { FriendsComponent } from './main/layout/friends/friends.component';
+import { NewFriendsComponent } from './main/layout/new-friends/new-friends.component';
 
 export const routes: Routes = [
   {
@@ -41,6 +42,10 @@ export const routes: Routes = [
           {
             path: 'friends',
             component: FriendsComponent,
+          },
+          {
+            path: 'new-friends',
+            component: NewFriendsComponent,
           },
         ],
       },

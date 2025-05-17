@@ -1,0 +1,17 @@
+<h2>Add New Friends</h2>
+
+<div class="new-friends mt-3">
+  @for (user of possibleNewFriends(); track user.id) {
+  <div class="card shadow-sm">
+    <img [src]="user.profileImage" class="card-img-top" alt="Profile Image" />
+    <div class="card-body">
+      <h5 class="card-title">{{ user.fName + " " + user.lName }}</h5>
+
+      <div class="actions mt-3">
+        <button class="btn d-block w-100 mb-2 border-0">Connect</button>
+        <a class="btn d-block border-0"> View Profile </a>
+      </div>
+    </div>
+  </div>
+  }
+</div>

@@ -1,5 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import {
+  collection,
+  collectionData,
   doc,
   docData,
   DocumentReference,
@@ -58,5 +60,9 @@ export class UserService {
   getUserById(id: string) {
     const docRef = doc(this.db, 'users', id);
     return docData(docRef);
+  }
+
+  getAllUsers() {
+    return collectionData(collection(this.db, 'users'), { idField: 'id' });
   }
 }
