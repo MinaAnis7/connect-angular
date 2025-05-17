@@ -8,10 +8,24 @@
       <h5 class="card-title">{{ user.fName + " " + user.lName }}</h5>
 
       <div class="actions mt-3">
-        <button class="btn d-block w-100 mb-2 border-0">Connect</button>
-        <a class="btn d-block border-0"> View Profile </a>
+        <button
+          class="btn d-block w-100 mb-2 border-0"
+          (click)="onSendConnection(user.id)"
+        >
+          Connect
+        </button>
+        <a
+          class="btn d-block border-0"
+          [routerLink]="['/app', 'profile', user.id]"
+        >
+          View Profile
+        </a>
       </div>
     </div>
   </div>
+  } @empty {
+  <p class="fallback-text" style="grid-column: 1/-1">
+    No new recommended friends
+  </p>
   }
 </div>

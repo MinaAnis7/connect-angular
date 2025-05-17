@@ -10,13 +10,17 @@
 <div>
   <h6 class="heading text-uppercase py-3">friends</h6>
   <ul class="list-group">
-    @for (friend of friends(); track friend.id) {
+    @if(friends()) { @for (friend of friends(); track friend.id) {
     <li
       class="list-group-item list-group-item-action rounded-3 border-0 d-flex align-items-center"
     >
       <img [src]="friend.profileImage" alt="Friend Name" class="me-2" />
       <span> {{ friend.fName + " " + friend.lName }} </span>
     </li>
-    }
+    }@empty {
+    <p class="fallback-text">
+      Looks like you haven’t made any friends yet — why not start now?
+    </p>
+    } }
   </ul>
 </div>

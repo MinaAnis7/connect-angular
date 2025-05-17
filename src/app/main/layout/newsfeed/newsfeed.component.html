@@ -13,8 +13,12 @@
   </div>
 
   <div class="newsfeed-posts">
-    @for (postData of posts(); track postData.id) {
+    @if (posts()) { @for (postData of posts(); track postData.id) {
     <app-post [post]="postData" />
+    } @empty {
+    <p class="fallback-text">There are no posts yet.</p>
+    } }@else {
+    <app-loading-spinner class="text-center d-block" />
     }
   </div>
 </div>

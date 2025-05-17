@@ -18,10 +18,16 @@ import { UserService } from '../user/user.service';
 import { AuthService } from '../../auth/auth.service';
 import { ConnectionsService } from '../services/connections.service';
 import { ToastService } from '../../shared/toast-container/toast.service';
+import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-user-profile',
-  imports: [MatIconModule, MatDialogModule, PostComponent],
+  imports: [
+    MatIconModule,
+    MatDialogModule,
+    PostComponent,
+    LoadingSpinnerComponent,
+  ],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

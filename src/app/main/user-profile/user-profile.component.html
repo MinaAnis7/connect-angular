@@ -61,8 +61,12 @@
       </button>
     </div>
 
-    @for (post of posts(); track $index) {
+    @if (posts()) { @for (post of posts(); track $index) {
     <app-post [post]="post" class="mb-3" />
+    } @empty {
+    <p class="fallback-text">There're no posts yet.</p>
+    } } @else {
+    <app-loading-spinner class="text-center d-block" />
     }
   </div>
 </div>

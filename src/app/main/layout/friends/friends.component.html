@@ -9,9 +9,18 @@
 
       <div class="actions mt-3">
         <a class="btn d-block mb-2 border-0"> Message </a>
-        <a class="btn d-block border-0"> View Profile </a>
+        <a
+          class="btn d-block border-0"
+          [routerLink]="['/app', 'profile', friend.id]"
+        >
+          View Profile
+        </a>
       </div>
     </div>
   </div>
+  } @empty {
+  <p class="fallback-text" style="grid-column: 1/-1">
+    Looks like you haven’t made any friends yet — why not start now?
+  </p>
   }
 </div>

@@ -5,17 +5,23 @@ import { PostComponent } from '../../post/post.component';
 import { Post } from '../../post/post.model';
 import { PostsService } from '../../post/posts.service';
 import { CreatePostDialogComponent } from '../../create-post-dialog/create-post-dialog.component';
+import { LoadingSpinnerComponent } from '../../../shared/loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-newsfeed',
-  imports: [MatIconModule, PostComponent, MatDialogModule],
+  imports: [
+    MatIconModule,
+    PostComponent,
+    MatDialogModule,
+    LoadingSpinnerComponent,
+  ],
   templateUrl: './newsfeed.component.html',
   styleUrl: './newsfeed.component.css',
 })
 export class NewsfeedComponent implements OnInit {
   private readonly dialog = inject(MatDialog);
   private postsService = inject(PostsService);
-  posts = signal<Post[]>([]);
+  posts = signal<Post[] | undefined>(undefined);
 
   ngOnInit(): void {
     this.postsService.getAllPosts().subscribe({

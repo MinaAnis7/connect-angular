@@ -1,10 +1,11 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ConnectionsService } from '../../services/connections.service';
 import { User } from '../../user/user.model';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-friends',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './friends.component.html',
   styleUrl: './friends.component.css',
 })

@@ -34,6 +34,8 @@
 
   @if (!$last) {
   <hr class="devider my-2" />
-  } }
+  } } @empty {
+  <p class="fallback-text">There are no requests.</p>
+  }
 </ul>
 }

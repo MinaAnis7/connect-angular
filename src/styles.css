@@ -42,3 +42,9 @@ body {
   width: 100%;
   background-color: #777;
 }
+
+.fallback-text {
+  color: var(--text-secondary-color);
+  text-align: center;
+  font-size: 14px;
+}
