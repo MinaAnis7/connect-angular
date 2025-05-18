@@ -21,6 +21,8 @@ import { Post } from './post.model';
 import { User } from '../user/user.model';
 import { UserService } from '../user/user.service';
 import { RouterLink } from '@angular/router';
+import { PostsService } from './posts.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-post',
@@ -31,10 +33,14 @@ import { RouterLink } from '@angular/router';
 export class PostComponent implements OnInit {
   post = input.required<Post>();
   author = signal<User | undefined>(undefined);
+  isLoved = signal<boolean>(false);
+  loves = signal<string[] | undefined>(undefined);
   authorName = computed(
     () => `${this.author()?.fName} ${this.author()?.lName}`
   );
   private userService = inject(UserService);
+  private postsService = inject(PostsService);
+  private authService = inject(AuthService);
 
   constructor(library: FaIconLibrary) {
     library.addIcons(faEllipsisVertical, faHeart, faCommentDots, regularHeart);
@@ -46,5 +52,24 @@ export class PostComponent implements OnInit {
         this.author.set(author as User);
       },
     });
+
+    this.postsService.getPostLoves(this.post().id).subscribe({
+      next: (ids) => {
+        this.loves.set(ids);
+
+        if (this.loves()?.includes(this.authService.currentUserId()!)) {
+          this.isLoved.set(true);
+        }
+      },
+    });
+  }
+
+  onLove() {
+    if (this.isLoved()) {
+      this.isLoved.set(false);
+    } else {
+      this.isLoved.set(true);
+      this.postsService.lovePost(this.post().id);
+    }
   }
 }

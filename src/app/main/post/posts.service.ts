@@ -4,12 +4,13 @@ import {
   collectionData,
   doc,
   Firestore,
+  getDoc,
   serverTimestamp,
   setDoc,
 } from '@angular/fire/firestore';
 import { AuthService } from '../../auth/auth.service';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs';
+import { map, of, switchMap } from 'rxjs';
 import { ToastService } from '../../shared/toast-container/toast.service';
 
 @Injectable({ providedIn: 'root' })
@@ -67,12 +68,10 @@ export class PostsService {
       id: docRef,
       author: currentUserRef,
       date: serverTimestamp(),
-      lovesNumber: 0,
-      commentsNumber: 0,
     };
 
     await setDoc(docRef, postData);
-    await setDoc(userPostDoc, postData);
+    await setDoc(userPostDoc, {});
   }
 
   getAllPosts() {
@@ -99,14 +98,45 @@ export class PostsService {
       'posts'
     );
 
-    return collectionData(userPostsSubCollection).pipe(
-      map((posts) => {
-        return posts.map((post) => {
-          return {
-            ...post,
-            date: post['date']?.toDate(),
-          };
-        });
+    return collectionData(userPostsSubCollection, { idField: 'id' }).pipe(
+      switchMap((postsId) => {
+        if (postsId.length === 0) return of([]);
+
+        const posts = Promise.all(
+          postsId.map(async (post) => {
+            const postDoc = doc(this.db, 'posts', post.id);
+            const postSnapShot = await getDoc(postDoc);
+
+            return {
+              ...postSnapShot.data(),
+              date: postSnapShot.data()?.['date'].toDate(),
+            };
+          })
+        );
+
+        return posts;
+      })
+    );
+  }
+
+  async lovePost(postId: string) {
+    const postsLoveDoc = doc(
+      this.db,
+      'posts',
+      postId,
+      'loves',
+      this.authService.currentUserId()!
+    );
+
+    await setDoc(postsLoveDoc, {});
+  }
+
+  getPostLoves(postId: string) {
+    return collectionData(collection(this.db, 'posts', postId, 'loves'), {
+      idField: 'id',
+    }).pipe(
+      map((users) => {
+        return users.map((user) => user.id);
       })
     );
   }

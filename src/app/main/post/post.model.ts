@@ -6,6 +6,4 @@ export interface Post {
   date: Date;
   text: string | null;
   imgUrl: string | null;
-  lovesNumber: number;
-  commentsNumber: number;
 }

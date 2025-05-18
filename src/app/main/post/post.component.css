@@ -61,6 +61,24 @@
   color: #ff1a1a;
 }
 
+.solid-heart {
+  color: #ff1a1a;
+  transition: transform 0.25s;
+  transform: scale(0);
+}
+.solid-heart.scaled {
+  transform: scale(1.1) !important;
+}
+
+.love:active .solid-heart {
+  transform: scale(1.1);
+}
+
+.d-loved {
+  position: relative;
+  animation: d-loved 0.3s;
+}
+
 .reacts-num span {
   font-size: 14px;
 }
@@ -72,4 +90,15 @@
 
 .actions button:hover {
   background-color: #efefef;
+}
+
+@keyframes d-loved {
+  from {
+    opacity: 0;
+    top: 5px;
+  }
+  to {
+    opacity: 1;
+    top: 0;
+  }
 }

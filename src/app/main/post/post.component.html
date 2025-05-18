@@ -41,10 +41,10 @@
     <div class="reacts-num d-flex align-items-center justify-content-between">
       <div class="loves">
         <fa-icon [icon]="['fas', 'heart']" />
-        <span> {{ post().lovesNumber }} </span>
+        <span> {{ loves()?.length }} </span>
       </div>
       <div class="comments">
-        <span> {{ post().commentsNumber }} </span>
+        <span> 0 </span>
         <span> Comments </span>
       </div>
     </div>
@@ -52,9 +52,18 @@
     <hr class="devider my-2" />
 
     <div class="actions d-flex">
-      <button class="love py-1 border-0 rounded-2">
-        <fa-icon [icon]="['far', 'heart']" class="me-2" />
-        <span>Love</span>
+      <button class="love py-1 border-0 rounded-2" (click)="onLove()">
+        <div class="position-relative d-inline me-2">
+          <fa-icon [icon]="['far', 'heart']"> </fa-icon>
+          <fa-icon
+            [icon]="['fas', 'heart']"
+            class="solid-heart position-absolute start-0"
+            [class.scaled]="isLoved()"
+          />
+        </div>
+        <span>
+          love<span class="d-loved" [class.d-none]="!isLoved()">d</span>
+        </span>
       </button>
       <button class="comment py-1 border-0 rounded-2">
         <fa-icon [icon]="['far', 'comment-dots']" class="me-2" />
