@@ -23,10 +23,18 @@ import { UserService } from '../user/user.service';
 import { RouterLink } from '@angular/router';
 import { PostsService } from './posts.service';
 import { AuthService } from '../../auth/auth.service';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { LovesDialogComponent } from './loves-dialog/loves-dialog.component';
 
 @Component({
   selector: 'app-post',
-  imports: [DatePipe, FontAwesomeModule, ReadMoreComponent, RouterLink],
+  imports: [
+    DatePipe,
+    FontAwesomeModule,
+    ReadMoreComponent,
+    RouterLink,
+    MatDialogModule,
+  ],
   templateUrl: './post.component.html',
   styleUrl: './post.component.css',
 })
@@ -41,6 +49,7 @@ export class PostComponent implements OnInit {
   private userService = inject(UserService);
   private postsService = inject(PostsService);
   private authService = inject(AuthService);
+  private readonly dialog = inject(MatDialog);
 
   constructor(library: FaIconLibrary) {
     library.addIcons(faEllipsisVertical, faHeart, faCommentDots, regularHeart);
@@ -67,9 +76,16 @@ export class PostComponent implements OnInit {
   onLove() {
     if (this.isLoved()) {
       this.isLoved.set(false);
+      this.postsService.removeLove(this.post().id);
     } else {
       this.isLoved.set(true);
       this.postsService.lovePost(this.post().id, this.post().author.id);
     }
+  }
+
+  showLoves() {
+    this.dialog.open(LovesDialogComponent, {
+      data: this.loves,
+    });
   }
 }

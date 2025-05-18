@@ -39,7 +39,7 @@
     }
 
     <div class="reacts-num d-flex align-items-center justify-content-between">
-      <div class="loves">
+      <div class="loves" (click)="showLoves()">
         <fa-icon [icon]="['fas', 'heart']" />
         <span> {{ loves()?.length }} </span>
       </div>

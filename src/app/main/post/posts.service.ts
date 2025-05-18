@@ -3,6 +3,7 @@ import {
   addDoc,
   collection,
   collectionData,
+  deleteDoc,
   doc,
   Firestore,
   getDoc,
@@ -141,6 +142,18 @@ export class PostsService {
       type: 'Loved',
       from: doc(this.db, 'users', this.authService.currentUserId()!),
     });
+  }
+
+  async removeLove(postId: string) {
+    const postsLoveDoc = doc(
+      this.db,
+      'posts',
+      postId,
+      'loves',
+      this.authService.currentUserId()!
+    );
+
+    await deleteDoc(postsLoveDoc);
   }
 
   getPostLoves(postId: string) {

@@ -65,4 +65,18 @@ export class UserService {
   getAllUsers() {
     return collectionData(collection(this.db, 'users'), { idField: 'id' });
   }
+
+  getUsersFromIdList(ids: string[]) {
+    const users = Promise.all(
+      ids.map(async (userId) => {
+        const user = await getDoc(doc(this.db, 'users', userId));
+        return {
+          ...user.data(),
+          id: userId,
+        } as User;
+      })
+    );
+
+    return users;
+  }
 }
