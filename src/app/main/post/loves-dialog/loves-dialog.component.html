@@ -23,6 +23,8 @@
 
     @if(!$last) {
     <hr class="devider my-2" />
-    } }
+    } } @empty {
+    <p class="fallback-text">There're no reactions yet.</p>
+    }
   </ul>
 </mat-dialog-content>

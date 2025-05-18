@@ -1,0 +1,38 @@
+<div class="header d-flex justify-content-between">
+  <h2 mat-dialog-title>Comments</h2>
+  <fa-icon
+    [icon]="['fas', 'xmark']"
+    class="mx-4 d-flex align-items-center"
+    mat-dialog-close
+  />
+</div>
+
+<hr class="devider" />
+
+<mat-dialog-content class="mat-typography">
+  <ul class="list-group">
+    <p class="fallback-text">There are no comments yet.</p>
+  </ul>
+</mat-dialog-content>
+
+<mat-dialog-actions align="start">
+  <div class="add-comment d-flex align-items-center w-100 gap-3">
+    <img
+      [src]="currentUser()?.profileImage"
+      alt="My Profile Image"
+      class="my-img rounded-circle"
+    />
+
+    <div class="flex-grow-1 comment-ctrl rounded-4">
+      <input
+        type="text"
+        class="w-100 d-block border-0 bg-transparent"
+        placeholder="Type your comment..."
+      />
+    </div>
+
+    <button class="btn send-btn border-0" title="Comment">
+      <fa-icon [icon]="['fas', 'paper-plane']" class="send-icon"></fa-icon>
+    </button>
+  </div>
+</mat-dialog-actions>

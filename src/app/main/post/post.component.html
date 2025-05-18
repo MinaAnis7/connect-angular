@@ -43,7 +43,7 @@
         <fa-icon [icon]="['fas', 'heart']" />
         <span> {{ loves()?.length }} </span>
       </div>
-      <div class="comments">
+      <div class="comments" (click)="openComments()">
         <span> 0 </span>
         <span> Comments </span>
       </div>
@@ -65,7 +65,7 @@
           love<span class="d-loved" [class.d-none]="!isLoved()">d</span>
         </span>
       </button>
-      <button class="comment py-1 border-0 rounded-2">
+      <button class="comment py-1 border-0 rounded-2" (click)="openComments()">
         <fa-icon [icon]="['far', 'comment-dots']" class="me-2" />
         <span>Comment</span>
       </button>

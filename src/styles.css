@@ -48,3 +48,8 @@ body {
   text-align: center;
   font-size: 14px;
 }
+
+.cdk-global-scrollblock {
+  position: static !important;
+  overflow-y: auto !important;
+}

@@ -25,6 +25,7 @@ import { PostsService } from './posts.service';
 import { AuthService } from '../../auth/auth.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { LovesDialogComponent } from './loves-dialog/loves-dialog.component';
+import { CommentsDialogComponent } from './comments-dialog/comments-dialog.component';
 
 @Component({
   selector: 'app-post',
@@ -87,5 +88,9 @@ export class PostComponent implements OnInit {
     this.dialog.open(LovesDialogComponent, {
       data: this.loves,
     });
+  }
+
+  openComments() {
+    this.dialog.open(CommentsDialogComponent);
   }
 }
