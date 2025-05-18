@@ -51,3 +51,17 @@
 .comment-ctrl input:focus {
   outline: none;
 }
+
+.commenter-img {
+  width: 40px;
+  height: 40px;
+}
+
+.comment-txt {
+  font-size: 14.5px;
+  background-color: #f5f2f2;
+}
+
+.commenter-name {
+  font-weight: 500;
+}

@@ -11,7 +11,23 @@
 
 <mat-dialog-content class="mat-typography">
   <ul class="list-group">
-    <p class="fallback-text">There are no comments yet.</p>
+    @for (commentData of comments(); track commentData.id) {
+    <li class="list-group-item px-0 border-0 d-flex gap-2 align-items-start">
+      <img
+        [src]="commentData.from.profileImage"
+        alt="Commenter Image"
+        class="commenter-img rounded-circle"
+      />
+
+      <p class="comment-txt rounded-4 py-2 px-3">
+        <span class="commenter-name d-block mb-1">{{
+          commentData.from.fName + " " + commentData.from.lName
+        }}</span>
+        <app-read-more [text]="commentData.comment" />
+      </p>
+    </li>
+    }
+    <!-- <p class="fallback-text">There are no comments yet.</p> -->
   </ul>
 </mat-dialog-content>
 
@@ -28,10 +44,15 @@
         type="text"
         class="w-100 d-block border-0 bg-transparent"
         placeholder="Type your comment..."
+        #comment
       />
     </div>
 
-    <button class="btn send-btn border-0" title="Comment">
+    <button
+      class="btn send-btn border-0"
+      title="Comment"
+      (click)="onComment(comment)"
+    >
       <fa-icon [icon]="['fas', 'paper-plane']" class="send-icon"></fa-icon>
     </button>
   </div>

@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import {
   Component,
   computed,
+  DestroyRef,
   inject,
   input,
   OnInit,
@@ -44,12 +45,14 @@ export class PostComponent implements OnInit {
   author = signal<User | undefined>(undefined);
   isLoved = signal<boolean>(false);
   loves = signal<string[] | undefined>(undefined);
+  commentsNum = signal<number | undefined>(undefined);
   authorName = computed(
     () => `${this.author()?.fName} ${this.author()?.lName}`
   );
   private userService = inject(UserService);
   private postsService = inject(PostsService);
   private authService = inject(AuthService);
+  private destroyRef = inject(DestroyRef);
   private readonly dialog = inject(MatDialog);
 
   constructor(library: FaIconLibrary) {
@@ -57,20 +60,38 @@ export class PostComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.getPostAuthor(this.post().author).subscribe({
-      next: (author) => {
-        this.author.set(author as User);
-      },
-    });
+    const postAuthorSubs = this.userService
+      .getPostAuthor(this.post().author)
+      .subscribe({
+        next: (author) => {
+          this.author.set(author as User);
+        },
+      });
 
-    this.postsService.getPostLoves(this.post().id).subscribe({
-      next: (ids) => {
-        this.loves.set(ids);
+    const postLovesSubs = this.postsService
+      .getPostLoves(this.post().id)
+      .subscribe({
+        next: (ids) => {
+          this.loves.set(ids);
 
-        if (this.loves()?.includes(this.authService.currentUserId()!)) {
-          this.isLoved.set(true);
-        }
-      },
+          if (this.loves()?.includes(this.authService.currentUserId()!)) {
+            this.isLoved.set(true);
+          }
+        },
+      });
+
+    const commentsNumSubs = this.postsService
+      .getCommentsNumber(this.post().id)
+      .subscribe({
+        next: (num) => {
+          this.commentsNum.set(num);
+        },
+      });
+
+    this.destroyRef.onDestroy(() => {
+      postAuthorSubs.unsubscribe();
+      postLovesSubs.unsubscribe();
+      commentsNumSubs.unsubscribe();
     });
   }
 
@@ -91,6 +112,8 @@ export class PostComponent implements OnInit {
   }
 
   openComments() {
-    this.dialog.open(CommentsDialogComponent);
+    this.dialog.open(CommentsDialogComponent, {
+      data: this.post(),
+    });
   }
 }

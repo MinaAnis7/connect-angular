@@ -14,6 +14,7 @@ import { AuthService } from '../../auth/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { map, of, switchMap } from 'rxjs';
 import { ToastService } from '../../shared/toast-container/toast.service';
+import { User } from '../user/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class PostsService {
@@ -164,5 +165,44 @@ export class PostsService {
         return users.map((user) => user.id);
       })
     );
+  }
+
+  async comment(postId: string, comment: string) {
+    const postCol = collection(this.db, 'posts', postId, 'comments');
+
+    await addDoc(postCol, {
+      from: this.authService.currentUserId(),
+      comment: comment,
+    });
+  }
+
+  getPostComments(postId: string) {
+    const postCommentsCol = collection(this.db, 'posts', postId, 'comments');
+
+    return collectionData(postCommentsCol, { idField: 'id' }).pipe(
+      switchMap((comments) => {
+        const commentsPosters = Promise.all(
+          comments.map(async (comment) => {
+            const posterSnapShot = await getDoc(
+              doc(this.db, 'users', comment['from'])
+            );
+
+            return {
+              id: comment.id,
+              comment: comment['comment'] as string,
+              from: posterSnapShot.data() as User,
+            };
+          })
+        );
+
+        return commentsPosters;
+      })
+    );
+  }
+
+  getCommentsNumber(postId: string) {
+    return collectionData(
+      collection(this.db, 'posts', postId, 'comments')
+    ).pipe(map((comments) => comments.length));
   }
 }
