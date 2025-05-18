@@ -69,7 +69,7 @@ export class PostComponent implements OnInit {
       this.isLoved.set(false);
     } else {
       this.isLoved.set(true);
-      this.postsService.lovePost(this.post().id);
+      this.postsService.lovePost(this.post().id, this.post().author.id);
     }
   }
 }

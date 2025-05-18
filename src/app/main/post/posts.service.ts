@@ -1,5 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import {
+  addDoc,
   collection,
   collectionData,
   doc,
@@ -110,6 +111,7 @@ export class PostsService {
             return {
               ...postSnapShot.data(),
               date: postSnapShot.data()?.['date'].toDate(),
+              id: postSnapShot.data()?.['id'].id,
             };
           })
         );
@@ -119,7 +121,7 @@ export class PostsService {
     );
   }
 
-  async lovePost(postId: string) {
+  async lovePost(postId: string, postAuthorId: string) {
     const postsLoveDoc = doc(
       this.db,
       'posts',
@@ -127,8 +129,18 @@ export class PostsService {
       'loves',
       this.authService.currentUserId()!
     );
+    const authorNotificationsCol = collection(
+      this.db,
+      'users',
+      postAuthorId,
+      'notifications'
+    );
 
     await setDoc(postsLoveDoc, {});
+    await addDoc(authorNotificationsCol, {
+      type: 'Loved',
+      from: doc(this.db, 'users', this.authService.currentUserId()!),
+    });
   }
 
   getPostLoves(postId: string) {

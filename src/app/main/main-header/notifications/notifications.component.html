@@ -38,4 +38,25 @@
   <p class="fallback-text">There are no requests.</p>
   }
 </ul>
+} @else {
+<ul class="notifications list-group">
+  @for (notif of notifications(); track notif.id) {
+  <li class="list-group-item px-0 border-0 d-flex align-items-center">
+    <img
+      [src]="notif.from.profileImage"
+      alt="User Image"
+      class="rounded-circle"
+    />
+
+    <span class="info">
+      <b>{{ notif.from.fName + " " + notif.from.lName }}</b>
+      <span> {{ notif.type }} your post </span>
+    </span>
+  </li>
+  @if (!$last) {
+  <hr class="devider my-2" />
+  } } @empty {
+  <p class="fallback-text">There are no notifications.</p>
+  }
+</ul>
 }

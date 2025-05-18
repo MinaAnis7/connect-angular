@@ -1,4 +1,5 @@
 import { DocumentReference } from '@angular/fire/firestore';
+import type { User } from '../user/user.model';
 
 export interface Post {
   id: string;

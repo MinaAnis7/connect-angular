@@ -45,9 +45,13 @@ export class MainHeaderComponent implements OnInit {
   private authService = inject(AuthService);
   private notificationsService = inject(NotificationsService);
   newfriendReqsNum = signal<number | undefined>(undefined);
+  newNotifNum = signal<number | undefined>(undefined);
   friendReqs = signal<{ id: string; from: User; userId: string }[] | undefined>(
     undefined
   );
+  notifications = signal<
+    { id: string; from: User; type: string }[] | undefined
+  >(undefined);
   hasOpenedFriendReqNotifications = false;
   hasOpenedNotifications = false;
   currectId = computed(() => this.authService.currentUserId());
@@ -77,6 +81,15 @@ export class MainHeaderComponent implements OnInit {
         this.friendReqs.set(reqs);
         if (reqs.length > 0) {
           this.newfriendReqsNum.set(reqs.length);
+        }
+      },
+    });
+
+    this.notificationsService.getNotifications().subscribe({
+      next: (notifs) => {
+        this.notifications.set(notifs);
+        if (notifs.length > 0) {
+          this.newNotifNum.set(notifs.length);
         }
       },
     });

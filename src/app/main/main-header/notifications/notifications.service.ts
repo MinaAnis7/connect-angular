@@ -40,4 +40,31 @@ export class NotificationsService {
       })
     );
   }
+
+  getNotifications(): Observable<{ id: string; from: User; type: string }[]> {
+    const colRef = collection(
+      this.db,
+      'users',
+      this.authService.currentUserId()!,
+      'notifications'
+    );
+
+    return collectionData(colRef, { idField: 'id' }).pipe(
+      switchMap((notifs: any[]) => {
+        if (notifs.length === 0) return of([]);
+
+        return Promise.all(
+          notifs.map(async (notif) => {
+            const fromUserDoc = await getDoc(notif.from);
+
+            return {
+              id: notif.id,
+              from: fromUserDoc.data() as User,
+              type: notif.type,
+            };
+          })
+        ).then((users) => users);
+      })
+    );
+  }
 }

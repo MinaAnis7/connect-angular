@@ -22,8 +22,11 @@ export class NotificationsComponent {
   private connectionsService = inject(ConnectionsService);
   private toastService = inject(ToastService);
   isFriendRequest = input.required<boolean>();
-  friendRequests = input.required<
+  friendRequests = input<
     { id: string; from: User; userId: string }[] | undefined
+  >();
+  notifications = input<
+    { id: string; from: User; type: string }[] | undefined
   >();
 
   onAcceptRequest(fromId: string, notificationId: string) {
