@@ -40,8 +40,6 @@ export class CommentsDialogComponent implements OnInit {
     this.postsService.getPostComments(this.post.id).subscribe({
       next: (comments) => {
         this.comments.set(comments);
-
-        console.log(this.comments());
       },
     });
   }

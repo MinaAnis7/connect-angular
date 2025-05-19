@@ -1,4 +1,10 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import {
   FaIconLibrary,
   FontAwesomeModule,
@@ -13,9 +19,11 @@ import type { User } from '../../user/user.model';
   imports: [InputCtrlComponent, FontAwesomeModule],
   templateUrl: './friends-side-list.component.html',
   styleUrl: './friends-side-list.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FriendsSideListComponent implements OnInit {
   private connectionsSerive = inject(ConnectionsService);
+  private friendsData = signal<User[] | undefined>(undefined);
   friends = signal<User[] | undefined>(undefined);
 
   constructor(library: FaIconLibrary) {
@@ -25,8 +33,21 @@ export class FriendsSideListComponent implements OnInit {
   ngOnInit(): void {
     this.connectionsSerive.getAllConnections().subscribe({
       next: (friends) => {
+        this.friendsData.set(friends);
         this.friends.set(friends);
       },
+    });
+  }
+
+  onValueChanges(value: string) {
+    this.friends.set(this.friendsData());
+
+    this.friends.update((friends) => {
+      return friends?.filter((friend) =>
+        (friend.fName + ' ' + friend.lName)
+          .toLowerCase()
+          .includes(value.toLocaleLowerCase())
+      );
     });
   }
 }

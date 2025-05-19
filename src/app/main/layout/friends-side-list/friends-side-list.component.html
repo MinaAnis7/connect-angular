@@ -1,5 +1,9 @@
 <hr />
-<app-input-ctrl placeholder="Search..." class="search-ctrl">
+<app-input-ctrl
+  placeholder="Search..."
+  (valueChanged)="onValueChanges($event)"
+  class="search-ctrl"
+>
   <fa-icon
     [icon]="['fas', 'magnifying-glass']"
     class="search-icon pe-2"
@@ -8,7 +12,7 @@
 </app-input-ctrl>
 
 <div>
-  <h6 class="heading text-uppercase py-3">friends</h6>
+  <h6 class="heading text-uppercase py-3">chats</h6>
   <ul class="list-group">
     @if(friends()) { @for (friend of friends(); track friend.id) {
     <li

@@ -1,7 +1,12 @@
 <div class="ctrl d-flex align-items-center">
   <ng-content select="prefix-icon"></ng-content>
 
-  <input class="border-0 bg-transparent" [placeholder]="placeholder" />
+  <input
+    class="border-0 bg-transparent"
+    [placeholder]="placeholder"
+    #inputCtrl
+    (input)="onValueChanges(inputCtrl.value)"
+  />
 
   <ng-content select="suffix-icon"></ng-content>
 </div>

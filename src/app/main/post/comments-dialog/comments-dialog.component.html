@@ -26,8 +26,9 @@
         <app-read-more [text]="commentData.comment" />
       </p>
     </li>
+    } @empty {
+    <p class="fallback-text">There are no comments yet.</p>
     }
-    <!-- <p class="fallback-text">There are no comments yet.</p> -->
   </ul>
 </mat-dialog-content>
 

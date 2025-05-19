@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-input-ctrl',
@@ -13,4 +13,9 @@ import { Component, Input } from '@angular/core';
 export class InputCtrlComponent {
   @Input() isRounded = false;
   @Input({ required: true }) placeholder!: string;
+  @Output() valueChanged = new EventEmitter<string>();
+
+  onValueChanges(val: string) {
+    this.valueChanged.emit(val);
+  }
 }
