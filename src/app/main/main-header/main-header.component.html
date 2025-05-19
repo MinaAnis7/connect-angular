@@ -47,8 +47,14 @@
     </div>
 
     <div class="show navbar-collapse" id="navbarSupportedContent">
-      <form class="ms-lg-5 me-auto pt-2 pt-sm-0">
-        <app-input-ctrl placeholder="Search" class="ctrl" [isRounded]="true">
+      <form class="ms-lg-5 me-auto pt-2 pt-sm-0 search-wrapper">
+        <app-input-ctrl
+          placeholder="Search"
+          class="ctrl"
+          [isRounded]="true"
+          (focused)="onFocusChanges($event)"
+          (valueChanged)="onSearch($event)"
+        >
           <fa-icon
             [icon]="['fas', 'magnifying-glass']"
             class="search-icon ps-2"
@@ -152,5 +158,27 @@
   />
   } @if (hasOpenedFriendReqNotifications) {
   <app-notifications [isFriendRequest]="true" [friendRequests]="friendReqs()" />
+  } @if (isSearching) {
+  <div class="search-results position-absolute bg-white p-3 ms-lg-5 shadow">
+    <ul class="list-group">
+      @for (user of allUsers(); track user.id) {
+      <li class="list-group-item list-group-item-action rounded-3 p-0 border-0">
+        <a
+          [routerLink]="['/app', 'profile', user.id]"
+          class="text-decoration-none d-block py-2"
+          (click)="isSearching = false"
+        >
+          <img
+            [src]="user.profileImage"
+            alt="Profile Image"
+            class="rounded-circle"
+          />
+
+          <span class="name ms-2"> {{ user.fName + " " + user.lName }} </span>
+        </a>
+      </li>
+      }
+    </ul>
+  </div>
   }
 </nav>

@@ -14,8 +14,13 @@ export class InputCtrlComponent {
   @Input() isRounded = false;
   @Input({ required: true }) placeholder!: string;
   @Output() valueChanged = new EventEmitter<string>();
+  @Output() focused = new EventEmitter<boolean>();
 
   onValueChanges(val: string) {
     this.valueChanged.emit(val);
+  }
+
+  onFocus() {
+    this.focused.emit(true);
   }
 }

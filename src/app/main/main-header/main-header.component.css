@@ -66,3 +66,25 @@
   top: 12px;
   background-color: var(--primary-color);
 }
+
+.search-results {
+  top: 100%;
+  left: 206.46px;
+  width: 20rem;
+  max-height: calc(100vh - 12rem);
+  overflow-y: auto;
+}
+
+.search-results li {
+  cursor: pointer;
+}
+
+.search-results img {
+  width: 35px;
+  height: 35px;
+}
+
+.search-results .name {
+  font-size: 14.5px;
+  color: black;
+}
