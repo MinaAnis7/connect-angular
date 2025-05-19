@@ -68,11 +68,31 @@
 }
 
 .search-results {
-  top: 100%;
-  left: 206.46px;
-  width: 20rem;
+  top: 110px;
+  left: 12px;
+  width: calc(100% - 24px);
   max-height: calc(100vh - 12rem);
   overflow-y: auto;
+  background-color: white;
+  z-index: 999;
+}
+@media (min-width: 576px) {
+  .search-results {
+    top: 100%;
+    width: 15rem;
+    left: 126.46px;
+  }
+}
+@media (min-width: 768px) {
+  .search-results {
+    left: 142.46px;
+  }
+}
+@media (min-width: 992px) {
+  .search-results {
+    left: 206.46px;
+    width: 20rem;
+  }
 }
 
 .search-results li {
