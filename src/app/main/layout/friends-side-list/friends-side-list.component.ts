@@ -13,10 +13,11 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { InputCtrlComponent } from '../../../shared/input-ctrl/input-ctrl.component';
 import { ConnectionsService } from '../../services/connections.service';
 import type { User } from '../../user/user.model';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-friends-side-list',
-  imports: [InputCtrlComponent, FontAwesomeModule],
+  imports: [InputCtrlComponent, FontAwesomeModule, RouterLink],
   templateUrl: './friends-side-list.component.html',
   styleUrl: './friends-side-list.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

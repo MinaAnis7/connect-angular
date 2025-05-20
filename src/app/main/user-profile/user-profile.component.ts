@@ -2,11 +2,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  DestroyRef,
   effect,
   inject,
   input,
-  OnInit,
   signal,
 } from '@angular/core';
 import type { User } from '../user/user.model';
@@ -21,6 +19,7 @@ import { AuthService } from '../../auth/auth.service';
 import { ConnectionsService } from '../services/connections.service';
 import { ToastService } from '../../shared/toast-container/toast.service';
 import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-spinner.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -29,6 +28,7 @@ import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-sp
     MatDialogModule,
     PostComponent,
     LoadingSpinnerComponent,
+    RouterLink,
   ],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css',
@@ -41,7 +41,6 @@ export class UserProfileComponent {
   private authService = inject(AuthService);
   private connectionService = inject(ConnectionsService);
   private toastService = inject(ToastService);
-  private destroyRef = inject(DestroyRef);
   uid = input.required<string>();
   user = signal<User | undefined>(undefined);
   posts = signal<Post[] | undefined>(undefined);

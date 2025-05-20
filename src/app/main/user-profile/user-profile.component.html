@@ -21,7 +21,10 @@
           >
         </div>
         @if (isUserOwnProfile()) {
-        <button class="edit-btn align-self-end btn rounded-3 ms-auto">
+        <button
+          class="edit-btn align-self-end btn rounded-3 ms-auto"
+          routerLink="/app/edit-profile"
+        >
           Edit Profile
         </button>
         } @else {

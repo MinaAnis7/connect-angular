@@ -11,6 +11,7 @@ import { NewFriendsComponent } from './main/layout/new-friends/new-friends.compo
 import { ChatComponent } from './main/chat/chat.component';
 import { NoSelectedChatComponent } from './main/chat/no-selected-chat/no-selected-chat.component';
 import { UserChatComponent } from './main/chat/user-chat/user-chat.component';
+import { EditProfileComponent } from './main/edit-profile/edit-profile.component';
 
 export const routes: Routes = [
   {
@@ -55,6 +56,10 @@ export const routes: Routes = [
       {
         path: 'profile/:uid',
         component: UserProfileComponent,
+      },
+      {
+        path: 'edit-profile',
+        component: EditProfileComponent,
       },
       {
         path: 'chats',

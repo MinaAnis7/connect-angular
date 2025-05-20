@@ -1,0 +1,135 @@
+:host {
+  display: block;
+  background-color: var(--bg-color);
+  min-height: calc(100vh - 168px);
+}
+@media (min-width: 576px) {
+  :host {
+    margin-top: 67px;
+    min-height: calc(100vh - 67px);
+  }
+}
+
+.user-profile {
+  width: calc(100% - 2rem);
+}
+
+@media (min-width: 992px) {
+  .user-profile {
+    width: 55rem;
+  }
+}
+
+.info {
+  padding-bottom: 1rem;
+}
+
+.user-imgs {
+  max-height: 18rem;
+}
+
+.user-imgs .cover {
+  max-height: inherit;
+}
+
+.user-imgs .cover img {
+  object-fit: cover;
+  max-height: inherit;
+  width: 100%;
+}
+
+.user-imgs .profile-pic {
+  border: 3px solid white;
+  transform: translate(15px, 60%);
+}
+
+.user-imgs .profile-pic img {
+  width: 170px;
+  height: 170px;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+.edit-btn {
+  top: 0;
+  right: 0;
+  transform: translate(-25%, 25%);
+  background-color: #eee;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #555;
+  border: 1px solid #777;
+  transition: color 0.3s;
+}
+
+.edit-btn:hover {
+  color: black;
+}
+
+.texual-info {
+  padding-top: 1.5rem;
+  padding-bottom: 14.24px;
+  width: calc(100% - 219px);
+  margin-right: 15px;
+  margin-left: auto;
+}
+
+@media (max-width: 575px) {
+  .user-imgs .profile-pic img {
+    width: 130px;
+    height: 130px;
+  }
+  .user-imgs {
+    max-height: 15rem;
+  }
+  .texual-info {
+    margin-top: 78px;
+    margin-left: 0%;
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
+.edit-form {
+  max-width: 100%;
+}
+
+@media (min-width: 576px) {
+  .edit-form {
+    max-width: 30rem;
+  }
+}
+
+.edit-form h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.input-ctrl {
+  background-color: var(--bg-color);
+  border: 1px solid #ddd;
+}
+.input-ctrl input:focus {
+  outline: none;
+}
+
+.submit-btn {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.submit-btn:hover {
+  background-color: var(--primary-hover-color);
+}
+.submit-btn:active {
+  background-color: var(--primary-active-color);
+  color: white;
+}

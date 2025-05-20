@@ -1,0 +1,65 @@
+<div class="user-profile mx-auto">
+  <div class="info bg-white pb-5 rounded-bottom-4">
+    <div class="user-imgs position-relative">
+      <div class="cover">
+        <img [src]="user()?.cover" alt="Profile Cover" />
+        <fa-icon
+          [icon]="['fas', 'pencil']"
+          class="edit-btn edit-cover position-absolute shadow"
+          title="Change Cover"
+        />
+      </div>
+      <div class="profile-pic position-absolute bottom-0 rounded-circle">
+        <img
+          [src]="user()?.profileImage"
+          alt="Profile Picture"
+          class="d-block"
+        />
+        <fa-icon
+          [icon]="['fas', 'pencil']"
+          class="edit-btn position-absolute shadow"
+          title="Change Profile Picture"
+        />
+      </div>
+    </div>
+    <div class="texual-info">
+      <div class="d-flex">
+        <div class="name-connects">
+          <div class="h2">{{ user()?.fName + " " + user()?.lName }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <form class="edit-form mt-4 mx-auto bg-white p-4 rounded-4 mb-3">
+    <h2>Edit your infomation</h2>
+    <div class="name d-flex gap-3">
+      <div class="input-ctrl px-3 py-2 mb-3 rounded-4">
+        <input
+          type="text"
+          placeholder="Frist Name"
+          [value]="user()?.fName"
+          class="border-0 bg-transparent w-100 flex-grow-1"
+        />
+      </div>
+      <div class="input-ctrl px-3 py-2 mb-3 rounded-4">
+        <input
+          type="text"
+          placeholder="Last Name"
+          [value]="user()?.lName"
+          class="border-0 bg-transparent w-100 flex-grow-1"
+        />
+      </div>
+    </div>
+    <div class="input-ctrl px-3 py-2 mb-5 rounded-4">
+      <input
+        type="text"
+        placeholder="Bio"
+        [value]="user()?.bio"
+        class="border-0 bg-transparent w-100"
+      />
+    </div>
+
+    <button type="submit" class="btn submit-btn rounded-4 w-100">Submit</button>
+  </form>
+</div>
