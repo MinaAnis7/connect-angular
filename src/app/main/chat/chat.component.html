@@ -1,0 +1,34 @@
+<div class="chat-list p-3 bg-white">
+  <h2 class="heading mb-4">Chats</h2>
+  <ul class="list-group">
+    @if (friends()) { @for (friend of friends(); track friend.id) {
+    <li
+      class="list-group-item list-group-item-action p-0 py-2 border-0"
+      routerLinkActive="active-link"
+    >
+      <a
+        class="text-decoration-none d-block"
+        style="cursor: pointer"
+        [routerLink]="friend.id"
+      >
+        <img
+          [src]="friend.profileImage"
+          [alt]="friend.fName + '\'s ' + 'Profile Picture'"
+          class="friend-pic rounded-circle"
+        />
+        <span class="text-black fw-medium ms-2">
+          {{ friend.fName + " " + friend.lName }}
+        </span>
+      </a>
+    </li>
+    } @empty {
+    <p class="fallback-text">
+      Looks like you haven’t made any friends yet — why not start now?
+    </p>
+    } } @else {
+    <app-loading-spinner class="text-center" />
+    }
+  </ul>
+</div>
+
+<router-outlet />

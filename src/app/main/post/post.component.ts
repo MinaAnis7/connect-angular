@@ -3,6 +3,7 @@ import {
   Component,
   computed,
   DestroyRef,
+  effect,
   inject,
   input,
   OnInit,
@@ -40,7 +41,7 @@ import { CommentsDialogComponent } from './comments-dialog/comments-dialog.compo
   templateUrl: './post.component.html',
   styleUrl: './post.component.css',
 })
-export class PostComponent implements OnInit {
+export class PostComponent {
   post = input.required<Post>();
   author = signal<User | undefined>(undefined);
   isLoved = signal<boolean>(false);
@@ -52,46 +53,45 @@ export class PostComponent implements OnInit {
   private userService = inject(UserService);
   private postsService = inject(PostsService);
   private authService = inject(AuthService);
-  private destroyRef = inject(DestroyRef);
   private readonly dialog = inject(MatDialog);
 
   constructor(library: FaIconLibrary) {
     library.addIcons(faEllipsisVertical, faHeart, faCommentDots, regularHeart);
-  }
 
-  ngOnInit(): void {
-    const postAuthorSubs = this.userService
-      .getPostAuthor(this.post().author)
-      .subscribe({
-        next: (author) => {
-          this.author.set(author as User);
-        },
+    effect((onCleanUp) => {
+      const postAuthorSubs = this.userService
+        .getPostAuthor(this.post().author)
+        .subscribe({
+          next: (author) => {
+            this.author.set(author as User);
+          },
+        });
+
+      const postLovesSubs = this.postsService
+        .getPostLoves(this.post().id)
+        .subscribe({
+          next: (ids) => {
+            this.loves.set(ids);
+
+            if (this.loves()?.includes(this.authService.currentUserId()!)) {
+              this.isLoved.set(true);
+            }
+          },
+        });
+
+      const commentsNumSubs = this.postsService
+        .getCommentsNumber(this.post().id)
+        .subscribe({
+          next: (num) => {
+            this.commentsNum.set(num);
+          },
+        });
+
+      onCleanUp(() => {
+        postAuthorSubs.unsubscribe();
+        postLovesSubs.unsubscribe();
+        commentsNumSubs.unsubscribe();
       });
-
-    const postLovesSubs = this.postsService
-      .getPostLoves(this.post().id)
-      .subscribe({
-        next: (ids) => {
-          this.loves.set(ids);
-
-          if (this.loves()?.includes(this.authService.currentUserId()!)) {
-            this.isLoved.set(true);
-          }
-        },
-      });
-
-    const commentsNumSubs = this.postsService
-      .getCommentsNumber(this.post().id)
-      .subscribe({
-        next: (num) => {
-          this.commentsNum.set(num);
-        },
-      });
-
-    this.destroyRef.onDestroy(() => {
-      postAuthorSubs.unsubscribe();
-      postLovesSubs.unsubscribe();
-      commentsNumSubs.unsubscribe();
     });
   }
 

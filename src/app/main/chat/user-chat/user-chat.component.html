@@ -1,0 +1,35 @@
+<div class="info bg-white p-3 d-flex gap-2 align-items-center">
+  <img
+    [src]="user()?.profileImage"
+    [alt]="user()?.fName + '\'s Profile Picture'"
+    class="friend-img rounded-circle"
+  />
+
+  <h3 class="friend-name mb-0">{{ user()?.fName + " " + user()?.lName }}</h3>
+</div>
+
+<div class="messages-container px-3 pb-2">
+  <ul class="list-group d-flex flex-column justify-content-end">
+    <li class="msg list-group-item px-3 py-2 border-0 mt-3">
+      <p class="msg-txt mb-0">Hi, How ya doin'</p>
+    </li>
+    <li class="msg my-msg list-group-item px-3 py-2 border-0 mt-3">
+      <p class="msg-txt mb-0">I'm doin' great! how about you!</p>
+    </li>
+  </ul>
+</div>
+
+<form class="send-message bg-white d-flex p-3 gap-3 align-items-center">
+  <div class="msg-ctrl-container py-2 px-3 flex-grow-1 rounded-4">
+    <input
+      type="text"
+      placeholder="Type a message..."
+      class="w-100 bg-transparent border-0"
+    />
+  </div>
+  <button
+    class="btn send-btn p-0 d-flex justify-content-center align-items-center rounded-circle"
+  >
+    <fa-icon [icon]="['fas', 'paper-plane']" />
+  </button>
+</form>

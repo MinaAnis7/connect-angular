@@ -8,6 +8,9 @@ import { LayoutComponent } from './main/layout/layout.component';
 import { NewsfeedComponent } from './main/layout/newsfeed/newsfeed.component';
 import { FriendsComponent } from './main/layout/friends/friends.component';
 import { NewFriendsComponent } from './main/layout/new-friends/new-friends.component';
+import { ChatComponent } from './main/chat/chat.component';
+import { NoSelectedChatComponent } from './main/chat/no-selected-chat/no-selected-chat.component';
+import { UserChatComponent } from './main/chat/user-chat/user-chat.component';
 
 export const routes: Routes = [
   {
@@ -52,6 +55,21 @@ export const routes: Routes = [
       {
         path: 'profile/:uid',
         component: UserProfileComponent,
+      },
+      {
+        path: 'chats',
+        component: ChatComponent,
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            component: NoSelectedChatComponent,
+          },
+          {
+            path: ':uid',
+            component: UserChatComponent,
+          },
+        ],
       },
     ],
   },

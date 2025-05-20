@@ -1,0 +1,68 @@
+:host {
+  display: block;
+  position: relative;
+  z-index: 10;
+  background-color: var(--bg-color);
+  height: inherit;
+}
+
+@media (min-width: 768px) {
+  :host {
+    width: calc(100% - 20rem);
+    margin-left: auto;
+  }
+}
+
+.friend-img {
+  width: 40px;
+  height: 40px;
+}
+
+.friend-name {
+  font-size: 1rem;
+}
+
+.send-btn {
+  background-color: var(--primary-color);
+  color: white;
+  width: 40px;
+  height: 40px;
+}
+
+.send-btn:hover {
+  background-color: var(--primary-hover-color);
+}
+.send-btn:active {
+  background-color: var(--primary-active-color);
+  color: white;
+}
+
+.messages-container {
+  height: calc(100% - 144px);
+  overflow-y: auto;
+}
+
+.messages-container ul {
+  min-height: 100%;
+}
+
+.msg-ctrl-container {
+  background-color: var(--bg-color);
+}
+.msg-ctrl-container input:focus {
+  outline: none;
+}
+
+.msg {
+  background-color: #ddd;
+  width: fit-content;
+  max-width: 65%;
+  border-radius: 0px 10px 10px;
+}
+
+.my-msg {
+  background-color: var(--primary-color);
+  color: white;
+  align-self: flex-end;
+  border-radius: 10px 0px 10px 10px;
+}

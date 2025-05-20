@@ -2,6 +2,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  DestroyRef,
+  effect,
   inject,
   input,
   OnInit,
@@ -32,13 +34,14 @@ import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-sp
   styleUrl: './user-profile.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent {
   private userService = inject(UserService);
   private postsService = inject(PostsService);
   private readonly dialog = inject(MatDialog);
   private authService = inject(AuthService);
   private connectionService = inject(ConnectionsService);
   private toastService = inject(ToastService);
+  private destroyRef = inject(DestroyRef);
   uid = input.required<string>();
   user = signal<User | undefined>(undefined);
   posts = signal<Post[] | undefined>(undefined);
@@ -47,17 +50,26 @@ export class UserProfileComponent implements OnInit {
     () => this.authService.currentUserId() === this.uid()
   );
 
-  ngOnInit(): void {
-    this.userService.getUserById(this.uid()).subscribe({
-      next: (userData) => {
-        this.user.set(userData as User);
-      },
-    });
+  constructor() {
+    effect((onCleanUp) => {
+      const userSubs = this.userService.getUserById(this.uid()).subscribe({
+        next: (userData) => {
+          this.user.set(userData as User);
+        },
+      });
 
-    this.postsService.getUserSpecificPosts(this.uid()).subscribe({
-      next: (posts) => {
-        this.posts.set(posts as Post[]);
-      },
+      const postsSubs = this.postsService
+        .getUserSpecificPosts(this.uid())
+        .subscribe({
+          next: (posts) => {
+            this.posts.set(posts as Post[]);
+          },
+        });
+
+      onCleanUp(() => {
+        userSubs.unsubscribe();
+        postsSubs.unsubscribe();
+      });
     });
   }
 

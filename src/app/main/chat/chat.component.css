@@ -1,0 +1,39 @@
+:host {
+  display: block;
+  background-color: var(--bg-color);
+  height: calc(100vh - 168px);
+}
+@media (min-width: 576px) {
+  :host {
+    margin-top: 67px;
+    height: calc(100vh - 67px);
+  }
+}
+
+.chat-list {
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  overflow-y: auto;
+  height: inherit;
+}
+
+@media (min-width: 768px) {
+  .chat-list {
+    width: 20rem;
+  }
+}
+
+.heading {
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.friend-pic {
+  width: 50px;
+  height: 50px;
+}
+
+.active-link {
+  background-color: #f8f9fa;
+}
