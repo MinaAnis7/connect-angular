@@ -21,7 +21,6 @@ import { ToastService } from '../../shared/toast-container/toast.service';
 import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-spinner.component';
 import { RouterLink } from '@angular/router';
 import { ConnectionsDialogComponent } from './connections-dialog/connections-dialog.component';
-import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-user-profile',
