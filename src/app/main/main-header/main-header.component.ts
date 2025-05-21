@@ -109,18 +109,14 @@ export class MainHeaderComponent implements OnInit {
       .subscribe({
         next: (reqs) => {
           this.friendReqs.set(reqs);
-          if (reqs.length > 0) {
-            this.newfriendReqsNum.set(reqs.length);
-          }
+          this.newfriendReqsNum.set(reqs.length);
         },
       });
 
     const notifSubs = this.notificationsService.getNotifications().subscribe({
       next: (notifs) => {
         this.notifications.set(notifs);
-        if (notifs.length > 0) {
-          this.newNotifNum.set(notifs.length);
-        }
+        this.newNotifNum.set(notifs.length);
       },
     });
 

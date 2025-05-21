@@ -1,9 +1,7 @@
-<div class="mb-3 d-flex justify-content-between align-items-center">
+<div class="mb-3">
   <h3>
     {{ isFriendRequest() ? "Friend Requests" : "Notifications" }}
   </h3>
-
-  <a class="clear-btn"> Clear </a>
 </div>
 
 @if (isFriendRequest()) {
@@ -27,7 +25,9 @@
         >
           Accept
         </button>
-        <button class="dec-btn btn">Decline</button>
+        <button class="dec-btn btn" (click)="onDeclineRequest(request.id)">
+          Decline
+        </button>
       </div>
     </span>
   </li>
@@ -48,10 +48,13 @@
       class="rounded-circle object-fit-cover"
     />
 
-    <span class="info">
+    <span class="info flex-grow-1">
       <b>{{ notif.from.fName + " " + notif.from.lName }}</b>
       <span> {{ notif.type }} your post </span>
     </span>
+    <a class="clear-btn mx-3" (click)="onClearNotification(notif.id)">
+      Clear
+    </a>
   </li>
   @if (!$last) {
   <hr class="devider my-2" />

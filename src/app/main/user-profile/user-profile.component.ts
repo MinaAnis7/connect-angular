@@ -20,6 +20,7 @@ import { ConnectionsService } from '../services/connections.service';
 import { ToastService } from '../../shared/toast-container/toast.service';
 import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-spinner.component';
 import { RouterLink } from '@angular/router';
+import { ConnectionsDialogComponent } from './connections-dialog/connections-dialog.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -41,6 +42,7 @@ export class UserProfileComponent {
   private authService = inject(AuthService);
   private connectionService = inject(ConnectionsService);
   private toastService = inject(ToastService);
+  connections = signal<User[] | undefined>(undefined);
   uid = input.required<string>();
   user = signal<User | undefined>(undefined);
   posts = signal<Post[] | undefined>(undefined);
@@ -65,9 +67,18 @@ export class UserProfileComponent {
           },
         });
 
+      const connectionsSub = this.connectionService
+        .getAllConnections()
+        .subscribe({
+          next: (users) => {
+            this.connections.set(users);
+          },
+        });
+
       onCleanUp(() => {
         userSubs.unsubscribe();
         postsSubs.unsubscribe();
+        connectionsSub.unsubscribe();
       });
     });
   }
@@ -95,5 +106,11 @@ export class UserProfileComponent {
           isError: true,
         });
       });
+  }
+
+  onOpenConnections() {
+    this.dialog.open(ConnectionsDialogComponent, {
+      data: this.connections(),
+    });
   }
 }

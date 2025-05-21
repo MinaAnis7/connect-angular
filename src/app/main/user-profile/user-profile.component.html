@@ -16,9 +16,12 @@
       <div class="d-flex">
         <div class="name-connects">
           <div class="h2">{{ userFullName }}</div>
-          <a class="connects-num d-inline-block text-decoration-none"
-            >0 Connections</a
+          <a
+            class="connects-num d-inline-block text-decoration-none"
+            (click)="onOpenConnections()"
           >
+            {{ connections()?.length }} Connections
+          </a>
         </div>
         @if (isUserOwnProfile()) {
         <button

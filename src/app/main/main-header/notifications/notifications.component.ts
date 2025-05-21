@@ -7,6 +7,7 @@ import {
 import type { User } from '../../user/user.model';
 import { ConnectionsService } from '../../services/connections.service';
 import { ToastService } from '../../../shared/toast-container/toast.service';
+import { NotificationsService } from './notifications.service';
 
 @Component({
   selector: 'app-notifications',
@@ -20,6 +21,7 @@ import { ToastService } from '../../../shared/toast-container/toast.service';
 })
 export class NotificationsComponent {
   private connectionsService = inject(ConnectionsService);
+  private notificationService = inject(NotificationsService);
   private toastService = inject(ToastService);
   isFriendRequest = input.required<boolean>();
   friendRequests = input<
@@ -44,5 +46,13 @@ export class NotificationsComponent {
           isError: true,
         });
       });
+  }
+
+  onClearNotification(notifId: string) {
+    this.notificationService.clearNofitication(notifId);
+  }
+
+  onDeclineRequest(reqId: string) {
+    this.notificationService.declineRequest(reqId);
   }
 }

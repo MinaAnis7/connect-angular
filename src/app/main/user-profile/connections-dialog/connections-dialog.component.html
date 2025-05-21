@@ -1,0 +1,30 @@
+<div class="header d-flex justify-content-between">
+  <h2 mat-dialog-title>Connections</h2>
+  <fa-icon
+    [icon]="['fas', 'xmark']"
+    class="mx-4 d-flex align-items-center"
+    mat-dialog-close
+  />
+</div>
+
+<hr class="devider" />
+
+<mat-dialog-content class="mat-typography">
+  <ul class="list-group">
+    @for (user of users; track user.id) {
+    <li class="list-group-item border-0 px-0">
+      <img
+        [src]="user.profileImage"
+        alt="User Image"
+        class="user-img rounded-circle me-2"
+      />
+      <span class="user-name"> {{ user.fName + " " + user.lName }} </span>
+    </li>
+
+    @if(!$last) {
+    <hr class="devider my-2" />
+    } } @empty {
+    <p class="fallback-text">There're no connections yet</p>
+    }
+  </ul>
+</mat-dialog-content>

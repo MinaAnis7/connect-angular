@@ -2,6 +2,8 @@ import { inject, Injectable } from '@angular/core';
 import {
   collection,
   collectionData,
+  deleteDoc,
+  doc,
   Firestore,
   getDoc,
 } from '@angular/fire/firestore';
@@ -66,5 +68,29 @@ export class NotificationsService {
         ).then((users) => users);
       })
     );
+  }
+
+  async clearNofitication(notifId: string) {
+    const notifDoc = doc(
+      this.db,
+      'users',
+      this.authService.currentUserId()!,
+      'notifications',
+      notifId
+    );
+
+    await deleteDoc(notifDoc);
+  }
+
+  async declineRequest(reqId: string) {
+    const reqDoc = doc(
+      this.db,
+      'users',
+      this.authService.currentUserId()!,
+      'friendRequests',
+      reqId
+    );
+
+    await deleteDoc(reqDoc);
   }
 }
