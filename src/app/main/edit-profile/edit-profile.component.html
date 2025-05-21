@@ -2,16 +2,29 @@
   <div class="info bg-white pb-5 rounded-bottom-4">
     <div class="user-imgs position-relative">
       <div class="cover">
-        <img [src]="user()?.cover" alt="Profile Cover" />
+        <img
+          [src]="uploadedCoverImg() ? uploadedCoverImg() : user()?.cover"
+          alt="Profile Cover"
+        />
         <fa-icon
           [icon]="['fas', 'pencil']"
           class="edit-btn edit-cover position-absolute shadow"
           title="Change Cover"
+          (click)="coverSelector.click()"
+        />
+        <input
+          type="file"
+          accept="image/*"
+          hidden
+          (change)="onCoverImgSelected()"
+          #coverSelector
         />
       </div>
       <div class="profile-pic position-absolute bottom-0 rounded-circle">
         <img
-          [src]="user()?.profileImage"
+          [src]="
+            uploadedProfileImg() ? uploadedProfileImg() : user()?.profileImage
+          "
           alt="Profile Picture"
           class="d-block"
         />
@@ -19,14 +32,36 @@
           [icon]="['fas', 'pencil']"
           class="edit-btn position-absolute shadow"
           title="Change Profile Picture"
+          (click)="profileSelector.click()"
+        />
+        <input
+          type="file"
+          accept="image/*"
+          hidden
+          (change)="onProfileImgSelected()"
+          #profileSelector
         />
       </div>
     </div>
     <div class="texual-info">
-      <div class="d-flex">
+      <div class="d-flex flex-wrap">
         <div class="name-connects">
           <div class="h2">{{ user()?.fName + " " + user()?.lName }}</div>
         </div>
+        @if (selectedProfileImage || selectedCoverImage) {
+        <button
+          class="change-img align-self-end btn rounded-3 ms-auto"
+          (click)="onUpdateImgs()"
+        >
+          {{
+            selectedCoverImage && selectedProfileImage
+              ? "Change Cover&Profile"
+              : selectedProfileImage
+              ? "Change Profile Image"
+              : "Change Cover Image"
+          }}
+        </button>
+        }
       </div>
     </div>
   </div>
@@ -37,7 +72,7 @@
       <div class="input-ctrl px-3 py-2 mb-3 rounded-4">
         <input
           type="text"
-          placeholder="Frist Name"
+          placeholder="First Name"
           [value]="user()?.fName"
           class="border-0 bg-transparent w-100 flex-grow-1"
         />
