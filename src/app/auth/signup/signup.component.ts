@@ -18,6 +18,7 @@ import { AuthService } from '../auth.service';
 import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-spinner.component';
 import { ToastService } from '../../shared/toast-container/toast.service';
 import { UserService } from '../../main/user/user.service';
+import { NgOptimizedImage } from '@angular/common';
 
 function checkPasswordsEquality(ctrl: AbstractControl) {
   const password = ctrl.get('password')?.value;
@@ -39,6 +40,7 @@ function checkPasswordsEquality(ctrl: AbstractControl) {
     LogoComponent,
     RouterLink,
     LoadingSpinnerComponent,
+    NgOptimizedImage,
   ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',

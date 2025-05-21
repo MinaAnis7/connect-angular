@@ -39,6 +39,7 @@
           <input
             type="email"
             name="email"
+            autocomplete="email"
             formControlName="email"
             class="border-0 flex-grow-1"
             placeholder="name@email.com"
@@ -136,9 +137,10 @@
     </div>
   </div>
 
-  <div class="auth-img d-none d-lg-block">
+  <div class="auth-img d-none d-lg-block position-relative">
     <img
-      src="assets/signup.jpg"
+      ngSrc="assets/signup.jpg"
+      fill
       class="img-fluid d-block h-100 object-fit-contain mx-auto"
       alt="People are connected all over the globe!"
     />

@@ -17,6 +17,7 @@ import { AuthService } from '../auth.service';
 import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-spinner.component';
 import { ToastService } from '../../shared/toast-container/toast.service';
 import { UserService } from '../../main/user/user.service';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -27,6 +28,7 @@ import { UserService } from '../../main/user/user.service';
     AuthCtrlComponent,
     RouterLink,
     LoadingSpinnerComponent,
+    NgOptimizedImage,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
