@@ -205,4 +205,21 @@ export class PostsService {
       collection(this.db, 'posts', postId, 'comments')
     ).pipe(map((comments) => comments.length));
   }
+
+  async deletePost(postId: string) {
+    // Delete post reference in users collection
+    const userPostDoc = doc(
+      this.db,
+      'users',
+      this.authService.currentUserId()!,
+      'posts',
+      postId
+    );
+
+    // Delete the post itself
+    const postDoc = doc(this.db, 'posts', postId);
+
+    await deleteDoc(userPostDoc);
+    await deleteDoc(postDoc);
+  }
 }

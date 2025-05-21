@@ -1,4 +1,4 @@
-<div class="bg-white p-3 rounded-3">
+<div class="bg-white p-3 rounded-3 post-cont">
   <div class="author-info d-flex align-items-center">
     <a [routerLink]="['/app/profile', post().author.id]">
       <img
@@ -22,8 +22,22 @@
 
     <fa-icon
       [icon]="['fas', 'ellipsis-vertical']"
+      [matMenuTriggerFor]="menu"
       class="more-icon ms-auto d-flex justify-content-center align-items-center rounded-circle"
     />
+    <mat-menu #menu="matMenu" xPosition="before">
+      @if (isMyPost()) {
+      <button mat-menu-item (click)="onDeletePost()">
+        <mat-icon class="material-icons-outlined">delete</mat-icon>
+        <span>Delete</span>
+      </button>
+      } @else {
+      <button mat-menu-item [routerLink]="['/app/profile', post().author.id]">
+        <mat-icon class="material-icons-outlined">account_circle</mat-icon>
+        <span>View Profile</span>
+      </button>
+      }
+    </mat-menu>
   </div>
   <hr class="devider my-3" />
 

@@ -1,6 +1,9 @@
 :host {
   display: block;
 }
+.post-cont {
+  border: 1px solid #ddd;
+}
 
 .author-img {
   width: 48px;

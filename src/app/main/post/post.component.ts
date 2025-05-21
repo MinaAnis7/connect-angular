@@ -28,6 +28,8 @@ import { AuthService } from '../../auth/auth.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { LovesDialogComponent } from './loves-dialog/loves-dialog.component';
 import { CommentsDialogComponent } from './comments-dialog/comments-dialog.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-post',
@@ -37,6 +39,8 @@ import { CommentsDialogComponent } from './comments-dialog/comments-dialog.compo
     ReadMoreComponent,
     RouterLink,
     MatDialogModule,
+    MatMenuModule,
+    MatIconModule,
   ],
   templateUrl: './post.component.html',
   styleUrl: './post.component.css',
@@ -44,6 +48,9 @@ import { CommentsDialogComponent } from './comments-dialog/comments-dialog.compo
 export class PostComponent {
   post = input.required<Post>();
   author = signal<User | undefined>(undefined);
+  isMyPost = computed(
+    () => this.post().author.id === this.authService.currentUserId()
+  );
   isLoved = signal<boolean>(false);
   loves = signal<string[] | undefined>(undefined);
   commentsNum = signal<number | undefined>(undefined);
@@ -115,5 +122,9 @@ export class PostComponent {
     this.dialog.open(CommentsDialogComponent, {
       data: this.post(),
     });
+  }
+
+  onDeletePost() {
+    this.postsService.deletePost(this.post().id);
   }
 }
