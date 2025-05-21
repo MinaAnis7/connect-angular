@@ -48,7 +48,7 @@
         <div class="name-connects">
           <div class="h2">{{ user()?.fName + " " + user()?.lName }}</div>
         </div>
-        @if (selectedProfileImage || selectedCoverImage) {
+        @if ((selectedProfileImage || selectedCoverImage) && !isLoading) {
         <button
           class="change-img align-self-end btn rounded-3 ms-auto"
           (click)="onUpdateImgs()"
@@ -61,19 +61,27 @@
               : "Change Cover Image"
           }}
         </button>
+        } @else if (isLoading) {
+        <app-loading-spinner class="align-self-end ms-auto me-2" />
         }
       </div>
     </div>
   </div>
 
-  <form class="edit-form mt-4 mx-auto bg-white p-4 rounded-4 mb-3">
+  <form
+    #form="ngForm"
+    (ngSubmit)="onSubmit(form)"
+    class="edit-form mt-4 mx-auto bg-white p-4 rounded-4 mb-3"
+  >
     <h2>Edit your infomation</h2>
     <div class="name d-flex gap-3">
       <div class="input-ctrl px-3 py-2 mb-3 rounded-4">
         <input
           type="text"
           placeholder="First Name"
-          [value]="user()?.fName"
+          name="fname"
+          [(ngModel)]="info.fName"
+          required
           class="border-0 bg-transparent w-100 flex-grow-1"
         />
       </div>
@@ -81,7 +89,9 @@
         <input
           type="text"
           placeholder="Last Name"
-          [value]="user()?.lName"
+          name="lname"
+          [(ngModel)]="info.lName"
+          required
           class="border-0 bg-transparent w-100 flex-grow-1"
         />
       </div>
@@ -90,7 +100,9 @@
       <input
         type="text"
         placeholder="Bio"
-        [value]="user()?.bio"
+        name="bio"
+        [(ngModel)]="info.bio"
+        required
         class="border-0 bg-transparent w-100"
       />
     </div>

@@ -3,7 +3,7 @@
 <div class="friends mt-3">
   @for (friend of friends(); track friend.id) {
   <div class="card shadow-sm">
-    <img [src]="friend.profileImage" class="card-img-top" alt="Profile Image" />
+    <img [src]="friend.profileImage" class="card-img-top friend-img" alt="Profile Image" />
     <div class="card-body">
       <h5 class="card-title">{{ friend.fName + " " + friend.lName }}</h5>
 

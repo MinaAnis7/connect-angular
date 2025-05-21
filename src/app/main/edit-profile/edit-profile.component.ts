@@ -15,10 +15,13 @@ import {
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import { EditProfileService } from './edit-profile.service';
 import { ToastService } from '../../shared/toast-container/toast.service';
+import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-spinner.component';
+import { updateCurrentUser } from '../../store/user.actions';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-profile',
-  imports: [FontAwesomeModule],
+  imports: [FontAwesomeModule, LoadingSpinnerComponent, FormsModule],
   templateUrl: './edit-profile.component.html',
   styleUrl: './edit-profile.component.css',
 })
@@ -33,6 +36,12 @@ export class EditProfileComponent implements OnInit {
   uploadedCoverImg = signal<string | ArrayBuffer | null>(null);
   selectedCoverImage: File | null = null;
   user = signal<User | undefined>(undefined);
+  info = {
+    fName: '',
+    lName: '',
+    bio: '',
+  };
+  isLoading = false;
 
   constructor(library: FaIconLibrary) {
     library.addIcons(faPencil);
@@ -42,6 +51,11 @@ export class EditProfileComponent implements OnInit {
     this.store.select('currentUser').subscribe({
       next: (user) => {
         this.user.set(user);
+        this.info = {
+          fName: user?.fName,
+          lName: user?.lName,
+          bio: user?.bio,
+        };
       },
     });
   }
@@ -77,17 +91,42 @@ export class EditProfileComponent implements OnInit {
   }
 
   onUpdateImgs() {
+    this.isLoading = true;
     this.editProfileService
       .uploadProfileImages(this.selectedProfileImage, this.selectedCoverImage)
-      .then(() => {
+      .then((data) => {
         this.toastSerivce.toast$.next({
           message: 'Uploaded Successfully! ✅',
+          isError: false,
+        });
+
+        this.store.dispatch(updateCurrentUser({ data: data! }));
+      })
+      .catch(() => {
+        this.toastSerivce.toast$.next({
+          message: 'Error happened while uploading',
+          isError: true,
+        });
+      })
+      .finally(() => {
+        this.isLoading = false;
+      });
+  }
+
+  onSubmit(form: NgForm) {
+    if (form.invalid) return;
+
+    this.editProfileService
+      .updateInfo(this.info)
+      .then(() => {
+        this.toastSerivce.toast$.next({
+          message: 'Updated Successfully! ✅',
           isError: false,
         });
       })
       .catch(() => {
         this.toastSerivce.toast$.next({
-          message: 'Error happened while uploading',
+          message: 'Error happened while updating info.',
           isError: true,
         });
       });

@@ -3,7 +3,7 @@
 <div class="new-friends mt-3">
   @for (user of possibleNewFriends(); track user.id) {
   <div class="card shadow-sm">
-    <img [src]="user.profileImage" class="card-img-top" alt="Profile Image" />
+    <img [src]="user.profileImage" class="card-img-top friend-img" alt="Profile Image" />
     <div class="card-body">
       <h5 class="card-title">{{ user.fName + " " + user.lName }}</h5>
 

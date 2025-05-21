@@ -33,7 +33,15 @@ export class EditProfileService {
       };
     }
 
-    return await updateDoc(userDoc, data!);
+    await updateDoc(userDoc, data!);
+
+    return data;
+  }
+
+  async updateInfo(info: { fName: string; lName: string; bio: string }) {
+    const userDoc = doc(this.db, 'users', this.authService.currentUserId()!);
+
+    return await updateDoc(userDoc, info);
   }
 
   private async uploadImage(Img: File) {
