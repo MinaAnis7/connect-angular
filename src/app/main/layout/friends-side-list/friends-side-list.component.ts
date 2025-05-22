@@ -11,7 +11,7 @@ import {
 } from '@fortawesome/angular-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { InputCtrlComponent } from '../../../shared/input-ctrl/input-ctrl.component';
-import { ConnectionsService } from '../../services/connections.service';
+import { ConnectionsService } from '../../connections.service';
 import type { User } from '../../user/user.model';
 import { RouterLink } from '@angular/router';
 

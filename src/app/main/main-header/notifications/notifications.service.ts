@@ -1,4 +1,9 @@
-import { inject, Injectable } from '@angular/core';
+import {
+  EnvironmentInjector,
+  inject,
+  Injectable,
+  runInInjectionContext,
+} from '@angular/core';
 import {
   collection,
   collectionData,
@@ -14,83 +19,107 @@ import { Observable, of, switchMap } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class NotificationsService {
   private db = inject(Firestore);
+  private injectionContext = inject(EnvironmentInjector);
   private authService = inject(AuthService);
 
   getFriendRequests(): Observable<
     { id: string; from: User; userId: string }[]
   > {
-    const colRef = collection(
-      this.db,
-      'users',
-      this.authService.currentUserId()!,
-      'friendRequests'
-    );
+    return runInInjectionContext(this.injectionContext, () => {
+      const colRef = collection(
+        this.db,
+        'users',
+        this.authService.currentUserId()!,
+        'friendRequests'
+      );
 
-    return collectionData(colRef, { idField: 'id' }).pipe(
-      switchMap((notifs: any[]) => {
-        if (notifs.length === 0) return of([]);
-        return Promise.all(
-          notifs.map(async (notif) => {
-            const fromUserDoc = await getDoc(notif.from);
-            return {
-              id: notif.id,
-              from: fromUserDoc.data() as User,
-              userId: fromUserDoc.id,
-            };
-          })
-        ).then((users) => users);
-      })
-    );
+      return collectionData(colRef, { idField: 'id' }).pipe(
+        switchMap((notifs: any[]) => {
+          if (notifs.length === 0) return of([]);
+          return Promise.all(
+            notifs.map(async (notif) => {
+              const fromUserDoc = await runInInjectionContext(
+                this.injectionContext,
+                async () => {
+                  return await getDoc(notif.from);
+                }
+              );
+
+              return {
+                id: notif.id,
+                from: fromUserDoc.data() as User,
+                userId: fromUserDoc.id,
+              };
+            })
+          ).then((users) => users);
+        })
+      );
+    });
   }
 
   getNotifications(): Observable<{ id: string; from: User; type: string }[]> {
-    const colRef = collection(
-      this.db,
-      'users',
-      this.authService.currentUserId()!,
-      'notifications'
-    );
+    return runInInjectionContext(this.injectionContext, () => {
+      const colRef = collection(
+        this.db,
+        'users',
+        this.authService.currentUserId()!,
+        'notifications'
+      );
 
-    return collectionData(colRef, { idField: 'id' }).pipe(
-      switchMap((notifs: any[]) => {
-        if (notifs.length === 0) return of([]);
+      return collectionData(colRef, { idField: 'id' }).pipe(
+        switchMap((notifs: any[]) => {
+          if (notifs.length === 0) return of([]);
 
-        return Promise.all(
-          notifs.map(async (notif) => {
-            const fromUserDoc = await getDoc(notif.from);
+          return Promise.all(
+            notifs.map(async (notif) => {
+              const fromUserDoc = await runInInjectionContext(
+                this.injectionContext,
+                async () => {
+                  return await getDoc(notif.from);
+                }
+              );
 
-            return {
-              id: notif.id,
-              from: fromUserDoc.data() as User,
-              type: notif.type,
-            };
-          })
-        ).then((users) => users);
-      })
-    );
+              return {
+                id: notif.id,
+                from: fromUserDoc.data() as User,
+                type: notif.type,
+              };
+            })
+          ).then((users) => users);
+        })
+      );
+    });
   }
 
   async clearNofitication(notifId: string) {
-    const notifDoc = doc(
-      this.db,
-      'users',
-      this.authService.currentUserId()!,
-      'notifications',
-      notifId
-    );
+    const notifDoc = runInInjectionContext(this.injectionContext, () => {
+      return doc(
+        this.db,
+        'users',
+        this.authService.currentUserId()!,
+        'notifications',
+        notifId
+      );
+    });
 
-    await deleteDoc(notifDoc);
+    await runInInjectionContext(this.injectionContext, async () => {
+      return await deleteDoc(notifDoc);
+    });
   }
 
   async declineRequest(reqId: string) {
-    const reqDoc = doc(
-      this.db,
-      'users',
-      this.authService.currentUserId()!,
-      'friendRequests',
-      reqId
-    );
+    const reqDoc = runInInjectionContext(this.injectionContext, () => {
+      return doc(
+        this.db,
+        'users',
+        this.authService.currentUserId()!,
+        'friendRequests',
+        reqId
+      );
+    });
 
-    await deleteDoc(reqDoc);
+    await runInInjectionContext(this.injectionContext, async () => {
+      return await deleteDoc(reqDoc);
+    });
   }
 }

@@ -1,4 +1,10 @@
-import { inject, Injectable, signal } from '@angular/core';
+import {
+  EnvironmentInjector,
+  inject,
+  Injectable,
+  runInInjectionContext,
+  signal,
+} from '@angular/core';
 import { UserService } from '../main/user/user.service';
 import {
   Auth,
@@ -15,6 +21,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   private auth = inject(Auth);
+  private injectionContext = inject(EnvironmentInjector);
   private userService = inject(UserService);
   private router = inject(Router);
   currentUserId = signal<string | null | undefined>(undefined);
@@ -31,22 +38,28 @@ export class AuthService {
   }
 
   signup(email: string, password: string, formValues: any) {
-    return createUserWithEmailAndPassword(this.auth, email, password)
-      .then((userCredential) => {
-        this.saveUserToFirestore(formValues, userCredential.user.uid);
-      })
-      .catch(this.handleError);
+    return runInInjectionContext(this.injectionContext, () => {
+      return createUserWithEmailAndPassword(this.auth, email, password)
+        .then((userCredential) => {
+          this.saveUserToFirestore(formValues, userCredential.user.uid);
+        })
+        .catch(this.handleError);
+    });
   }
 
   login(email: string, password: string) {
-    return signInWithEmailAndPassword(this.auth, email, password).catch(
-      this.handleError
-    );
+    return runInInjectionContext(this.injectionContext, () => {
+      return signInWithEmailAndPassword(this.auth, email, password).catch(
+        this.handleError
+      );
+    });
   }
 
   logout() {
-    signOut(this.auth).then(() => {
-      this.router.navigate(['/auth']);
+    runInInjectionContext(this.injectionContext, () => {
+      signOut(this.auth).then(() => {
+        this.router.navigate(['/auth']);
+      });
     });
   }
 

@@ -7,7 +7,7 @@ import {
   signal,
 } from '@angular/core';
 import { UserService } from '../../user/user.service';
-import { ConnectionsService } from '../../services/connections.service';
+import { ConnectionsService } from '../../connections.service';
 import type { User } from '../../user/user.model';
 import { AuthService } from '../../../auth/auth.service';
 import { ToastService } from '../../../shared/toast-container/toast.service';

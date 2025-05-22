@@ -1,4 +1,9 @@
-import { inject, Injectable } from '@angular/core';
+import {
+  EnvironmentInjector,
+  inject,
+  Injectable,
+  runInInjectionContext,
+} from '@angular/core';
 import {
   collection,
   collectionData,
@@ -16,13 +21,16 @@ import { saveCurrentUser } from '../../store/user.actions';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
+  private injectionContext = inject(EnvironmentInjector);
   private toastService = inject(ToastService);
   private db = inject(Firestore);
   private store = inject(Store);
 
   async storeNewUser(user: UserData, id: string) {
     try {
-      await setDoc(doc(this.db, 'users', id), user);
+      await runInInjectionContext(this.injectionContext, async () => {
+        return await setDoc(doc(this.db, 'users', id), user);
+      });
 
       this.store.dispatch(
         saveCurrentUser({
@@ -44,7 +52,12 @@ export class UserService {
   async getLoggedInUser(userID?: string) {
     if (userID) {
       const docRef = doc(this.db, 'users', userID);
-      const userDocSnap = await getDoc(docRef);
+      const userDocSnap = await runInInjectionContext(
+        this.injectionContext,
+        async () => {
+          return await getDoc(docRef);
+        }
+      );
 
       if (userDocSnap.exists()) {
         const userData = userDocSnap.data() as User;
@@ -54,22 +67,33 @@ export class UserService {
   }
 
   getPostAuthor(docRef: DocumentReference) {
-    return docData(docRef);
+    return runInInjectionContext(this.injectionContext, () => {
+      return docData(docRef);
+    });
   }
 
   getUserById(id: string) {
-    const docRef = doc(this.db, 'users', id);
-    return docData(docRef);
+    return runInInjectionContext(this.injectionContext, () => {
+      const docRef = doc(this.db, 'users', id);
+      return docData(docRef);
+    });
   }
 
   getAllUsers() {
-    return collectionData(collection(this.db, 'users'), { idField: 'id' });
+    return runInInjectionContext(this.injectionContext, () => {
+      return collectionData(collection(this.db, 'users'), { idField: 'id' });
+    });
   }
 
   getUsersFromIdList(ids: string[]) {
     const users = Promise.all(
       ids.map(async (userId) => {
-        const user = await getDoc(doc(this.db, 'users', userId));
+        const user = await runInInjectionContext(
+          this.injectionContext,
+          async () => {
+            return await getDoc(doc(this.db, 'users', userId));
+          }
+        );
         return {
           ...user.data(),
           id: userId,

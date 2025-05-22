@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { ConnectionsService } from '../services/connections.service';
+import { ConnectionsService } from '../connections.service';
 import type { User } from '../user/user.model';
 import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-spinner.component';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';

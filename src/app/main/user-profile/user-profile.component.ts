@@ -16,7 +16,7 @@ import { PostComponent } from '../post/post.component';
 import { PostsService } from '../post/posts.service';
 import { UserService } from '../user/user.service';
 import { AuthService } from '../../auth/auth.service';
-import { ConnectionsService } from '../services/connections.service';
+import { ConnectionsService } from '../connections.service';
 import { ToastService } from '../../shared/toast-container/toast.service';
 import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-spinner.component';
 import { RouterLink } from '@angular/router';

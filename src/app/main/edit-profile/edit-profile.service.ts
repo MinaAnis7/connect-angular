@@ -1,4 +1,9 @@
-import { inject, Injectable } from '@angular/core';
+import {
+  EnvironmentInjector,
+  inject,
+  Injectable,
+  runInInjectionContext,
+} from '@angular/core';
 import { doc, Firestore, updateDoc } from '@angular/fire/firestore';
 import { ToastService } from '../../shared/toast-container/toast.service';
 import { AuthService } from '../../auth/auth.service';
@@ -6,11 +11,15 @@ import { AuthService } from '../../auth/auth.service';
 @Injectable({ providedIn: 'root' })
 export class EditProfileService {
   private db = inject(Firestore);
+  private injectionContext = inject(EnvironmentInjector);
   private authService = inject(AuthService);
   private toastService = inject(ToastService);
 
   async uploadProfileImages(profileImg: File | null, coverImg: File | null) {
-    const userDoc = doc(this.db, 'users', this.authService.currentUserId()!);
+    const userDoc = runInInjectionContext(this.injectionContext, () => {
+      return doc(this.db, 'users', this.authService.currentUserId()!);
+    });
+
     let coverUrl, profileUrl;
     let data;
 
@@ -33,7 +42,9 @@ export class EditProfileService {
       };
     }
 
-    await updateDoc(userDoc, data!);
+    await runInInjectionContext(this.injectionContext, async () => {
+      return await updateDoc(userDoc, data!);
+    });
 
     return data;
   }

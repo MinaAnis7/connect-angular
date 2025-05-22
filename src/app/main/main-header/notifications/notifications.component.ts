@@ -5,7 +5,7 @@ import {
   input,
 } from '@angular/core';
 import type { User } from '../../user/user.model';
-import { ConnectionsService } from '../../services/connections.service';
+import { ConnectionsService } from '../../connections.service';
 import { ToastService } from '../../../shared/toast-container/toast.service';
 import { NotificationsService } from './notifications.service';
 
