@@ -37,7 +37,6 @@ export class LoginComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
   private toastService = inject(ToastService);
-  private userService = inject(UserService);
   passwordVisible = false;
   isLoading = signal(false);
 

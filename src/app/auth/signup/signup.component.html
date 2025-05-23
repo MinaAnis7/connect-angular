@@ -54,6 +54,7 @@
             <input
               [type]="passwordVisible ? 'text' : 'password'"
               name="password"
+              autocomplete="new-password"
               formControlName="password"
               class="border-0 flex-grow-1"
               placeholder="Password"
@@ -87,6 +88,7 @@
               [type]="confirmPasswordVisible ? 'text' : 'password'"
               name="confirm-password"
               formControlName="confirmPassword"
+              autocomplete="new-password"
               class="border-0 flex-grow-1"
               placeholder="Confirm Password"
             />

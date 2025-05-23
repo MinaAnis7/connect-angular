@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   inject,
   OnInit,
   signal,
@@ -25,6 +26,7 @@ import { RouterLink } from '@angular/router';
 export class FriendsSideListComponent implements OnInit {
   private connectionsSerive = inject(ConnectionsService);
   private friendsData = signal<User[] | undefined>(undefined);
+  private destroyRef = inject(DestroyRef);
   friends = signal<User[] | undefined>(undefined);
 
   constructor(library: FaIconLibrary) {
@@ -32,11 +34,17 @@ export class FriendsSideListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.connectionsSerive.getAllConnections().subscribe({
-      next: (friends) => {
-        this.friendsData.set(friends);
-        this.friends.set(friends);
-      },
+    const connectionsSubs = this.connectionsSerive
+      .getAllConnections()
+      .subscribe({
+        next: (friends) => {
+          this.friendsData.set(friends);
+          this.friends.set(friends);
+        },
+      });
+
+    this.destroyRef.onDestroy(() => {
+      connectionsSubs.unsubscribe();
     });
   }
 

@@ -17,7 +17,7 @@ import {
 } from '@angular/fire/firestore';
 import { AuthService } from '../../auth/auth.service';
 import { HttpClient } from '@angular/common/http';
-import { map, of, switchMap } from 'rxjs';
+import { from, map, of, switchMap } from 'rxjs';
 import { ToastService } from '../../shared/toast-container/toast.service';
 import { User } from '../user/user.model';
 
@@ -153,21 +153,28 @@ export class PostsService {
         'loves',
         this.authService.currentUserId()!
       );
-      const authorNotificationsCol = collection(
-        this.db,
-        'users',
-        postAuthorId,
-        'notifications'
-      );
-      const userDoc = doc(this.db, 'users', this.authService.currentUserId()!);
 
       await setDoc(postsLoveDoc, {});
-      await runInInjectionContext(this.injectionContext, async () => {
-        return await addDoc(authorNotificationsCol, {
-          type: 'Loved',
-          from: userDoc,
+
+      if (postAuthorId !== this.authService.currentUserId()) {
+        await runInInjectionContext(this.injectionContext, async () => {
+          const authorNotificationsCol = collection(
+            this.db,
+            'users',
+            postAuthorId,
+            'notifications'
+          );
+          const userDoc = doc(
+            this.db,
+            'users',
+            this.authService.currentUserId()!
+          );
+          return await addDoc(authorNotificationsCol, {
+            type: 'Loved',
+            from: userDoc,
+          });
         });
-      });
+      }
     });
   }
 
@@ -197,14 +204,36 @@ export class PostsService {
     });
   }
 
-  async comment(postId: string, comment: string) {
+  async comment(postId: string, comment: string, authorId: string) {
     await runInInjectionContext(this.injectionContext, async () => {
       const postCol = collection(this.db, 'posts', postId, 'comments');
 
-      await addDoc(postCol, {
-        from: this.authService.currentUserId(),
-        comment: comment,
+      await runInInjectionContext(this.injectionContext, async () => {
+        return await addDoc(postCol, {
+          from: this.authService.currentUserId(),
+          comment: comment,
+        });
       });
+
+      if (authorId !== this.authService.currentUserId()) {
+        await runInInjectionContext(this.injectionContext, async () => {
+          const notifcationCol = collection(
+            this.db,
+            'users',
+            authorId,
+            'notifications'
+          );
+          const userDoc = doc(
+            this.db,
+            'users',
+            this.authService.currentUserId()!
+          );
+          return await addDoc(notifcationCol, {
+            type: 'Commented on',
+            from: userDoc,
+          });
+        });
+      }
     });
   }
 

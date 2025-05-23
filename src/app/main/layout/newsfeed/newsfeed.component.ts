@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { PostComponent } from '../../post/post.component';
@@ -21,13 +21,18 @@ import { LoadingSpinnerComponent } from '../../../shared/loading-spinner/loading
 export class NewsfeedComponent implements OnInit {
   private readonly dialog = inject(MatDialog);
   private postsService = inject(PostsService);
+  private destroyRef = inject(DestroyRef);
   posts = signal<Post[] | undefined>(undefined);
 
   ngOnInit(): void {
-    this.postsService.getAllPosts().subscribe({
+    const postsSubs = this.postsService.getAllPosts().subscribe({
       next: (posts) => {
         this.posts.set(posts as Post[]);
       },
+    });
+
+    this.destroyRef.onDestroy(() => {
+      postsSubs.unsubscribe();
     });
   }
 

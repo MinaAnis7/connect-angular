@@ -50,7 +50,7 @@ export class UserChatComponent {
         next: (chat) => {
           this.chat.set(chat);
 
-          if (this.firstRender || chat[0].id !== this.uid()) {
+          if (this.firstRender || chat[0]?.id !== this.uid()) {
             requestAnimationFrame(() => {
               this.messagesContainer.nativeElement.scrollTo({
                 behavior: 'instant',

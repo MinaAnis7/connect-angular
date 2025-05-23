@@ -2,6 +2,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  DestroyRef,
+  effect,
   inject,
   OnInit,
   signal,
@@ -27,28 +29,42 @@ export class NewFriendsComponent implements OnInit {
   private allUsers = signal<User[] | undefined>(undefined);
   private friends = signal<User[] | undefined>(undefined);
   private authService = inject(AuthService);
+  private destroyRef = inject(DestroyRef);
+  possibleNewFriends = signal<User[] | undefined>(undefined);
 
-  possibleNewFriends = computed<User[] | undefined>(() => {
-    const friendsIds = this.friends()?.map((user) => user.id);
-    const friendsIdsSet = new Set(friendsIds);
+  constructor() {
+    effect(() => {
+      if (this.allUsers() && this.friends()) {
+        const friendsIds = this.friends()?.map((user) => user.id);
+        const friendsIdsSet = new Set(friendsIds);
 
-    return this.allUsers()?.filter(
-      (user) =>
-        !friendsIdsSet.has(user.id) &&
-        user.id !== this.authService.currentUserId()!
-    );
-  });
+        const nonFriends = this.allUsers()?.filter(
+          (user) =>
+            !friendsIdsSet.has(user.id) &&
+            user.id !== this.authService.currentUserId()!
+        );
+        this.possibleNewFriends.set(nonFriends);
+      }
+    });
+  }
 
   ngOnInit(): void {
-    this.userService.getAllUsers().subscribe({
+    const usersSubs = this.userService.getAllUsers().subscribe({
       next: (users) => {
         this.allUsers.set(users as User[]);
       },
     });
-    this.connectionsService.getAllConnections().subscribe({
-      next: (friends) => {
-        this.friends.set(friends as User[]);
-      },
+    const connectionsSubs = this.connectionsService
+      .getAllConnections()
+      .subscribe({
+        next: (friends) => {
+          this.friends.set(friends as User[]);
+        },
+      });
+
+    this.destroyRef.onDestroy(() => {
+      usersSubs.unsubscribe();
+      connectionsSubs.unsubscribe();
     });
   }
 

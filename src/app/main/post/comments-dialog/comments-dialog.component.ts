@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import {
   FaIconLibrary,
@@ -20,6 +20,7 @@ import { ReadMoreComponent } from '../../../shared/read-more/read-more.component
 export class CommentsDialogComponent implements OnInit {
   private store = inject(Store);
   private postsService = inject(PostsService);
+  private destroyRef = inject(DestroyRef);
   private post = inject<Post>(MAT_DIALOG_DATA);
   comments = signal<{ from: User; comment: string; id: string }[] | undefined>(
     undefined
@@ -31,21 +32,32 @@ export class CommentsDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.select('currentUser').subscribe({
+    const currentUserSubs = this.store.select('currentUser').subscribe({
       next: (user) => {
         this.currentUser.set(user as User);
       },
     });
 
-    this.postsService.getPostComments(this.post.id).subscribe({
-      next: (comments) => {
-        this.comments.set(comments);
-      },
+    const commentSubs = this.postsService
+      .getPostComments(this.post.id)
+      .subscribe({
+        next: (comments) => {
+          this.comments.set(comments);
+        },
+      });
+
+    this.destroyRef.onDestroy(() => {
+      currentUserSubs.unsubscribe();
+      commentSubs.unsubscribe();
     });
   }
 
   onComment(commentCtrl: HTMLInputElement) {
-    this.postsService.comment(this.post.id, commentCtrl.value);
+    this.postsService.comment(
+      this.post.id,
+      commentCtrl.value,
+      this.post.author.id
+    );
     commentCtrl.value = '';
   }
 }

@@ -1,5 +1,6 @@
 import {
   Component,
+  DestroyRef,
   ElementRef,
   inject,
   OnInit,
@@ -31,6 +32,7 @@ export class EditProfileComponent implements OnInit {
   private store = inject(Store);
   private editProfileService = inject(EditProfileService);
   private toastSerivce = inject(ToastService);
+  private destroyRef = inject(DestroyRef);
   uploadedProfileImg = signal<string | ArrayBuffer | null>(null);
   selectedProfileImage: File | null = null;
   uploadedCoverImg = signal<string | ArrayBuffer | null>(null);
@@ -48,7 +50,7 @@ export class EditProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.select('currentUser').subscribe({
+    const currentSubs = this.store.select('currentUser').subscribe({
       next: (user) => {
         this.user.set(user);
         this.info = {
@@ -57,6 +59,10 @@ export class EditProfileComponent implements OnInit {
           bio: user?.bio,
         };
       },
+    });
+
+    this.destroyRef.onDestroy(() => {
+      currentSubs.unsubscribe();
     });
   }
 

@@ -50,9 +50,11 @@ export class EditProfileService {
   }
 
   async updateInfo(info: { fName: string; lName: string; bio: string }) {
-    const userDoc = doc(this.db, 'users', this.authService.currentUserId()!);
+    return await runInInjectionContext(this.injectionContext, async () => {
+      const userDoc = doc(this.db, 'users', this.authService.currentUserId()!);
 
-    return await updateDoc(userDoc, info);
+      return await updateDoc(userDoc, info);
+    });
   }
 
   private async uploadImage(Img: File) {

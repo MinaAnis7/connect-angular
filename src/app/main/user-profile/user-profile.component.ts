@@ -50,6 +50,17 @@ export class UserProfileComponent {
   isUserOwnProfile = computed(
     () => this.authService.currentUserId() === this.uid()
   );
+  isConnection = computed<boolean | undefined>(() => {
+    let isFound = false;
+    this.connections()?.forEach((user) => {
+      if (user.id === this.uid()) {
+        isFound = true;
+        return;
+      }
+    });
+
+    return isFound;
+  });
 
   constructor() {
     effect((onCleanUp) => {

@@ -14,7 +14,7 @@ import {
   serverTimestamp,
 } from '@angular/fire/firestore';
 import { AuthService } from '../../auth/auth.service';
-import { map, Observable } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { Message } from './message.model';
 
 @Injectable({ providedIn: 'root' })

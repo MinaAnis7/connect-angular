@@ -2,11 +2,9 @@ import { DatePipe } from '@angular/common';
 import {
   Component,
   computed,
-  DestroyRef,
   effect,
   inject,
   input,
-  OnInit,
   signal,
 } from '@angular/core';
 import {

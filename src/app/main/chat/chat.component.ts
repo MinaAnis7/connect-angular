@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { ConnectionsService } from '../connections.service';
 import type { User } from '../user/user.model';
 import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-spinner.component';
@@ -17,13 +17,20 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 })
 export class ChatComponent implements OnInit {
   private connectionsService = inject(ConnectionsService);
+  private destroyRef = inject(DestroyRef);
   friends = signal<User[] | undefined>(undefined);
 
   ngOnInit(): void {
-    this.connectionsService.getAllConnections().subscribe({
-      next: (friends) => {
-        this.friends.set(friends);
-      },
+    const connectionsSubs = this.connectionsService
+      .getAllConnections()
+      .subscribe({
+        next: (friends) => {
+          this.friends.set(friends);
+        },
+      });
+
+    this.destroyRef.onDestroy(() => {
+      connectionsSubs.unsubscribe();
     });
   }
 }
