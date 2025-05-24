@@ -1,17 +1,5 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './auth/login/login.component';
-import { SignupComponent } from './auth/signup/signup.component';
 import { authGuard } from './auth.guards';
-import { UserProfileComponent } from './main/user-profile/user-profile.component';
-import { MainComponent } from './main/main.component';
-import { LayoutComponent } from './main/layout/layout.component';
-import { NewsfeedComponent } from './main/layout/newsfeed/newsfeed.component';
-import { FriendsComponent } from './main/layout/friends/friends.component';
-import { NewFriendsComponent } from './main/layout/new-friends/new-friends.component';
-import { ChatComponent } from './main/chat/chat.component';
-import { NoSelectedChatComponent } from './main/chat/no-selected-chat/no-selected-chat.component';
-import { UserChatComponent } from './main/chat/user-chat/user-chat.component';
-import { EditProfileComponent } from './main/edit-profile/edit-profile.component';
 
 export const routes: Routes = [
   {
@@ -23,7 +11,8 @@ export const routes: Routes = [
   {
     path: 'app',
     canMatch: [authGuard],
-    component: MainComponent,
+    loadComponent: () =>
+      import('./main/main.component').then((mod) => mod.MainComponent),
     children: [
       {
         path: '',
@@ -32,49 +21,33 @@ export const routes: Routes = [
       },
       {
         path: 'main',
-        component: LayoutComponent,
-        children: [
-          {
-            path: '',
-            pathMatch: 'full',
-            redirectTo: 'newsfeed',
-          },
-          {
-            path: 'newsfeed',
-            component: NewsfeedComponent,
-          },
-          {
-            path: 'friends',
-            component: FriendsComponent,
-          },
-          {
-            path: 'new-friends',
-            component: NewFriendsComponent,
-          },
-        ],
+        loadComponent: () =>
+          import('./main/layout/layout.component').then(
+            (mod) => mod.LayoutComponent
+          ),
+        loadChildren: () =>
+          import('./main/layout/layout.routes').then((m) => m.layoutRoutes),
       },
       {
         path: 'profile/:uid',
-        component: UserProfileComponent,
+        loadComponent: () =>
+          import('./main/user-profile/user-profile.component').then(
+            (m) => m.UserProfileComponent
+          ),
       },
       {
         path: 'edit-profile',
-        component: EditProfileComponent,
+        loadComponent: () =>
+          import('./main/edit-profile/edit-profile.component').then(
+            (m) => m.EditProfileComponent
+          ),
       },
       {
         path: 'chats',
-        component: ChatComponent,
-        children: [
-          {
-            path: '',
-            pathMatch: 'full',
-            component: NoSelectedChatComponent,
-          },
-          {
-            path: ':uid',
-            component: UserChatComponent,
-          },
-        ],
+        loadComponent: () =>
+          import('./main/chat/chat.component').then((m) => m.ChatComponent),
+        loadChildren: () =>
+          import('./main/chat/chat.routes').then((m) => m.chatRoutes),
       },
     ],
   },
@@ -88,11 +61,17 @@ export const routes: Routes = [
       },
       {
         path: 'login',
-        component: LoginComponent,
+        loadComponent: () =>
+          import('./auth/login/login.component').then(
+            (mod) => mod.LoginComponent
+          ),
       },
       {
         path: 'signup',
-        component: SignupComponent,
+        loadComponent: () =>
+          import('./auth/signup/signup.component').then(
+            (mod) => mod.SignupComponent
+          ),
       },
     ],
   },

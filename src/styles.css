@@ -51,5 +51,4 @@ body {
 
 .cdk-global-scrollblock {
   position: static !important;
-  overflow-y: auto !important;
 }
