@@ -39,7 +39,7 @@
 }
 
 .messages-container {
-  height: calc(100% - 144px);
+  height: calc(100% - 145.33px);
   overflow-y: auto;
 }
 

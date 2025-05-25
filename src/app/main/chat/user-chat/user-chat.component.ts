@@ -31,7 +31,6 @@ export class UserChatComponent {
   @ViewChild('msgsContainer') messagesContainer!: ElementRef<HTMLDivElement>;
   private userService = inject(UserService);
   private chatService = inject(ChatService);
-  private firstRender = true;
   uid = input.required<string>();
   user = signal<User | undefined>(undefined);
   chat = signal<Message[] | undefined>(undefined);
@@ -50,16 +49,12 @@ export class UserChatComponent {
         next: (chat) => {
           this.chat.set(chat);
 
-          if (this.firstRender || chat[0]?.id !== this.uid()) {
-            requestAnimationFrame(() => {
-              this.messagesContainer.nativeElement.scrollTo({
-                behavior: 'instant',
-                top: this.messagesContainer.nativeElement.scrollHeight,
-              });
-
-              this.firstRender = false;
+          requestAnimationFrame(() => {
+            this.messagesContainer.nativeElement.scrollTo({
+              behavior: 'instant',
+              top: this.messagesContainer.nativeElement.scrollHeight,
             });
-          }
+          });
         },
       });
 

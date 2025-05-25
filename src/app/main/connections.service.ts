@@ -58,7 +58,6 @@ export class ConnectionsService {
         'connections',
         fromId
       );
-
       const currentUserDoc = doc(
         this.db,
         'users',
@@ -66,6 +65,14 @@ export class ConnectionsService {
         'connections',
         this.authService.currentUserId()!
       );
+      const fromNotifCol = collection(
+        this.db,
+        'users',
+        fromId,
+        'notifications'
+      );
+
+      // Add users to each other's connections collection.
       await runInInjectionContext(this.injectionContext, async () => {
         return await setDoc(fromUserDoc, {});
       });
@@ -73,8 +80,17 @@ export class ConnectionsService {
         return await setDoc(currentUserDoc, {});
       });
 
-      return await runInInjectionContext(this.injectionContext, async () => {
+      // Remove the notification.
+      await runInInjectionContext(this.injectionContext, async () => {
         return await deleteDoc(notificationDoc);
+      });
+
+      // Notify the user who sent the request when it's accepted
+      return await runInInjectionContext(this.injectionContext, async () => {
+        return await addDoc(fromNotifCol, {
+          type: 'Accepted your friend request.',
+          from: doc(this.db, 'users', this.authService.currentUserId()!),
+        });
       });
     });
   }

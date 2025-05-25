@@ -50,7 +50,11 @@
 
     <span class="info flex-grow-1">
       <b>{{ notif.from.fName + " " + notif.from.lName }}</b>
+      @if (notif.type === "Commented on" || notif.type === "Loved") {
       <span> {{ notif.type }} your post </span>
+      } @else {
+      <span> {{ notif.type }}</span>
+      }
     </span>
     <a class="clear-btn mx-3" (click)="onClearNotification(notif.id)">
       Clear
