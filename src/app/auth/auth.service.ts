@@ -72,7 +72,7 @@ export class AuthService {
         profileImage:
           'https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png',
         cover:
-          'https://www.suicidecallbackservice.org.au/wp-content/uploads/2018/03/Nature-as-a-healer-header-1600x1067.jpg',
+          'https://res.cloudinary.com/dnhvn7s3i/image/upload/v1748273004/coverDefault_a9eai3.webp',
       },
       id
     );
