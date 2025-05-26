@@ -79,7 +79,7 @@ export class UserProfileComponent {
         });
 
       const connectionsSub = this.connectionService
-        .getAllConnections()
+        .getUserConnections(this.uid())
         .subscribe({
           next: (users) => {
             this.connections.set(users);

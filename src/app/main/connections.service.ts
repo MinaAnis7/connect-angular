@@ -127,4 +127,31 @@ export class ConnectionsService {
       );
     });
   }
+
+  getUserConnections(uid: string) {
+    return runInInjectionContext(this.injectionContext, () => {
+      return collectionData(collection(this.db, 'users', uid, 'connections'), {
+        idField: 'id',
+      }).pipe(
+        switchMap((connections) => {
+          if (connections.length === 0) return of([]);
+          return Promise.all(
+            connections.map(async (friend) => {
+              const snapShot = await runInInjectionContext(
+                this.injectionContext,
+                async () => {
+                  return await getDoc(doc(this.db, 'users', friend.id));
+                }
+              );
+
+              return {
+                id: snapShot.id,
+                ...snapShot.data(),
+              } as User;
+            })
+          );
+        })
+      );
+    });
+  }
 }
