@@ -53,7 +53,7 @@ export class UserProfileComponent {
   isConnection = computed<boolean | undefined>(() => {
     let isFound = false;
     this.connections()?.forEach((user) => {
-      if (user.id === this.uid()) {
+      if (user.id === this.authService.currentUserId()) {
         isFound = true;
         return;
       }
