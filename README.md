@@ -42,7 +42,7 @@ Live Demo: [https://connect-angular-34177.web.app/app](https://connect-angular-3
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/connect.git
+git clone https://github.com/MinaAnis7/connect-angular.git
 cd connect
 ```
 
@@ -69,8 +69,18 @@ The app will run at `http://localhost:4200/`.
 ## 🖼️ Screenshots
 
 <p float="left">
-  <img src="screenshots/1.png" width="300"/>
-  <img src="screenshots/2.png" width="300"/>
+  <img src="screenshots/1.png" width="350"/>
+  <img src="screenshots/2.png" width="350"/>
+  <img src="screenshots/5.png" width="350"/>
+  <img src="screenshots/6.png" width="350"/>
+  <img src="screenshots/7.png" width="350"/>
+  <img src="screenshots/10.png" width="350"/>
+  <img src="screenshots/11.png" width="350"/>
+  <img src="screenshots/14.png" width="350"/>
+  <img src="screenshots/17.png" width="350"/>
+  <img src="screenshots/19.png" width="350"/>
+  <img src="screenshots/21.png" width="350"/>
+  <img src="screenshots/22.png" width="100%"/>
 </p>
 
 ---
