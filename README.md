@@ -26,8 +26,8 @@ Live Demo: [https://connect-angular-34177.web.app/app](https://connect-angular-3
 
 - **Frontend:** Angular v19.2.13, Angular Material, Bootstrap v5.3.6
 - **State Management:**
-  - 🟢 **NgRx** (used in specific parts of the app)
-  - 🧠 **Angular Signals** and the **default Zone.js-based change detection** (used in most parts of the app)
+  - **NgRx** (used in specific parts of the app)
+  - **Angular Signals** and the **default Zone.js-based change detection** (used in most parts of the app)
 - **Forms:** Template-driven & Reactive Forms
 - **Backend:** Firebase (Authentication, Cloud Firestore, Hosting)
 - **Image Storage:** Cloudinary
