@@ -15,7 +15,7 @@ Live Demo: [https://connect-angular-34177.web.app/app](https://connect-angular-3
 - 👥 **Send / Accept Friend Requests**
 - 💬 **Chat** with friends
 - 🔔 **Notifications** for reactions and friend requests
-- 🧑 **View & Edit Profiles**
+- 🧑 **View Profiles & Edit Your Profile**
 - 📖 **“Read More”** feature for long posts
 - 🍞 **Global App Toast** system for errors/information (stacked display)
 - 📱 Fully **Responsive** design
