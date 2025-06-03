@@ -3,7 +3,7 @@
 # Connect 🔗
 
 ![Angular](https://img.shields.io/badge/Angular-v19.2.13-DD0031?logo=angular&logoColor=white)
-![@angular/fire](https://img.shields.io/badge/@angular/fire-v7.6.1-FFCA28?logo=firebase&logoColor=black)
+![@angular/fire](https://img.shields.io/badge/@angular/fire-v19.2.0-FFCA28?logo=firebase&logoColor=black)
 ![RxJS](https://img.shields.io/badge/RxJS-v7.8-purple?logo=reactivex&logoColor=white)
 ![NgRx](https://img.shields.io/badge/NgRx-used%20in%20parts-8A2BE2?logo=redux&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-v5.3.6-7952B3?logo=bootstrap&logoColor=white)
