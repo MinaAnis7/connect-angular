@@ -1,4 +1,4 @@
-<img src="screenshots\connect_banner.png" width="100%">
+<img src="screenshots/connect_banner.png" width="100%">
 
 # Connect 🔗
 
