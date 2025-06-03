@@ -1,3 +1,5 @@
+<img src="screenshots\connect_banner.png" width="100%">
+
 # Connect 🔗
 
 **Connect** is a fully responsive social media web application built with Angular and Firebase. It allows users to post, love, comment, chat, send friend requests, view profiles and edit your profile — all in a seamless single-page experience.
