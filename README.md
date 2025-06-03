@@ -1,59 +1,45 @@
-# Connect
+# Connect 🔗
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.6.
+**Connect** is a fully responsive social media web application built with Angular and Firebase. It allows users to post, love, comment, chat, send friend requests, view and edit profiles — all in a seamless single-page experience.
 
-## Development server
+Live Demo: [https://connect-angular-34177.web.app/app](https://connect-angular-34177.web.app/app)
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
-```
+## 🌟 Features
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- ✅ **Authentication** (Sign up / Login via Firebase Auth)
+- 🔐 **Protected Routes** and form validation
+- 📝 **Create Posts** with image support (via Cloudinary)
+- ❤️ **Love** and 💬 **Comment** on posts
+- 👥 **Send / Accept Friend Requests**
+- 💬 **Chat** with friends
+- 🔔 **Notifications** for reactions and friend requests
+- 🧑 **View & Edit Profiles**
+- 📖 **“Read More”** feature for long posts
+- 🍞 **Global App Toast** system for errors/information (stacked display)
+- 📱 Fully **Responsive** design
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🛠️ Tech Stack
 
-```bash
-ng generate component component-name
-```
+- **Frontend:** Angular v19.2.13, Angular Material, Bootstrap v5.3.6
+- **State Management:** NgRx, RxJS
+- **Forms:** Template-driven & Reactive Forms
+- **Backend:** Firebase (Authentication, Cloud Firestore, Hosting)
+- **Image Storage:** Cloudinary
+- **Architecture:** SPA (Single Page Application)
+- **Performance:** OnPush change detection, Lazy-loaded routes
+- **UX Enhancements:** Route guards, content projection, lifecycle hooks
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## 🚀 Getting Started
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+### 1. Clone the Repository
 
 ```bash
-ng e2e
+git clone https://github.com/your-username/connect.git
+cd connect
 ```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
