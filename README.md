@@ -4,8 +4,6 @@
 
 <br/>
 
-# Connect 🔗
-
 <div align="center">
 
 ![Angular](https://img.shields.io/badge/Angular-v19.2.13-DD0031?logo=angular&logoColor=white)
