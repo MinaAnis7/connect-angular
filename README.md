@@ -1,4 +1,8 @@
-<img src="screenshots/connect_banner.png" width="100%">
+<div align="center">
+  <img src="screenshots/connect_banner.png" width="200">
+</div>
+
+<br/>
 
 # Connect 🔗
 
