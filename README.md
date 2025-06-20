@@ -24,7 +24,7 @@ Live Demo: [https://connect-angular-34177.web.app/app](https://connect-angular-3
 ## 🌟 Features
 
 - ✅ **Authentication** (Sign up / Login via Firebase Auth)
-- 🔐 **Protected Routes** and form validation
+- 🔐 **Protected Routes and form validation**
 - 📝 **Create Posts** with image support (via Cloudinary)
 - ❤️ **Love** and 💬 **Comment** on posts
 - 👥 **Send / Accept Friend Requests**
