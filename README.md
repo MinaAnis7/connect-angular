@@ -19,6 +19,8 @@
 
 Live Demo: [https://connect-angular-34177.web.app/app](https://connect-angular-34177.web.app/app)
 
+You can watch a short video walkthrough of this project: [Video](https://www.linkedin.com/posts/minaanis_angular-firebase-rxjs-activity-7336486378022539264-RMsa?utm_source=share&utm_medium=member_desktop&rcm=ACoAADevjeMBJeuhzQMAKNdaoTer6bYZvAwrWwE)
+
 ---
 
 ## 🌟 Features
