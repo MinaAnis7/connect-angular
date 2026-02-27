@@ -28,7 +28,7 @@ You can watch a short video walkthrough of this project: [Video](https://www.lin
 - **Authentication** (Sign up / Login via Firebase Auth)
 - **Protected Routes and form validation**
 - **Create Posts** with image support (via Cloudinary)
-- **Love** and 💬 **Comment** on posts
+- **Love** and **Comment** on posts
 - **Send / Accept Friend Requests**
 - **Chat** with friends
 - **Notifications** for reactions and friend requests
