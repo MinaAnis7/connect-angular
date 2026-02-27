@@ -23,23 +23,23 @@ You can watch a short video walkthrough of this project: [Video](https://www.lin
 
 ---
 
-## 🌟 Features
+## Features
 
-- ✅ **Authentication** (Sign up / Login via Firebase Auth)
-- 🔐 **Protected Routes and form validation**
-- 📝 **Create Posts** with image support (via Cloudinary)
-- ❤️ **Love** and 💬 **Comment** on posts
-- 👥 **Send / Accept Friend Requests**
-- 💬 **Chat** with friends
-- 🔔 **Notifications** for reactions and friend requests
-- 🧑 **View Profiles & Edit Your Profile**
-- 📖 **“Read More”** feature for long posts
-- 🍞 **Global App Toast** system for errors/information (stacked display)
-- 📱 Fully **Responsive** design
+- **Authentication** (Sign up / Login via Firebase Auth)
+- **Protected Routes and form validation**
+- **Create Posts** with image support (via Cloudinary)
+- **Love** and 💬 **Comment** on posts
+- **Send / Accept Friend Requests**
+- **Chat** with friends
+- **Notifications** for reactions and friend requests
+- **View Profiles & Edit Your Profile**
+- **“Read More”** feature for long posts
+- **Global App Toast** system for errors/information (stacked display)
+- Fully **Responsive** design
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Frontend:** Angular v19.2.13, Angular Material, Bootstrap v5.3.6
 - **State Management:**
@@ -54,7 +54,7 @@ You can watch a short video walkthrough of this project: [Video](https://www.lin
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### 1. Clone the Repository
 
@@ -83,7 +83,7 @@ The app will run at `http://localhost:4200/`.
 
 ---
 
-## 🖼️ Screenshots
+## Screenshots
 
 <p float="left">
   <img src="screenshots/1.png" width="47%" />
@@ -107,18 +107,18 @@ The app will run at `http://localhost:4200/`.
 
 ---
 
-## 📚 Project Purpose
+## Project Purpose
 
 This project was built for **learning purposes** — to gain hands-on experience with Angular, Firebase, and modern web development concepts.
 
 ---
 
-## 📄 License
+## License
 
 This project is open for learning and experimentation. Please do not reuse the codebase as-is for production without permission.
 
 ---
 
-## 🙌 Acknowledgements
+## Acknowledgements
 
 Thanks to Angular, Firebase, and Cloudinary.
